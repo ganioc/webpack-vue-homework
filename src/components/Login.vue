@@ -2,7 +2,10 @@
   <div class="login">
     <div class="input-wrap">
       <input type="text" v-model="name" />
-      <span v-if="error.name" class="err-msg">{{error.name}}</span>
+      <span v-if="error.name" class="err-msg">
+        <br />
+        {{error.name}}
+      </span>
     </div>
     <div class="input-wrap">
       <input type="password" v-model="pwd" />
@@ -42,7 +45,7 @@ export default {
       // const { $router } = this
       if (!this.check(this.name, this.pwd)) return
       if (this.name === 'admin' && this.pwd === '123') {
-        this.$router.replace({ name: 'HelloWorld' })
+        this.$router.replace({ name: 'home' })
         console.log('go to main page')
       } else {
         alert('用户名密码错误')
@@ -55,5 +58,8 @@ export default {
 .logn {
   width: 300px;
   margin: 100% auto;
+}
+.err-msg {
+  color: red;
 }
 </style>
