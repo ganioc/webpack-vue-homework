@@ -54,7 +54,7 @@ export default {
   }
 }
 </script>
-<style scoped >
+<style scoped style="scss">
 .logn {
   width: 300px;
   margin: 100% auto;
