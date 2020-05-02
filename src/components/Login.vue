@@ -39,10 +39,10 @@ export default {
       return true
     },
     login() {
-      const { $router } = this
+      // const { $router } = this
       if (!this.check(this.name, this.pwd)) return
       if (this.name === 'admin' && this.pwd === '123') {
-        $router.go({ name: 'mainPage' })
+        this.$router.replace({ name: 'HelloWorld' })
         console.log('go to main page')
       } else {
         alert('用户名密码错误')
