@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Home Page</h1>
+    <p>Welcome to communication info query system</p>
     <div class="input-wrap">
       <button @click="toLogin">Login</button>
     </div>

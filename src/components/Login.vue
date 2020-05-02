@@ -9,7 +9,10 @@
     </div>
     <div class="input-wrap">
       <input type="password" v-model="pwd" />
-      <span v-if="error.pwd" class="err-msg">{{error.pwd}}</span>
+      <span v-if="error.pwd" class="err-msg">
+        <br />
+        {{error.pwd}}
+      </span>
     </div>
     <div class="input-wrap">
       <button @click="login">提交</button>
@@ -57,7 +60,7 @@ export default {
 <style scoped style="scss">
 .logn {
   width: 300px;
-  margin: 100% auto;
+  margin: 10% auto;
 }
 .err-msg {
   color: red;
