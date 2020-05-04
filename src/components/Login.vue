@@ -55,16 +55,15 @@ export default {
       // } else {
       //   alert('用户名密码错误')
       // }
-      authSrv.login(this, this.name, this.pwd)
-            .then(rep => {
-              /// console.log(rep)
-              if(!rep.body.code){
-                this.$router.replace({ name: 'home' })
-                console.log('go to main page')
-              }else{
-                alert('Invalid username or password')
-              }
-            })
+      authSrv.login(this, this.name, this.pwd).then(rep => {
+        /// console.log(rep)
+        if (!rep.body.code) {
+          this.$router.replace({ name: 'home' })
+          console.log('go to main page')
+        } else {
+          alert('Invalid username or password')
+        }
+      })
     }
   }
 }
