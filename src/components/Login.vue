@@ -20,6 +20,8 @@
   </div>
 </template>
 <script>
+import authSrv from '../api/auth' // import service moudle
+
 export default {
   name: 'login',
   data() {
@@ -47,12 +49,22 @@ export default {
     login() {
       // const { $router } = this
       if (!this.check(this.name, this.pwd)) return
-      if (this.name === 'admin' && this.pwd === '123') {
-        this.$router.replace({ name: 'home' })
-        console.log('go to main page')
-      } else {
-        alert('用户名密码错误')
-      }
+      // if (this.name === 'admin' && this.pwd === '123') {
+      //   this.$router.replace({ name: 'home' })
+      //   console.log('go to main page')
+      // } else {
+      //   alert('用户名密码错误')
+      // }
+      authSrv.login(this, this.name, this.pwd)
+            .then(rep => {
+              /// console.log(rep)
+              if(!rep.body.code){
+                this.$router.replace({ name: 'home' })
+                console.log('go to main page')
+              }else{
+                alert('Invalid username or password')
+              }
+            })
     }
   }
 }
