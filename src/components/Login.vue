@@ -56,8 +56,9 @@ export default {
       //   alert('用户名密码错误')
       // }
       authSrv.login(this, this.name, this.pwd).then(rep => {
-        /// console.log(rep)
-        if (!rep.body.code) {
+        console.log('login rep:')
+        console.log(rep.body)
+        if (rep.body.login === 'OK') {
           this.$router.replace({ name: 'home' })
           console.log('go to main page')
         } else {
