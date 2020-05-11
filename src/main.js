@@ -5,6 +5,8 @@ import App from './App'
 import router from './router'
 import VueResource from 'vue-resource'
 
+import '@/styles/index.scss'
+
 Vue.use(VueResource)
 
 Vue.http.options.emulateJSON = true
