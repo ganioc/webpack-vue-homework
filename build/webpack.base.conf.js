@@ -83,10 +83,6 @@ module.exports = {
       {
         test: /\.sass$/,
         loaders: ['style', 'css', 'scss']
-      },
-      {
-        test: /\.scss$/,
-        loaders: ['style', 'css', 'sass']
       }
     ]
   },
