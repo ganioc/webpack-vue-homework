@@ -13,6 +13,9 @@ import locale from 'element-ui/lib/locale/lang/en' // lang i18n
 
 import '@/styles/index.scss'
 
+import '@/icons' // icon
+import '@/permission' // permission control
+
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
 
