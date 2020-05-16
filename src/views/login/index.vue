@@ -1,6 +1,5 @@
 <template>
   <div class="login-container">
-    <svg-icon icon-class="password" />
     <el-form
       ref="loginForm"
       :model="loginForm"
