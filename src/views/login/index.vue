@@ -1,5 +1,6 @@
 <template>
   <div class="login-container">
+    <svg-icon icon-class="password" />
     <el-form
       ref="loginForm"
       :model="loginForm"
@@ -56,7 +57,7 @@
 
       <!-- <div class="tips">
         <span style="margin-right:20px;">username: admin</span>
-        <span> password: any</span>
+        <span>password: any</span>
       </div>-->
     </el-form>
   </div>
@@ -123,6 +124,7 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
+          // loginForm is the data
           this.$store
             .dispatch('user/login', this.loginForm)
             .then(() => {
