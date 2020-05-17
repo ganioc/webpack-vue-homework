@@ -66,6 +66,12 @@ export const constantRoutes = [
     meta: { title: 'Example', icon: 'example' },
     children: [
       {
+        path: 'sms',
+        name: '短信统计',
+        component: () => import('@/views/sms/index'),
+        meta: { title: 'Sms', icon: 'table' }
+      },
+      {
         path: 'table',
         name: 'Table',
         component: () => import('@/views/table/index'),
