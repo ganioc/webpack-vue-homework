@@ -28,6 +28,7 @@ router.beforeEach(async (to, from, next) => {
       NProgress.done()
     } else {
       const hasGetUserInfo = store.getters.name
+
       if (hasGetUserInfo) {
         next()
       } else {
@@ -46,12 +47,15 @@ router.beforeEach(async (to, from, next) => {
       }
     }
   } else {
-    /* has no token */
+    /* has no token ,  check if it's in the whitelist, else, go to login page */
     if (whiteList.indexOf(to.path) !== -1) {
       // in the free login whitelist, go directly
+      console.log('it is in the whitelist')
       next()
     } else {
       // other pages that do not have permission to access are redirected to the login page.
+      console.log('it is other page than whitelist')
+      console.log(`${to.path}`)
       next(`/login?redirect=${to.path}`)
       NProgress.done()
     }

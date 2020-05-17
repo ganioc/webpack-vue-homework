@@ -6,7 +6,8 @@ const getDefaultState = () => {
   return {
     token: getToken(),
     name: '',
-    avatar: ''
+    avatar: '',
+    userrole: -1
   }
 }
 
@@ -24,6 +25,9 @@ const mutations = {
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
+  },
+  SET_ROLE: (state, role) => {
+    state.userrole = role
   }
 }
 
@@ -38,6 +42,7 @@ const actions = {
           console.log(response)
           const { data } = response.data
           commit('SET_TOKEN', data.token)
+          commit('SET_ROLE', data.role)
           setToken(data.token)
           resolve()
         })
@@ -50,9 +55,11 @@ const actions = {
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token)
+      // getInfo(state.token)
+      console.log('To getInfo in api/user.js')
+      getInfo(state.name)
         .then(response => {
-          const { data } = response
+          const { data } = response.data
           if (!data) {
             // eslint-disable-next-line
             reject('Verification failed, please Login again.')

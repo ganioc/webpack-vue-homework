@@ -127,6 +127,8 @@ export default {
           this.$store
             .dispatch('user/login', this.loginForm)
             .then(() => {
+              console.log('this.redirect', this.redirect)
+
               this.$router.push({ path: this.redirect || '/' })
               this.loading = false
             })
