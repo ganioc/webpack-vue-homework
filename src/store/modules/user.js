@@ -68,7 +68,7 @@ const actions = {
         .then(response => {
           const data = response.data
           console.log('getInfo resp:', response.data)
-          if (!data) {
+          if (response.code) {
             // eslint-disable-next-line
             reject('Verification failed, please Login again.')
           }
