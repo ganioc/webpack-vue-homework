@@ -40,7 +40,7 @@ const actions = {
         .then(response => {
           console.log('resp data:')
           console.log(response)
-          const { data } = response.data
+          const { data } = response
           commit('SET_TOKEN', data.token)
           commit('SET_ROLE', data.role)
           setToken(data.token)

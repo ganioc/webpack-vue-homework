@@ -14,7 +14,7 @@ export function getInfo(username) {
     // url: '/vue-admin-template/user/info',
     url: '/api/auth/info',
     method: 'get',
-    params: { username }
+    params: { username: username }
   })
 }
 
