@@ -16,7 +16,7 @@
       </el-col>
     </el-row>-->
     <el-row :gutter="20" style="margin-top:50px;">
-      <el-col :span="24">
+      <el-col :span="12">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>API接口信息</span>
@@ -32,7 +32,7 @@
       </el-col>
     </el-row>
     <el-row :gutter="20" style="margin-top:50px;">
-      <el-col :span="24">
+      <el-col :span="12">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>短信发送统计</span>
@@ -41,6 +41,22 @@
             <el-form :model="demo" :rules="demoRules">
               <el-form-item prop="title">
                 <p>标题</p>
+              </el-form-item>
+            </el-form>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
+    <el-row :gutter="20" style="margin-top:50px;">
+      <el-col :span="12">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>系统通知</span>
+          </div>
+          <div style="height:100px;">
+            <el-form :model="demo" :rules="demoRules">
+              <el-form-item prop="title">
+                <p>通知1</p>
               </el-form-item>
             </el-form>
           </div>
