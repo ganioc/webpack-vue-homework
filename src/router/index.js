@@ -72,6 +72,12 @@ export const constantRoutes = [
         meta: { title: 'Sms', icon: 'table' }
       },
       {
+        path: 'cash',
+        name: '现金',
+        component: () => import('@/views/cash/index'),
+        meta: { title: '现金', icon: 'money' }
+      },
+      {
         path: 'table',
         name: 'Table',
         component: () => import('@/views/table/index'),
