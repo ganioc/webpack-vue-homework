@@ -121,21 +121,21 @@ export const constantRoutes = [
   {
     path: '/account',
     component: Layout,
-    redirect: '/account/sms',
+    redirect: '/account/basic',
     name: '账户',
-    meta: { title: '账户管理', icon: 'example' },
+    meta: { title: '账户管理', icon: 'cecurity-protection' },
     children: [
       {
-        path: 'sms',
-        name: '发送短信',
-        component: () => import('@/views/sms/index'),
-        meta: { title: '短信', icon: 'table' }
+        path: 'basic',
+        name: '基本信息',
+        component: () => import('@/views/basic/index'),
+        meta: { title: '账户信息', icon: 'table' }
       },
       {
-        path: 'recore',
-        name: '短信记录',
-        component: () => import('@/views/sms/index'),
-        meta: { title: '短信记录', icon: 'table' }
+        path: 'password',
+        name: '修改密码',
+        component: () => import('@/views/password/index'),
+        meta: { title: '密码', icon: 'table' }
       }
     ]
   },
