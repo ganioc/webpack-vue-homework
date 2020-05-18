@@ -97,7 +97,27 @@ export const constantRoutes = [
       // }
     ]
   },
-
+  {
+    path: '/notifications',
+    component: Layout,
+    redirect: '/example/sms',
+    name: '通知类短信',
+    meta: { title: '通知类短信', icon: 'example' },
+    children: [
+      {
+        path: 'sms',
+        name: '发送短信',
+        component: () => import('@/views/sms/index'),
+        meta: { title: '短信', icon: 'table' }
+      },
+      {
+        path: 'recore',
+        name: '短信记录',
+        component: () => import('@/views/sms/index'),
+        meta: { title: '短信记录', icon: 'table' }
+      }
+    ]
+  },
   {
     path: '/form',
     component: Layout,
