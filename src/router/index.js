@@ -53,7 +53,7 @@ export const constantRoutes = [
         path: 'dashboard',
         name: 'Dashboard',
         component: () => import('@/views/dashboard/index'),
-        meta: { title: 'Dashboard', icon: 'dashboard' }
+        meta: { title: '控制中心', icon: 'dashboard' }
       }
     ]
   },
@@ -61,15 +61,15 @@ export const constantRoutes = [
   {
     path: '/example',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
+    redirect: '/example/sms',
+    name: '信息统计',
+    meta: { title: '信息统计', icon: 'example' },
     children: [
       {
         path: 'sms',
         name: '短信统计',
         component: () => import('@/views/sms/index'),
-        meta: { title: 'Sms', icon: 'table' }
+        meta: { title: '短信', icon: 'table' }
       },
       {
         path: 'cash',
@@ -78,17 +78,23 @@ export const constantRoutes = [
         meta: { title: '现金', icon: 'money' }
       },
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        path: 'uplink',
+        name: '短信上行',
+        component: () => import('@/views/uplink/index'),
+        meta: { title: '上行', icon: 'email' }
       }
+      // {
+      //   path: 'table',
+      //   name: 'Table',
+      //   component: () => import('@/views/table/index'),
+      //   meta: { title: 'Table', icon: 'table' }
+      // },
+      // {
+      //   path: 'tree',
+      //   name: 'Tree',
+      //   component: () => import('@/views/tree/index'),
+      //   meta: { title: 'Tree', icon: 'tree' }
+      // }
     ]
   },
 
