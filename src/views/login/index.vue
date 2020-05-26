@@ -51,6 +51,8 @@
           <svg-icon icon-class="captcha" />
         </span>
         <el-input placeholder="验证码" v-model="loginForm.captcha"></el-input>
+        <!-- <img src="@/assets/testcaptcha.svg" v-bind:alt="loginForm.altCaptcha" @click="getCaptcha" /> -->
+        <img class="captcha" src="@/assets/testcaptcha.svg" alt="404" />
         <i class="el-icon-edit-outline el-icon"></i>
       </el-form-item>
 
@@ -93,7 +95,8 @@ export default {
       loginForm: {
         username: '',
         password: '',
-        captcha: ''
+        captcha: '@/assets/testcaptcha.svg',
+        altCaptcha: 'captcha pic'
       },
       loginRules: {
         username: [
@@ -269,6 +272,10 @@ $light_gray: #eee;
     color: $dark_gray;
     cursor: pointer;
     user-select: none;
+  }
+
+  .captcha {
+    background: white;
   }
 }
 </style>
