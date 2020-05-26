@@ -46,6 +46,13 @@
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
+      <el-form-item prop="password">
+        <span class="svg-container">
+          <svg-icon icon-class="captcha" />
+        </span>
+        <el-input placeholder="验证码" v-model="loginForm.captcha"></el-input>
+        <i class="el-icon-edit-outline el-icon"></i>
+      </el-form-item>
 
       <el-button
         :loading="loading"
@@ -85,7 +92,8 @@ export default {
     return {
       loginForm: {
         username: '',
-        password: ''
+        password: '',
+        captcha: ''
       },
       loginRules: {
         username: [
@@ -99,6 +107,12 @@ export default {
       passwordType: 'password',
       redirect: undefined
     }
+  },
+  created: function() {
+    console.log('login/ created')
+  },
+  mounted: function() {
+    console.log('login/ mounted')
   },
   watch: {
     $route: {
@@ -140,6 +154,9 @@ export default {
           return false
         }
       })
+    },
+    getCaptcha() {
+      console.log('getCaptcha')
     }
   }
 }

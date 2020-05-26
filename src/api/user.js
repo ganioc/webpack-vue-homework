@@ -25,3 +25,10 @@ export function logout() {
     method: 'post'
   })
 }
+// get captcha from the server
+export function getCaptcha() {
+  return request({
+    url: '/api/auth/captcha',
+    method: 'get'
+  })
+}
