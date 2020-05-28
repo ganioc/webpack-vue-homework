@@ -53,15 +53,16 @@
         <el-input placeholder="验证码" v-model="loginForm.captcha"></el-input>
       </el-form-item>
 
-      <div class="captcha-container">
-        <div v-html="svg_captcha"></div>
+      <div class="captcha-container" v-html="svg_captcha"></div>
+      <div class="captcha-refresh">
+        <el-button type="text" size="medium" @click.native.prevent="getCaptcha">刷新</el-button>
       </div>
       <el-button
         :loading="loading"
         type="primary"
         style="width:100%;margin-bottom:30px;"
         @click.native.prevent="handleLogin"
-      >Login</el-button>
+      >登录</el-button>
 
       <!-- <div class="tips">
         <span style="margin-right:20px;">username: admin</span>
@@ -281,7 +282,11 @@ $light_gray: #eee;
     border-radius: 4px;
     padding-left: 20px;
     background-color: wheat;
-    width: 200px;
+
+    display: inline-block;
+  }
+  .captcha-refresh {
+    display: inline-block;
   }
 }
 </style>
