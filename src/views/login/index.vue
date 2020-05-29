@@ -52,11 +52,17 @@
         </span>
         <el-input placeholder="验证码" v-model="loginForm.captcha"></el-input>
       </el-form-item>
+      <el-form-item>
+        <el-col :span="11">
+          <div class="captcha-container" v-html="svg_captcha"></div>
+        </el-col>
+        <el-col :span="11">
+          <div class="captcha-refresh">
+            <el-button type="text" style="margin-top:5px;" @click.native.prevent="getCaptcha">刷新</el-button>
+          </div>
+        </el-col>
+      </el-form-item>
 
-      <div class="captcha-container" v-html="svg_captcha"></div>
-      <div class="captcha-refresh">
-        <el-button type="text" size="medium" @click.native.prevent="getCaptcha">刷新</el-button>
-      </div>
       <el-button
         :loading="loading"
         type="primary"
@@ -277,16 +283,15 @@ $light_gray: #eee;
   }
 
   .captcha-container {
-    margin-bottom: 22px;
-    height: 50px;
-    border-radius: 4px;
-    padding-left: 20px;
+    // height: 50px;
+    // border-radius: 4px;
+    display: block;
+    height: 52px;
     background-color: wheat;
-
-    display: inline-block;
   }
   .captcha-refresh {
-    display: inline-block;
+    display: block;
+    height: 52px;
   }
 }
 </style>
