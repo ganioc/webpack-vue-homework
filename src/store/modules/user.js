@@ -1,6 +1,7 @@
 import { login, logout, getInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
+import { getCaptcha } from '../../api/user'
 
 const getDefaultState = () => {
   return {
@@ -50,6 +51,20 @@ const actions = {
           commit('SET_USERNAME', data.username)
           setToken(data.token)
           resolve()
+        })
+        .catch(error => {
+          reject(error)
+        })
+    })
+  },
+  captcha({ commit }) {
+    return new Promise((resolve, reject) => {
+      getCaptcha()
+        .then(response => {
+          console.log('getCaptcha OK')
+          const { data } = response
+          console.log(data)
+          resolve(data)
         })
         .catch(error => {
           reject(error)

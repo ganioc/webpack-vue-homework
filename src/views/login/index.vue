@@ -81,6 +81,8 @@
 <script>
 import { validUsername } from '@/utils/validate'
 
+import { defaultCaptcha } from '@/utils/config'
+
 export default {
   name: 'Login',
   data() {
@@ -115,8 +117,8 @@ export default {
       loading: false,
       passwordType: 'password',
       redirect: undefined,
-      svg_captcha:
-        '<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" id="svg8" version="1.1" viewBox="0 0 150 50" height="50" width="150"><defs id="defs2"/><metadata id="metadata5"><rdf:RDF><cc:Work rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/><dc:title></dc:title></cc:Work></rdf:RDF></metadata><g transform="translate(-39.309524,-91.38095)" id="layer1"><rect y="91.380951" x="39.309525" height="50" width="150" id="rect815" style="opacity:0;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:stroke fill markers"/></g></svg>'
+      svg_captcha: defaultCaptcha,
+      captchaLoading: false
     }
   },
   created: function() {
@@ -168,6 +170,18 @@ export default {
     },
     getCaptcha() {
       console.log('getCaptcha')
+      this.captchaLoading = true
+      this.$store
+        .dispatch('user/captcha')
+        .then(data => {
+          this.captchaLoading = false
+          // console.log('fb of user/captcha:')
+          // console.log(data.captcha)
+          this.svg_captcha = data.captcha
+        })
+        .catch(() => {
+          this.captchaLoading = false
+        })
     }
   }
 }
@@ -224,11 +238,14 @@ $cursor: #fff;
 $bg: #2d3a4b;
 $dark_gray: #889aa4;
 $light_gray: #eee;
+#app {
+}
 
 .login-container {
   min-height: 100%;
   width: 100%;
   background-color: $bg;
+  //background-color: white;
   overflow: hidden;
 
   .login-form {
