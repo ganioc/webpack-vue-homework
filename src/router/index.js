@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '../store'
 // import HelloWorld from '@/components/HelloWorld'
 /*
 import Login from '@/components/Login'
@@ -27,7 +28,62 @@ export default new Router({
   ]
 })
 */
-
+const adminRoutes = [
+  {
+    path: '/login',
+    component: () => import('@/views/login/index'),
+    hidden: true
+  },
+  {
+    path: '/404',
+    component: () => import('@/views/404'),
+    hidden: true
+  },
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    children: [
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('@/views/admin-dashboard/index'),
+        meta: { title: '控制中心', icon: 'dashboard' }
+      }
+    ]
+  },
+  // 404 page must be placed at the end !!!
+  { path: '*', redirect: '/404', hidden: true }
+]
+/*
+const normalRoutes = [
+  {
+    path: '/login',
+    component: () => import('@/views/login/index'),
+    hidden: true
+  },
+  {
+    path: '/404',
+    component: () => import('@/views/404'),
+    hidden: true
+  },
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    children: [
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('@/views/normal-dashboard/index'),
+        meta: { title: '控制中心', icon: 'dashboard' }
+      }
+    ]
+  },
+  // 404 page must be placed at the end !!!
+  { path: '*', redirect: '/404', hidden: true }
+]
+*/
 /**
  * constantRoutes
  * a base page that does not have permission requirements
@@ -233,12 +289,38 @@ const createRouter = () =>
     routes: constantRoutes
   })
 
+const createAdminRouter = () =>
+  new Router({
+    // mode: 'history', // require service support
+    scrollBehavior: () => ({ y: 0 }),
+    routes: adminRoutes
+  })
+
+// const createNormalRouter = () =>
+//   new Router({
+//     // mode: 'history', // require service support
+//     scrollBehavior: () => ({ y: 0 }),
+//     routes: normalRoutes
+//   })
+
+// const router = createRouter()
 const router = createRouter()
 
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
-  const newRouter = createRouter()
-  router.matcher = newRouter.matcher // reset router
+  const role = store.getters.userrole
+  console.log('role:', role)
+  if (role === 0) {
+    // admin
+    console.log('This is admin')
+    let newRouter = createAdminRouter()
+    router.matcher = newRouter.matcher
+  } else {
+    // normal user
+    console.log('This is normal user')
+    let newRouter = createRouter()
+    router.matcher = newRouter.matcher // reset router
+  }
 }
 
 export default router

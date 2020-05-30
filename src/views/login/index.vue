@@ -85,8 +85,8 @@
 
 <script>
 import { validUsername } from '@/utils/validate'
-
 import { defaultCaptcha } from '@/utils/config'
+import { resetRouter } from '@/router'
 
 export default {
   name: 'Login',
@@ -163,7 +163,8 @@ export default {
             .dispatch('user/login', this.loginForm)
             .then(() => {
               console.log('this.redirect', this.redirect)
-
+              // reset router,
+              resetRouter()
               this.$router.push({ path: this.redirect || '/' })
               this.loading = false
             })

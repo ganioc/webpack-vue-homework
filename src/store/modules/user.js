@@ -100,6 +100,8 @@ const actions = {
 
             commit('SET_NAME', data.name)
             commit('SET_ROLE', data.role)
+            // reset router
+            resetRouter()
             resolve(data)
           }
         })
