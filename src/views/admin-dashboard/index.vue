@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">用户名: {{ name }}</div>
+    <div class="dashboard-text">管理员: {{ name }}</div>
     <!-- <panel-group @handleSetLineChartData="handleSetLineChartData" /> -->
 
     <!-- <el-row :gutter="8">

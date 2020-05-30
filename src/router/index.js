@@ -55,7 +55,7 @@ const adminRoutes = [
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
-/*
+
 const normalRoutes = [
   {
     path: '/login',
@@ -83,7 +83,7 @@ const normalRoutes = [
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
-*/
+
 /**
  * constantRoutes
  * a base page that does not have permission requirements
@@ -282,12 +282,12 @@ export const constantRoutes = [
   { path: '*', redirect: '/404', hidden: true }
 ]
 
-const createRouter = () =>
-  new Router({
-    // mode: 'history', // require service support
-    scrollBehavior: () => ({ y: 0 }),
-    routes: constantRoutes
-  })
+// const createRouter = () =>
+//   new Router({
+//     // mode: 'history', // require service support
+//     scrollBehavior: () => ({ y: 0 }),
+//     routes: constantRoutes
+//   })
 
 const createAdminRouter = () =>
   new Router({
@@ -296,18 +296,19 @@ const createAdminRouter = () =>
     routes: adminRoutes
   })
 
-// const createNormalRouter = () =>
-//   new Router({
-//     // mode: 'history', // require service support
-//     scrollBehavior: () => ({ y: 0 }),
-//     routes: normalRoutes
-//   })
+const createNormalRouter = () =>
+  new Router({
+    // mode: 'history', // require service support
+    scrollBehavior: () => ({ y: 0 }),
+    routes: normalRoutes
+  })
 
 // const router = createRouter()
-const router = createRouter()
+const router = createNormalRouter()
 
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
+  console.log('resetRouter')
   const role = store.getters.userrole
   console.log('role:', role)
   if (role === 0) {
@@ -318,7 +319,7 @@ export function resetRouter() {
   } else {
     // normal user
     console.log('This is normal user')
-    let newRouter = createRouter()
+    let newRouter = createNormalRouter()
     router.matcher = newRouter.matcher // reset router
   }
 }
