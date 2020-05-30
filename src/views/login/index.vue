@@ -40,7 +40,6 @@
           name="password"
           tabindex="2"
           auto-complete="on"
-          @keyup.enter.native="handleLogin"
         />
         <span class="show-pwd" @click="showPwd">
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
@@ -50,7 +49,13 @@
         <span class="svg-container">
           <svg-icon icon-class="captcha" />
         </span>
-        <el-input placeholder="验证码" v-model="loginForm.captcha"></el-input>
+        <el-input
+          placeholder="验证码"
+          v-model="loginForm.captcha"
+          name="captcha"
+          tabindex="3"
+          @keyup.enter.native="handleLogin"
+        ></el-input>
       </el-form-item>
       <el-form-item>
         <el-col :span="11">
@@ -126,6 +131,7 @@ export default {
   },
   mounted: function() {
     console.log('login/ mounted')
+    this.getCaptcha()
   },
   watch: {
     $route: {
@@ -151,6 +157,8 @@ export default {
         if (valid) {
           this.loading = true
           // loginForm is the data
+          console.log('hanldelogin:')
+          console.log(this.loginForm)
           this.$store
             .dispatch('user/login', this.loginForm)
             .then(() => {
