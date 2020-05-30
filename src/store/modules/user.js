@@ -24,6 +24,7 @@ const mutations = {
   },
   SET_NAME: (state, name) => {
     state.name = name
+    state.username = name
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
@@ -33,6 +34,7 @@ const mutations = {
   },
   SET_USERNAME: (state, name) => {
     state.username = name
+    state.name = name
   }
 }
 
@@ -52,7 +54,7 @@ const actions = {
           const { data } = response
           commit('SET_TOKEN', data.token)
           commit('SET_ROLE', data.role)
-          commit('SET_USERNAME', data.username)
+          commit('SET_NAME', data.username)
           setToken(data.token)
           resolve()
         })
@@ -75,28 +77,31 @@ const actions = {
         })
     })
   },
-
   // get user info
-  getInfo({ commit, state }) {
+  getInfo({ commit }) {
     return new Promise((resolve, reject) => {
       // getInfo(state.token)
       console.log('To getInfo in api/user.js')
-      console.log('username:', state.username)
+      // console.log('username:', state.username)
 
-      getInfo(state.username)
+      getInfo()
         .then(response => {
           const data = response.data
-          console.log('getInfo resp:', response.data)
-          if (response.code) {
+          console.log('getInfo resp:', data)
+          console.log('response:')
+          console.log(response)
+          if (response.code !== 0) {
+            console.log('-------------response code not equal 0')
             // eslint-disable-next-line
             reject('Verification failed, please Login again.')
-          }
-          const { name, avatar } = data
-          console.log(data)
+          } else {
+            console.log('-------------set name and role')
+            console.log(data)
 
-          commit('SET_NAME', name)
-          commit('SET_AVATAR', avatar)
-          resolve(data)
+            commit('SET_NAME', data.name)
+            commit('SET_ROLE', data.role)
+            resolve(data)
+          }
         })
         .catch(error => {
           reject(error)

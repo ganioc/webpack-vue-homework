@@ -13,6 +13,7 @@ const whiteList = ['/login'] // no redirect whitelist
 router.beforeEach(async (to, from, next) => {
   console.log('router.beforeEach()')
   console.log('to.path:', to.path)
+  console.log('from.path', from.path)
   // start progress bar
   NProgress.start()
 
@@ -29,17 +30,20 @@ router.beforeEach(async (to, from, next) => {
       NProgress.done()
     } else {
       const hasGetUserInfo = store.getters.name
+      console.log('hasGetUserInfo:')
+      console.log(hasGetUserInfo)
 
       if (hasGetUserInfo) {
         next()
       } else {
         try {
           // get user info
+          console.log('permission.js to.path:', to.path)
           await store.dispatch('user/getInfo')
-
           next()
         } catch (error) {
           // remove token and go to login page to re-login
+          console.log('permission.js sth. error')
           await store.dispatch('user/resetToken')
           Message.error(error || 'Has Error')
           next(`/login?redirect=${to.path}`)

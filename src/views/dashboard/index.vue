@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
     <div class="dashboard-text">name: {{ name }}</div>
-    <panel-group @handleSetLineChartData="handleSetLineChartData" />
+    <!-- <panel-group @handleSetLineChartData="handleSetLineChartData" /> -->
 
     <!-- <el-row :gutter="8">
       <el-col
@@ -15,7 +15,7 @@
         <transaction-table />
       </el-col>
     </el-row>-->
-    <el-row :gutter="20" style="margin-top:50px;">
+    <!-- <el-row :gutter="20" style="margin-top:50px;">
       <el-col :span="12">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
@@ -30,8 +30,8 @@
           </div>
         </el-card>
       </el-col>
-    </el-row>
-    <el-row :gutter="20" style="margin-top:50px;">
+    </el-row>-->
+    <!-- <el-row :gutter="20" style="margin-top:50px;">
       <el-col :span="12">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
@@ -46,8 +46,8 @@
           </div>
         </el-card>
       </el-col>
-    </el-row>
-    <el-row :gutter="20" style="margin-top:50px;">
+    </el-row>-->
+    <!-- <el-row :gutter="20" style="margin-top:50px;">
       <el-col :span="12">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
@@ -62,44 +62,45 @@
           </div>
         </el-card>
       </el-col>
-    </el-row>
+    </el-row>-->
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import PanelGroup from './components/PanelGroup'
-import TransactionTable from './components/TransactionTable'
+// import PanelGroup from './components/PanelGroup'
+// import TransactionTable from './components/TransactionTable'
 
-const lineChartData = {
-  newVisitis: {
-    expectedData: [100, 120, 161, 134, 105, 160, 165],
-    actualData: [120, 82, 91, 154, 162, 140, 145]
-  },
-  messages: {
-    expectedData: [200, 192, 120, 144, 160, 130, 140],
-    actualData: [180, 160, 151, 106, 145, 150, 130]
-  },
-  purchases: {
-    expectedData: [80, 100, 121, 104, 105, 90, 100],
-    actualData: [120, 90, 100, 138, 142, 130, 130]
-  },
-  shoppings: {
-    expectedData: [130, 140, 141, 142, 145, 150, 160],
-    actualData: [120, 82, 91, 154, 162, 140, 130]
-  }
-}
+// const lineChartData = {
+//   newVisitis: {
+//     expectedData: [100, 120, 161, 134, 105, 160, 165],
+//     actualData: [120, 82, 91, 154, 162, 140, 145]
+//   },
+//   messages: {
+//     expectedData: [200, 192, 120, 144, 160, 130, 140],
+//     actualData: [180, 160, 151, 106, 145, 150, 130]
+//   },
+//   purchases: {
+//     expectedData: [80, 100, 121, 104, 105, 90, 100],
+//     actualData: [120, 90, 100, 138, 142, 130, 130]
+//   },
+//   shoppings: {
+//     expectedData: [130, 140, 141, 142, 145, 150, 160],
+//     actualData: [120, 82, 91, 154, 162, 140, 130]
+//   }
+// }
 
 export default {
   name: 'Dashboard',
   computed: {
     ...mapGetters(['name'])
   },
-  components: {
-    PanelGroup,
-    TransactionTable
-  },
-  data() {
+  // components: {
+  //   PanelGroup,
+  //   TransactionTable
+  // },
+
+  data: function() {
     const validate = (rule, value, callback) => {
       if (value.length !== 6) {
         callback(new Error('请输入六个字符'))
@@ -108,7 +109,7 @@ export default {
       }
     }
     return {
-      lineChartData: lineChartData.newVisitis,
+      // lineChartData: lineChartData.newVisitis,
       demo: {
         title: ''
       },
@@ -116,12 +117,14 @@ export default {
         title: [{ required: true, trigger: 'change', validator: validate }]
       }
     }
-  },
+  }
+  /*
   methods: {
     handleSetLineChartData(type) {
       this.lineChartData = lineChartData[type]
     }
   }
+  */
 }
 </script>
 

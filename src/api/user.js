@@ -9,12 +9,11 @@ export function login(data) {
   })
 }
 
-export function getInfo(username) {
+export function getInfo() {
   return request({
     // url: '/vue-admin-template/user/info',
     url: '/api/auth/info',
-    method: 'get',
-    params: { username: username }
+    method: 'get'
   })
 }
 
