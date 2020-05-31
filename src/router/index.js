@@ -57,7 +57,7 @@ const adminRoutes = [
   { path: '*', redirect: '/404', hidden: true }
 ]
 */
-const defaultRoutes = [
+export const defaultRoutes = [
   {
     path: '/login',
     component: () => import('@/views/login/index'),
@@ -80,10 +80,10 @@ const defaultRoutes = [
         meta: { title: '控制中心', icon: 'dashboard' }
       }
     ]
-  },
+  }
   // 404 page must be placed at the end !!!
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  // { path: '*', redirect: '/404', hidden: true }
 ]
 export const adminRoutes = [
   {

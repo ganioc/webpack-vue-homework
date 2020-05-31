@@ -2,7 +2,7 @@ import { login, logout, getInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 import { getCaptcha } from '../../api/user'
-import router, { adminRoutes, userRoutes } from '../../router'
+// import router from '../../router'
 
 const getDefaultState = () => {
   return {
@@ -54,16 +54,20 @@ const actions = {
           console.log(response)
           const { data } = response
           commit('SET_TOKEN', data.token)
-          commit('SET_ROLE', data.role)
-          commit('SET_NAME', data.username)
+          // commit('SET_ROLE', data.role)
+          // commit('SET_NAME', data.username)
           setToken(data.token)
-          if (data.role === 0) {
-            console.log('login add adminroutes')
-            router.addRoutes(adminRoutes)
-          } else {
-            console.log('login add userRoutes')
-            router.addRoutes(userRoutes)
-          }
+          console.log('before the routes are:')
+          // console.log(router)
+          // if (data.role === 0) {
+          //   console.log('login add adminroutes')
+          //   router.addRoutes(adminRoutes)
+          // } else {
+          //   console.log('login add userRoutes')
+          //   router.addRoutes(userRoutes)
+          // }
+          // console.log('after the routes are:')
+          // console.log(router)
           resolve()
         })
         .catch(error => {
@@ -109,15 +113,15 @@ const actions = {
             commit('SET_NAME', data.name)
             commit('SET_ROLE', data.role)
             // reset router
-            resetRouter()
+            // resetRouter()
 
-            if (data.role === 0) {
-              console.log('add adminroutes')
-              router.addRoutes(adminRoutes)
-            } else {
-              console.log('add userRoutes')
-              router.addRoutes(userRoutes)
-            }
+            // if (data.role === 0) {
+            //   console.log('add adminroutes')
+            //   router.addRoutes(adminRoutes)
+            // } else {
+            //   console.log('add userRoutes')
+            //   router.addRoutes(userRoutes)
+            // }
             resolve(data)
           }
         })

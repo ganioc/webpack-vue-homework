@@ -34,13 +34,27 @@ router.beforeEach(async (to, from, next) => {
       console.log(hasGetUserInfo)
 
       if (hasGetUserInfo) {
+        console.log('already has userInfo')
         next()
       } else {
         try {
           // get user info
           console.log('permission.js to.path:', to.path)
           await store.dispatch('user/getInfo')
-          next()
+
+          console.log(
+            'dispatch generateRoutes, userrole:',
+            store.getters.userrole
+          )
+
+          const accessRoutes = await store.dispatch(
+            'permission/generateRoutes',
+            store.getters.userrole
+          )
+
+          router.addRoutes(accessRoutes)
+          next({ ...to, replace: true })
+          // next()
         } catch (error) {
           // remove token and go to login page to re-login
           console.log('permission.js sth. error')
