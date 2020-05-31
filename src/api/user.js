@@ -31,3 +31,16 @@ export function getCaptcha() {
     method: 'get'
   })
 }
+// For admin role only
+export function getUsers() {
+  return request({
+    url: '/api/admin/users',
+    method: 'get'
+  })
+}
+export function getMsgs() {
+  return request({
+    url: '/api/admin/msgs',
+    method: 'get'
+  })
+}

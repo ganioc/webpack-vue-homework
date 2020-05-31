@@ -73,6 +73,7 @@ import { mapGetters } from 'vuex'
 import store from '@/store'
 import PanelGroup from './components/PanelGroup'
 // import TransactionTable from './components/TransactionTable'
+import { getUsers } from '@/api/user'
 
 const lineChartData = {
   newVisitis: {
@@ -139,8 +140,24 @@ export default {
     },
     updateNumUser() {
       console.log('updateNumUser()')
-      this.numUser = 2
+      // this.numUser = 2
       this.numMsg = 12
+      // this.$store.dispatch('user/getUsers').then(response => {
+      //   console.log(response)
+      // })
+      getUsers().then(
+        response => {
+          console.log(response)
+          if (response.data.num) {
+            this.numUser = response.data.num
+          }
+        },
+        err => {
+          console.log(err)
+          console.log('getUsers failed')
+          this.numUser = 0
+        }
+      )
     }
     // handleSetLineChartData(type) {
     //   this.lineChartData = lineChartData[type]
