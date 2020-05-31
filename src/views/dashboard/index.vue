@@ -1,9 +1,11 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">{{ role }}: {{ name }}</div>
-    <!-- <panel-group @handleSetLineChartData="handleSetLineChartData" /> -->
+    <div class="dashboard-text" v-if="role === 0">管理员: {{ name }}</div>
+    <div class="dashboard-text" v-else>用户: {{ name }}</div>
 
-    <!-- <el-row :gutter="8">
+    <panel-group @handleSetLineChartData="handleSetLineChartData" />
+
+    <!--     <el-row :gutter="8">
       <el-col
         :xs="{span: 24}"
         :sm="{span: 24}"
@@ -69,37 +71,37 @@
 <script>
 import { mapGetters } from 'vuex'
 import store from '@/store'
-// import PanelGroup from './components/PanelGroup'
+import PanelGroup from './components/PanelGroup'
 // import TransactionTable from './components/TransactionTable'
 
-// const lineChartData = {
-//   newVisitis: {
-//     expectedData: [100, 120, 161, 134, 105, 160, 165],
-//     actualData: [120, 82, 91, 154, 162, 140, 145]
-//   },
-//   messages: {
-//     expectedData: [200, 192, 120, 144, 160, 130, 140],
-//     actualData: [180, 160, 151, 106, 145, 150, 130]
-//   },
-//   purchases: {
-//     expectedData: [80, 100, 121, 104, 105, 90, 100],
-//     actualData: [120, 90, 100, 138, 142, 130, 130]
-//   },
-//   shoppings: {
-//     expectedData: [130, 140, 141, 142, 145, 150, 160],
-//     actualData: [120, 82, 91, 154, 162, 140, 130]
-//   }
-// }
+const lineChartData = {
+  newVisitis: {
+    expectedData: [100, 120, 161, 134, 105, 160, 165],
+    actualData: [120, 82, 91, 154, 162, 140, 145]
+  },
+  messages: {
+    expectedData: [200, 192, 120, 144, 160, 130, 140],
+    actualData: [180, 160, 151, 106, 145, 150, 130]
+  },
+  purchases: {
+    expectedData: [80, 100, 121, 104, 105, 90, 100],
+    actualData: [120, 90, 100, 138, 142, 130, 130]
+  },
+  shoppings: {
+    expectedData: [130, 140, 141, 142, 145, 150, 160],
+    actualData: [120, 82, 91, 154, 162, 140, 130]
+  }
+}
 
 export default {
   name: 'Dashboard',
   computed: {
     ...mapGetters(['name'])
   },
-  // components: {
-  //   PanelGroup,
-  //   TransactionTable
-  // },
+  components: {
+    PanelGroup
+    // TransactionTable
+  },
 
   data: function() {
     const validate = (rule, value, callback) => {
@@ -110,7 +112,7 @@ export default {
       }
     }
     return {
-      // lineChartData: lineChartData.newVisitis,
+      lineChartData: lineChartData.newVisitis,
       demo: {
         title: ''
       },
@@ -129,12 +131,11 @@ export default {
   },
   methods: {
     updateRole() {
-      console.log('updateRole()')
-      if (store.getters.userrole === 0) {
-        this.role = '管理员'
-      } else {
-        this.role = '用户'
-      }
+      this.role = store.getters.userrole
+      console.log('updateRole()', this.role)
+    },
+    handleSetLineChartData(type) {
+      this.lineChartData = lineChartData[type]
     }
   }
   /*
