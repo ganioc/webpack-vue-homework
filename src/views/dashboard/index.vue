@@ -68,6 +68,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+
 // import PanelGroup from './components/PanelGroup'
 // import TransactionTable from './components/TransactionTable'
 
