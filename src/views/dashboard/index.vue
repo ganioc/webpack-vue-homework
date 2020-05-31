@@ -3,7 +3,7 @@
     <div class="dashboard-text" v-if="role === 0">管理员: {{ name }}</div>
     <div class="dashboard-text" v-else>用户: {{ name }}</div>
 
-    <panel-group @handleSetLineChartData="handleSetLineChartData" />
+    <panel-group :numUser="numUser" :numMsg="numMsg" />
 
     <!--     <el-row :gutter="8">
       <el-col
@@ -119,7 +119,9 @@ export default {
       demoRules: {
         title: [{ required: true, trigger: 'change', validator: validate }]
       },
-      role: ''
+      role: '',
+      numUser: 0,
+      numMsg: 0
     }
   },
   created: function() {
@@ -128,15 +130,21 @@ export default {
   mounted: function() {
     console.log('dashboard/mounted')
     this.updateRole()
+    this.updateNumUser()
   },
   methods: {
     updateRole() {
       this.role = store.getters.userrole
       console.log('updateRole()', this.role)
     },
-    handleSetLineChartData(type) {
-      this.lineChartData = lineChartData[type]
+    updateNumUser() {
+      console.log('updateNumUser()')
+      this.numUser = 2
+      this.numMsg = 12
     }
+    // handleSetLineChartData(type) {
+    //   this.lineChartData = lineChartData[type]
+    // }
   }
   /*
   methods: {

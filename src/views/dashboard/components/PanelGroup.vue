@@ -8,7 +8,7 @@
         <div class="card-panel-description">
           <div class="card-panel-text">用户总数</div>
           <!-- <count-to :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num" /> -->
-          <div class="card-panel-num">2</div>
+          <div class="card-panel-num">{{numUser}}</div>
         </div>
       </div>
     </el-col>
@@ -20,7 +20,7 @@
         <div class="card-panel-description">
           <div class="card-panel-text">消息总数</div>
           <!-- <count-to :start-val="0" :end-val="81212" :duration="3000" class="card-panel-num" /> -->
-          <div class="card-panel-num">20</div>
+          <div class="card-panel-num">{{numMsg}}</div>
         </div>
       </div>
     </el-col>
@@ -56,6 +56,7 @@ export default {
   components: {
     // CountTo
   },
+  props: ['numUser', 'numMsg'],
   methods: {
     handleSetLineChartData(type) {
       this.$emit('handleSetLineChartData', type)
