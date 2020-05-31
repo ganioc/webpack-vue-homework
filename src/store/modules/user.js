@@ -2,6 +2,7 @@ import { login, logout, getInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 import { getCaptcha } from '../../api/user'
+import router, { adminRoutes, userRoutes } from '../../router'
 
 const getDefaultState = () => {
   return {
@@ -56,6 +57,13 @@ const actions = {
           commit('SET_ROLE', data.role)
           commit('SET_NAME', data.username)
           setToken(data.token)
+          if (data.role === 0) {
+            console.log('login add adminroutes')
+            router.addRoutes(adminRoutes)
+          } else {
+            console.log('login add userRoutes')
+            router.addRoutes(userRoutes)
+          }
           resolve()
         })
         .catch(error => {
@@ -102,6 +110,14 @@ const actions = {
             commit('SET_ROLE', data.role)
             // reset router
             resetRouter()
+
+            if (data.role === 0) {
+              console.log('add adminroutes')
+              router.addRoutes(adminRoutes)
+            } else {
+              console.log('add userRoutes')
+              router.addRoutes(userRoutes)
+            }
             resolve(data)
           }
         })

@@ -57,7 +57,7 @@ const adminRoutes = [
   { path: '*', redirect: '/404', hidden: true }
 ]
 */
-/* const normalRoutes = [
+const defaultRoutes = [
   {
     path: '/login',
     component: () => import('@/views/login/index'),
@@ -82,42 +82,83 @@ const adminRoutes = [
     ]
   },
   // 404 page must be placed at the end !!!
+  // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
-] */
-
+]
+export const adminRoutes = [
+  {
+    path: '/account',
+    component: Layout,
+    redirect: '/account/basic',
+    name: '账户',
+    meta: { title: '账户管理', icon: 'cecurity-protection' },
+    children: [
+      {
+        path: 'basic',
+        name: '基本信息',
+        component: () => import('@/views/basic/index'),
+        meta: { title: '账户信息', icon: 'table' }
+      },
+      {
+        path: 'password',
+        name: '修改密码',
+        component: () => import('@/views/password/index'),
+        meta: { title: '密码', icon: 'table' }
+      }
+    ]
+  },
+  {
+    path: '/summary',
+    component: Layout,
+    redirect: '/summary/sms',
+    name: '信息统计',
+    meta: { title: '信息统计', icon: 'example' },
+    children: [
+      {
+        path: 'sms',
+        name: '短信统计',
+        component: () => import('@/views/sms/index'),
+        meta: { title: '短信', icon: 'table' }
+      },
+      {
+        path: 'cash',
+        name: '现金',
+        component: () => import('@/views/cash/index'),
+        meta: { title: '现金', icon: 'money' }
+      },
+      {
+        path: 'uplink',
+        name: '短信上行',
+        component: () => import('@/views/uplink/index'),
+        meta: { title: '上行', icon: 'email' }
+      }
+      // {
+      //   path: 'table',
+      //   name: 'Table',
+      //   component: () => import('@/views/table/index'),
+      //   meta: { title: 'Table', icon: 'table' }
+      // },
+      // {
+      //   path: 'tree',
+      //   name: 'Tree',
+      //   component: () => import('@/views/tree/index'),
+      //   meta: { title: 'Tree', icon: 'tree' }
+      // }
+    ]
+  },
+  // 404 page must be placed at the end !!!
+  { path: '*', redirect: '/404', hidden: true }
+]
 /**
  * constantRoutes
  * a base page that does not have permission requirements
  * all roles can be accessed
  */
-export const constantRoutes = [
+export const userRoutes = [
   {
-    path: '/login',
-    component: () => import('@/views/login/index'),
-    hidden: true
-  },
-  {
-    path: '/404',
-    component: () => import('@/views/404'),
-    hidden: true
-  },
-  {
-    path: '/',
+    path: '/summary',
     component: Layout,
-    redirect: '/dashboard',
-    children: [
-      {
-        path: 'dashboard',
-        name: 'Dashboard',
-        component: () => import('@/views/dashboard/index'),
-        meta: { title: '控制中心', icon: 'dashboard' }
-      }
-    ]
-  },
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/sms',
+    redirect: '/summary/sms',
     name: '信息统计',
     meta: { title: '信息统计', icon: 'example' },
     children: [
@@ -154,9 +195,9 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/notification',
+    path: '/message',
     component: Layout,
-    redirect: '/notification/sms',
+    redirect: '/message/sms',
     name: '通知类短信',
     meta: { title: '通知类短信', icon: 'example' },
     children: [
@@ -174,27 +215,7 @@ export const constantRoutes = [
       }
     ]
   },
-  {
-    path: '/account',
-    component: Layout,
-    redirect: '/account/basic',
-    name: '账户',
-    meta: { title: '账户管理', icon: 'cecurity-protection' },
-    children: [
-      {
-        path: 'basic',
-        name: '基本信息',
-        component: () => import('@/views/basic/index'),
-        meta: { title: '账户信息', icon: 'table' }
-      },
-      {
-        path: 'password',
-        name: '修改密码',
-        component: () => import('@/views/password/index'),
-        meta: { title: '密码', icon: 'table' }
-      }
-    ]
-  },
+
   // {
   //   path: '/form',
   //   component: Layout,
@@ -283,12 +304,12 @@ export const constantRoutes = [
   { path: '*', redirect: '/404', hidden: true }
 ]
 
-const createRouter = () =>
-  new Router({
-    // mode: 'history', // require service support
-    scrollBehavior: () => ({ y: 0 }),
-    routes: constantRoutes
-  })
+// const createRouter = () =>
+//   new Router({
+//     // mode: 'history', // require service support
+//     scrollBehavior: () => ({ y: 0 }),
+//     routes: constantRoutes
+//   })
 
 // const createAdminRouter = () =>
 //   new Router({
@@ -297,21 +318,21 @@ const createRouter = () =>
 //     routes: adminRoutes
 //   })
 
-// const createNormalRouter = () =>
-//   new Router({
-//     // mode: 'history', // require service support
-//     scrollBehavior: () => ({ y: 0 }),
-//     routes: normalRoutes
-//   })
+const createDefaultRouter = () =>
+  new Router({
+    // mode: 'history', // require service support
+    scrollBehavior: () => ({ y: 0 }),
+    routes: defaultRoutes
+  })
 
 // const router = createRouter()
-const router = createRouter()
+const router = createDefaultRouter()
 
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
   console.log('resetRouter')
-  console.log('This is normal user')
-  let newRouter = createRouter()
+  console.log('This is basic router')
+  let newRouter = createDefaultRouter()
   router.matcher = newRouter.matcher // reset router
   // }
 }
