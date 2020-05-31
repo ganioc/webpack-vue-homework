@@ -53,8 +53,8 @@ router.beforeEach(async (to, from, next) => {
           )
 
           router.addRoutes(accessRoutes)
-          next({ ...to, replace: true })
-          // next()
+          // next({ ...to, replace: true })
+          next()
         } catch (error) {
           // remove token and go to login page to re-login
           console.log('permission.js sth. error')
