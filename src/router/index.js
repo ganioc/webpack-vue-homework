@@ -76,13 +76,12 @@ export const defaultRoutes = [
       {
         path: 'dashboard',
         name: 'Dashboard',
-        component: () => import('@/views/normal-dashboard/index'),
+        component: () => import('@/views/dashboard/index'),
         meta: { title: '控制中心', icon: 'dashboard' }
       }
     ]
   }
-  // 404 page must be placed at the end !!!
-  // 404 page must be placed at the end !!!
+  // 404 page must not be placed at the end !!!
   // { path: '*', redirect: '/404', hidden: true }
 ]
 export const adminRoutes = [
