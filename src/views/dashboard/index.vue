@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">用户名: {{ name }}</div>
+    <div class="dashboard-text">{{ role }}: {{ name }}</div>
     <!-- <panel-group @handleSetLineChartData="handleSetLineChartData" /> -->
 
     <!-- <el-row :gutter="8">
@@ -68,7 +68,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-
+import store from '@/store'
 // import PanelGroup from './components/PanelGroup'
 // import TransactionTable from './components/TransactionTable'
 
@@ -116,6 +116,24 @@ export default {
       },
       demoRules: {
         title: [{ required: true, trigger: 'change', validator: validate }]
+      },
+      role: ''
+    }
+  },
+  created: function() {
+    console.log('dashboard/created')
+  },
+  mounted: function() {
+    console.log('dashboard/mounted')
+    this.updateRole()
+  },
+  methods: {
+    updateRole() {
+      console.log('updateRole()')
+      if (store.getters.userrole === 0) {
+        this.role = '管理员'
+      } else {
+        this.role = '用户'
       }
     }
   }
