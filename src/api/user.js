@@ -44,3 +44,10 @@ export function getMsgs() {
     method: 'get'
   })
 }
+
+export function getUserInfo() {
+  return request({
+    url: '/api/user/info',
+    method: 'get'
+  })
+}

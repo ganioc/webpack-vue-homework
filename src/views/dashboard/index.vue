@@ -2,8 +2,10 @@
   <div class="dashboard-container">
     <div class="dashboard-text" v-if="role === 0">管理员: {{ name }}</div>
     <div class="dashboard-text" v-else>用户: {{ name }}</div>
-
-    <panel-group :numUser="numUser" :numMsg="numMsg" />
+    <span v-if="role === 0">role-0</span>
+    <span v-if="role !==0">role-not-0</span>
+    <panel-group v-if="role === 0" :numUser="numUser" :numMsg="numMsg" />
+    <panel-group-user v-if="role !== 0" :numUnused="numUnused" />
 
     <!--     <el-row :gutter="8">
       <el-col
@@ -72,8 +74,9 @@
 import { mapGetters } from 'vuex'
 import store from '@/store'
 import PanelGroup from './components/PanelGroup'
+import PanelGroupUser from './components/PanelGroupUser'
 // import TransactionTable from './components/TransactionTable'
-import { getUsers } from '@/api/user'
+import { getUsers, getUserInfo } from '@/api/user'
 
 const lineChartData = {
   newVisitis: {
@@ -100,7 +103,8 @@ export default {
     ...mapGetters(['name'])
   },
   components: {
-    PanelGroup
+    PanelGroup,
+    PanelGroupUser
     // TransactionTable
   },
 
@@ -122,7 +126,8 @@ export default {
       },
       role: '',
       numUser: 0,
-      numMsg: 0
+      numMsg: 0,
+      numUnused: 0
     }
   },
   created: function() {
@@ -131,7 +136,11 @@ export default {
   mounted: function() {
     console.log('dashboard/mounted')
     this.updateRole()
-    this.updateNumUser()
+    if (this.role === 0) {
+      this.updateNumUser()
+    } else {
+      this.updateUnused()
+    }
   },
   methods: {
     updateRole() {
@@ -156,6 +165,19 @@ export default {
           console.log(err)
           console.log('getUsers failed')
           this.numUser = 0
+        }
+      )
+    },
+    updateUnused() {
+      console.log('getUserInfo()')
+      getUserInfo().then(
+        response => {
+          console.log(response)
+          this.numUnused = response.data.unused
+        },
+        err => {
+          console.log(err)
+          console.log('getUserInfo failed')
         }
       )
     }
