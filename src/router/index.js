@@ -155,30 +155,30 @@ export const adminRoutes = [
  */
 export const userRoutes = [
   {
-    path: '/summary',
+    path: '/send',
     component: Layout,
-    redirect: '/summary/sms',
-    name: '信息统计',
-    meta: { title: '信息统计', icon: 'example' },
+    redirect: '/send/sms',
+    name: '短信发送',
+    meta: { title: '短信发送', icon: 'example' },
     children: [
       {
         path: 'sms',
-        name: '短信统计',
+        name: '单条',
         component: () => import('@/views/sms/index'),
-        meta: { title: '短信', icon: 'table' }
+        meta: { title: '单条', icon: 'table' }
       },
       {
         path: 'cash',
-        name: '现金',
+        name: '多条',
         component: () => import('@/views/cash/index'),
-        meta: { title: '现金', icon: 'money' }
-      },
-      {
-        path: 'uplink',
-        name: '短信上行',
-        component: () => import('@/views/uplink/index'),
-        meta: { title: '上行', icon: 'email' }
+        meta: { title: '多条', icon: 'money' }
       }
+      // {
+      //   path: 'uplink',
+      //   name: '短信上行',
+      //   component: () => import('@/views/uplink/index'),
+      //   meta: { title: '上行', icon: 'email' }
+      // }
       // {
       //   path: 'table',
       //   name: 'Table',
@@ -194,23 +194,23 @@ export const userRoutes = [
     ]
   },
   {
-    path: '/message',
+    path: '/summary',
     component: Layout,
-    redirect: '/message/sms',
-    name: '通知类短信',
-    meta: { title: '通知类短信', icon: 'example' },
+    redirect: '/summary/history',
+    name: '短信统计',
+    meta: { title: '短信统计', icon: 'example' },
     children: [
       {
-        path: 'sms',
-        name: '发送短信',
+        path: 'history',
+        name: '历史记录',
         component: () => import('@/views/sms/index'),
-        meta: { title: '短信', icon: 'table' }
+        meta: { title: '历史记录', icon: 'table' }
       },
       {
-        path: 'recore',
-        name: '短信记录',
+        path: 'record',
+        name: '操作记录',
         component: () => import('@/views/sms/index'),
-        meta: { title: '短信记录', icon: 'table' }
+        meta: { title: '操作记录', icon: 'table' }
       }
     ]
   },

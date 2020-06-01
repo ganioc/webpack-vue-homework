@@ -2,8 +2,6 @@
   <div class="dashboard-container">
     <div class="dashboard-text" v-if="role === 0">管理员: {{ name }}</div>
     <div class="dashboard-text" v-else>用户: {{ name }}</div>
-    <span v-if="role === 0">role-0</span>
-    <span v-if="role !==0">role-not-0</span>
     <panel-group v-if="role === 0" :numUser="numUser" :numMsg="numMsg" />
     <panel-group-user v-if="role !== 0" :numUnused="numUnused" />
 
