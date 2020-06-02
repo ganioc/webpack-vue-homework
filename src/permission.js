@@ -66,9 +66,16 @@ router.beforeEach(async (to, from, next) => {
           // problem, wont be a blank page
           let strArr = to.path.split('/')
           console.log('strArr:', strArr)
-          if (strArr.length >= 3) {
+          if (strArr.length >= 3 && from.path === '/') {
             console.log('next to:', '/' + strArr[1])
-            next('/' + strArr[1])
+            next(
+              '/' +
+                strArr[1] +
+                '/' +
+                strArr[2] +
+                '?' +
+                Math.floor(10 * Math.random())
+            )
           } else {
             next()
           }

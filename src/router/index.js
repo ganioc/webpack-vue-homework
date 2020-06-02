@@ -173,25 +173,25 @@ export const userRoutes = [
         component: () => import('@/views/cash/index'),
         meta: { title: '多条', icon: 'money' }
       }
-      // {
-      //   path: 'uplink',
-      //   name: '短信上行',
-      //   component: () => import('@/views/uplink/index'),
-      //   meta: { title: '上行', icon: 'email' }
-      // }
-      // {
-      //   path: 'table',
-      //   name: 'Table',
-      //   component: () => import('@/views/table/index'),
-      //   meta: { title: 'Table', icon: 'table' }
-      // },
-      // {
-      //   path: 'tree',
-      //   name: 'Tree',
-      //   component: () => import('@/views/tree/index'),
-      //   meta: { title: 'Tree', icon: 'tree' }
-      // }
     ]
+    // {
+    //   path: 'uplink',
+    //   name: '短信上行',
+    //   component: () => import('@/views/uplink/index'),
+    //   meta: { title: '上行', icon: 'email' }
+    // }
+    // {
+    //   path: 'table',
+    //   name: 'Table',
+    //   component: () => import('@/views/table/index'),
+    //   meta: { title: 'Table', icon: 'table' }
+    // },
+    // {
+    //   path: 'tree',
+    //   name: 'Tree',
+    //   component: () => import('@/views/tree/index'),
+    //   meta: { title: 'Tree', icon: 'tree' }
+    // }
   },
   {
     path: '/summary',
