@@ -35,6 +35,7 @@
   </div>
 </template>
 <script>
+import { postUserSendSingle } from '@/api/user'
 export default {
   name: 'SingleMsg',
   data() {
@@ -112,8 +113,32 @@ export default {
       this.$refs.form.validate(async valid => {
         // console.log('into valid')
         if (valid) {
-          // this.loading = true
+          this.loading = true
           console.log('valid')
+          postUserSendSingle(this.form).then(
+            response => {
+              console.log('postUserSendSingle OK')
+              console.log(response)
+              this.loading = false
+              const h = this.$createElement
+              this.$notify({
+                title: '提交平台',
+                message: h('i', { style: 'color: green' }, '成功'),
+                duration: 2000
+              })
+            },
+            err => {
+              console.log(err)
+              console.log('postUserSendSingle failed')
+              this.loading = false
+              const h = this.$createElement
+              this.$notify({
+                title: '提交平台',
+                message: h('i', { style: 'color: red' }, '失败'),
+                duration: 2000
+              })
+            }
+          )
         } else {
           console.log('invalid')
         }

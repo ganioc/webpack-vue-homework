@@ -79,8 +79,6 @@ router.beforeEach(async (to, from, next) => {
           } else {
             next()
           }
-
-          // next()
         } catch (error) {
           // remove token and go to login page to re-login
           console.log('permission.js sth. error')

@@ -51,3 +51,11 @@ export function getUserInfo() {
     method: 'get'
   })
 }
+// post a single msg
+export function postUserSendSingle(data) {
+  return request({
+    url: '/api/user/send/single',
+    method: 'post',
+    data
+  })
+}
