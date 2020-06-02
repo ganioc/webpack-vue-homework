@@ -121,11 +121,19 @@ export default {
               console.log(response)
               this.loading = false
               const h = this.$createElement
-              this.$notify({
-                title: '提交平台',
-                message: h('i', { style: 'color: green' }, '成功'),
-                duration: 2000
-              })
+              if (response.code === 0) {
+                this.$notify({
+                  title: '提交平台',
+                  message: h('i', { style: 'color: green' }, '成功'),
+                  duration: 2000
+                })
+              } else {
+                this.$notify({
+                  title: '提交平台',
+                  message: h('i', { style: 'color: red' }, '成功'),
+                  duration: 2000
+                })
+              }
             },
             err => {
               console.log(err)
@@ -134,7 +142,7 @@ export default {
               const h = this.$createElement
               this.$notify({
                 title: '提交平台',
-                message: h('i', { style: 'color: red' }, '失败'),
+                message: h('i', { style: 'color: red' }, '发送失败'),
                 duration: 2000
               })
             }
