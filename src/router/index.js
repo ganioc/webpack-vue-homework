@@ -164,7 +164,7 @@ export const userRoutes = [
       {
         path: 'sms',
         name: '单条',
-        component: () => import('@/views/sms/index'),
+        component: () => import('@/views/send/index'),
         meta: { title: '单条', icon: 'table' }
       },
       {

@@ -53,8 +53,27 @@ router.beforeEach(async (to, from, next) => {
           )
 
           router.addRoutes(accessRoutes)
-          // next({ ...to, replace: true })
-          next()
+          console.log('After addRoutes:')
+          // console.log(router)
+
+          /** /send/sms
+           *  /send/cash
+           *  /summary/history
+           *  /summary/record
+           */
+          // This is not a good methods!!
+          // To solve the 2nd grade url can not be accessed
+          // problem, wont be a blank page
+          let strArr = to.path.split('/')
+          console.log('strArr:', strArr)
+          if (strArr.length >= 3) {
+            console.log('next to:', '/' + strArr[1])
+            next('/' + strArr[1])
+          } else {
+            next()
+          }
+
+          // next()
         } catch (error) {
           // remove token and go to login page to re-login
           console.log('permission.js sth. error')

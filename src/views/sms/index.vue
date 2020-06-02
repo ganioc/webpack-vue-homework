@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div style="margin:0 0 5px 20px">短信发送统计</div>
-    <fixed-thead />
+    <span>发送的短信</span>
 
     <!-- <div style="margin:30px 0 5px 20px">
       Not fixed header, sorted by click order

@@ -153,7 +153,7 @@ export default {
       })
     },
     handleLogin() {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate(async valid => {
         if (valid) {
           this.loading = true
           // loginForm is the data
@@ -161,10 +161,17 @@ export default {
           console.log(this.loginForm)
           this.$store
             .dispatch('user/login', this.loginForm)
-            .then(() => {
+            .then(async () => {
               console.log('this.redirect', this.redirect)
               // reset router,
               resetRouter()
+              // const accessRoutes = await store.dispatch(
+              //   'permission/generateRoutes',
+              //   store.getters.userrole
+              // )
+
+              // router.addRoutes(accessRoutes)
+
               this.$router.push({ path: this.redirect || '/' })
               this.loading = false
             })
