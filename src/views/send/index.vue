@@ -5,20 +5,20 @@
     <el-form ref="form" :model="form" :rules="rules" label-width="120px">
       <el-row>
         <el-col :span="12">
-          <el-form-item label="电话号码">
+          <el-form-item label="电话号码" prop="mobile">
             <el-input tabindex="1" type="tel" v-model="form.mobile" maxlength="11" show-word-limit />
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="18">
-          <el-form-item label="发送内容">
+          <el-form-item label="发送内容" prop="text">
             <el-input
               tabindex="2"
               type="textarea"
               placeholder="请输入内容"
               v-model="form.text"
-              maxlength="170"
+              maxlength="160"
               show-word-limit
               :autosize="{minRows:5, maxRows:10}"
             />
@@ -28,7 +28,7 @@
       <el-row>
         <el-col :offset="6">
           <el-button type="warning" @click="clear">重置</el-button>
-          <el-button type="primary">发送</el-button>
+          <el-button :loading="loading" type="primary" @click.native.prevent="send">发送</el-button>
         </el-col>
       </el-row>
     </el-form>
@@ -38,14 +38,50 @@
 export default {
   name: 'SingleMsg',
   data() {
-    let textValidate = (rule, value, callback) => {}
+    let validMobile = num => {
+      let r = /^1[3456789]\d{9}$|^861[3456789]\d{9}$/
+      return r.test(num.toString())
+    }
+    let validText = num => {
+      let byteLen = 0
+      let hanLen = 0
+      for (let i = 0; i < num.length; i++) {
+        let ch = num.charCodeAt(i)
+        if (ch > 127) {
+          hanLen += 2
+        } else {
+          byteLen += 1
+        }
+      }
+      let remain = 1120 - hanLen * 2 * 8 - byteLen * 7
 
+      if (remain < 0) {
+        return Math.round(-remain / 7)
+      } else {
+        return 0
+      }
+    }
     let mobileValidate = (rule, value, callback) => {
       if (!value) {
         callback(new Error('号码非空'))
+      } else if (!validMobile(value)) {
+        callback(new Error('号码无效'))
+      } else {
+        callback()
       }
     }
+    let textValidate = (rule, value, callback) => {
+      if (value.length === 0) {
+        callback(new Error('内容非空'))
+      } else if (validText(value) > 0) {
+        callback(new Error('内容过长' + validText(value)))
+      } else {
+        callback()
+      }
+    }
+
     return {
+      maxTextLength: 170,
       form: {
         mobile: '',
         text: ''
@@ -63,13 +99,25 @@ export default {
             required: true
           }
         ]
-      }
+      },
+      loading: false
     }
   },
   methods: {
     clear() {
       this.form.mobile = ''
       this.form.text = ''
+    },
+    send() {
+      this.$refs.form.validate(async valid => {
+        // console.log('into valid')
+        if (valid) {
+          // this.loading = true
+          console.log('valid')
+        } else {
+          console.log('invalid')
+        }
+      })
     }
   }
 }
