@@ -24,17 +24,18 @@
         </div>
       </div>
     </el-col>
-    <!-- <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('purchases')">
+
+    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
+      <div class="card-panel">
         <div class="card-panel-icon-wrapper icon-money">
           <svg-icon icon-class="money" class-name="card-panel-icon" />
         </div>
         <div class="card-panel-description">
-          <div class="card-panel-text">Purchases</div>
-          <count-to :start-val="0" :end-val="9280" :duration="3200" class="card-panel-num" />
+          <div class="card-panel-text">账户余额</div>
+          <div class="card-panel-num">{{numBalance}}</div>
         </div>
       </div>
-    </el-col>-->
+    </el-col>
     <!--  <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
       <div class="card-panel" @click="handleSetLineChartData('shoppings')">
         <div class="card-panel-icon-wrapper icon-shopping">
@@ -56,7 +57,7 @@ export default {
   components: {
     // CountTo
   },
-  props: ['numUser', 'numMsg'],
+  props: ['numUser', 'numMsg', 'numBalance'],
   methods: {
     handleSetLineChartData(type) {
       this.$emit('handleSetLineChartData', type)

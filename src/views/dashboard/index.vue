@@ -2,7 +2,7 @@
   <div class="dashboard-container">
     <div class="dashboard-text" v-if="role === 0">管理员: {{ name }}</div>
     <div class="dashboard-text" v-else>用户: {{ name }}</div>
-    <panel-group v-if="role === 0" :numUser="numUser" :numMsg="numMsg" />
+    <panel-group v-if="role === 0" :numUser="numUser" :numMsg="numMsg" :numBalance="numBalance" />
     <panel-group-user v-if="role !== 0" :numUnused="numUnused" />
 
     <!--     <el-row :gutter="8">
@@ -74,7 +74,7 @@ import store from '@/store'
 import PanelGroup from './components/PanelGroup'
 import PanelGroupUser from './components/PanelGroupUser'
 // import TransactionTable from './components/TransactionTable'
-import { getUsers, getUserInfo } from '@/api/user'
+import { getUsers, getUserInfo, getAdminInfo } from '@/api/user'
 
 const lineChartData = {
   newVisitis: {
@@ -125,17 +125,19 @@ export default {
       role: '',
       numUser: 0,
       numMsg: 0,
-      numUnused: 0
+      numUnused: 0,
+      numBalance: 0
     }
   },
   created: function() {
     console.log('dashboard/created')
   },
-  mounted: function() {
+  mounted: async function() {
     console.log('dashboard/mounted')
     this.updateRole()
     if (this.role === 0) {
-      this.updateNumUser()
+      await this.updateNumUser()
+      await this.updateInfo()
     } else {
       this.updateUnused()
     }
@@ -176,6 +178,19 @@ export default {
         err => {
           console.log(err)
           console.log('getUserInfo failed')
+        }
+      )
+    },
+    updateInfo() {
+      console.log('getAdminInfo()')
+      getAdminInfo().then(
+        response => {
+          console.log(response)
+          this.numBalance = response.data.amount
+        },
+        err => {
+          console.log(err)
+          console.log('getAdminInfo failed')
         }
       )
     }

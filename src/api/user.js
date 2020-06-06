@@ -59,3 +59,10 @@ export function postUserSendSingle(data) {
     data
   })
 }
+
+export function getAdminInfo() {
+  return request({
+    url: '/api/admin/info',
+    method: 'get'
+  })
+}
