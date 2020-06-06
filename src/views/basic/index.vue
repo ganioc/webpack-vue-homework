@@ -1,17 +1,47 @@
 <template>
   <div class="dashboard-editor-container">
-    <el-row :gutter="8">
-      <el-col
-        :xs="{span: 24}"
-        :sm="{span: 12}"
-        :md="{span: 12}"
-        :lg="{span: 6}"
-        :xl="{span: 6}"
-        style="margin-bottom:30px;"
-      >
-        <box-card />
-      </el-col>
-    </el-row>
+    <div class="filter-container">
+      <el-button
+        class="filter-item"
+        type="primary"
+        icon="el-icon-search"
+        :loading="searching"
+        @click="handleSearch"
+      >查找</el-button>
+      <el-button
+        :loading="deleting"
+        class="filter-item"
+        type="primary"
+        icon="el-icon-delete"
+        @click="handleDelete"
+      >删除</el-button>
+      <el-button
+        :loading="editing"
+        class="filter-item"
+        type="primary"
+        icon="el-icon-edit"
+        @click="handleEdit"
+      >修改</el-button>
+      <el-button
+        class="filter-item"
+        style="margin-left: 10px;"
+        type="primary"
+        icon="el-icon-edit"
+        @click="handleCreate"
+      >添加用户</el-button>
+    </div>
+    <el-table
+      ref="singleTable"
+      :data="tableData"
+      highlight-current-row
+      @current-change="handleCurrentChange"
+      style="width: 100%"
+    >
+      <el-table-column type="index" width="50"></el-table-column>
+      <el-table-column property="date" label="日期" width="120"></el-table-column>
+      <el-table-column property="name" label="姓名" width="120"></el-table-column>
+      <el-table-column property="address" label="地址"></el-table-column>
+    </el-table>
   </div>
 </template>
 
@@ -44,12 +74,33 @@ export default {
   },
   data() {
     return {
-      lineChartData: lineChartData.newVisitis
+      lineChartData: lineChartData.newVisitis,
+      tableData: [],
+      currentRow: null,
+      searching: false,
+      deleting: false,
+      editing: false
     }
   },
   methods: {
     handleSetLineChartData(type) {
       this.lineChartData = lineChartData[type]
+    },
+    handleSearch() {
+      console.log('handleSearch')
+    },
+    handleDelete() {
+      console.log('handleDelete')
+    },
+    handleEdit() {
+      console.log('handleEdit')
+    },
+    handleCreate() {
+      console.log('handleCreate')
+    },
+    handleCurrentChange(val) {
+      this.currentRow = val
+      console.log('currentRow ', this.currentRow)
     }
   }
 }
