@@ -96,7 +96,8 @@ export default {
         email: '',
         phone: '',
         address: '',
-        extra: ''
+        extra: '',
+        username: ''
       },
       rules: {
         email: [{ validator: emailValidate, required: true }]
@@ -153,6 +154,7 @@ export default {
     updateData() {
       console.log('updateUser')
       this.loading = true
+      this.form.username = this.username
       postAdminSetUser(this.form).then(
         response => {
           this.loading = false

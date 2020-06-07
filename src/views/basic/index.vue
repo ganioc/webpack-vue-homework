@@ -61,6 +61,7 @@
         @current-change="handleCurrentPageChange"
       ></el-pagination>
     </div>
+
     <create-dialog
       :createDialogVisible="createDialogVisible"
       @createDialogVisible="updateDialogVisible"
@@ -143,20 +144,25 @@ export default {
     handleCurrentRowChange(val) {
       this.currentRow = val
       console.log('currentRow ', val)
-      console.log('current username', this.currentRow.name)
-      this.currentName = this.currentRow.name
-      console.log('currentName:', this.currentName)
-      this.$refs.editDialog.setUsername(this.currentName)
+      if (val) {
+        console.log('current username', this.currentRow.name)
+        this.currentName = this.currentRow.name
+        console.log('currentName:', this.currentName)
+        this.$refs.editDialog.setUsername(this.currentName)
+      }
     },
     handleRefresh() {
       console.log('handleRefresh')
-      this.getusers(1, 10)
+      this.getusers(this.currentPage, this.numPerPage)
     },
     handlePageSizeChange(val) {
       console.log(`每页 ${val} 条`)
     },
     handleCurrentPageChange(val) {
       console.log(`当前页: ${val}`)
+      // to load the new page
+      this.getusers(val, this.numPerPage)
+      this.currentPage = val
     },
     getusers(curPage, numPerPage) {
       console.log('getusers')
@@ -176,6 +182,7 @@ export default {
               })
             }
             this.tableData = out
+            this.totalNum = response.data.amount
           }
         },
         err => {
