@@ -29,6 +29,14 @@
         icon="el-icon-edit"
         @click="handleCreate"
       >添加用户</el-button>
+      <el-button
+        :loading="refreshing"
+        class="filter-item"
+        style="margin-left: 10px;"
+        type="primary"
+        icon="el-icon-refresh"
+        @click="handleRefresh"
+      >刷新</el-button>
     </div>
     <el-table
       ref="singleTable"
@@ -79,7 +87,8 @@ export default {
       currentRow: null,
       searching: false,
       deleting: false,
-      editing: false
+      editing: false,
+      refreshing: false
     }
   },
   methods: {
@@ -101,6 +110,9 @@ export default {
     handleCurrentChange(val) {
       this.currentRow = val
       console.log('currentRow ', this.currentRow)
+    },
+    handleRefresh() {
+      console.log('handleRefresh')
     }
   }
 }
