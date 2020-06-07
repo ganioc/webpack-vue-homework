@@ -28,7 +28,7 @@
         type="primary"
         icon="el-icon-edit"
         @click="handleCreate"
-      >添加用户</el-button>
+      >新增</el-button>
       <el-button
         :loading="refreshing"
         class="filter-item"
@@ -43,10 +43,10 @@
       :data="tableData"
       highlight-current-row
       @current-change="handleCurrentRowChange"
-      style="width: 100%"
+      style="width: 100%; margin-bottom: 10px"
     >
       <el-table-column type="index" width="50"></el-table-column>
-      <el-table-column property="date" label="日期" width="160"></el-table-column>
+      <el-table-column property="date" label="日期" width="200"></el-table-column>
       <el-table-column property="name" label="姓名" width="120"></el-table-column>
       <el-table-column property="status" label="有效"></el-table-column>
       <el-table-column property="unused" label="剩余短信"></el-table-column>
@@ -61,49 +61,35 @@
         @current-change="handleCurrentPageChange"
       ></el-pagination>
     </div>
+    <create-dialog
+      :createDialogVisible="createDialogVisible"
+      @createDialogVisible="updateDialogVisible"
+    />
   </div>
 </template>
 
 <script>
-import BoxCard from './components/BoxCard'
+import CreateDialog from './components/CreateDialog'
 import { getAdminGetUsers } from '../../api/user'
-
-const lineChartData = {
-  newVisitis: {
-    expectedData: [100, 120, 161, 134, 105, 160, 165],
-    actualData: [120, 82, 91, 154, 162, 140, 145]
-  },
-  messages: {
-    expectedData: [200, 192, 120, 144, 160, 130, 140],
-    actualData: [180, 160, 151, 106, 145, 150, 130]
-  },
-  purchases: {
-    expectedData: [80, 100, 121, 104, 105, 90, 100],
-    actualData: [120, 90, 100, 138, 142, 130, 130]
-  },
-  shoppings: {
-    expectedData: [130, 140, 141, 142, 145, 150, 160],
-    actualData: [120, 82, 91, 154, 162, 140, 130]
-  }
-}
 
 export default {
   name: 'DashboardAdmin',
   components: {
-    BoxCard
+    CreateDialog
   },
   data() {
     return {
-      lineChartData: lineChartData.newVisitis,
       tableData: [],
       currentRow: null,
       searching: false,
       deleting: false,
       editing: false,
       refreshing: false,
+      creating: false,
       currentPage: 1,
       numPerPage: 10,
-      totalNum: 0
+      totalNum: 0,
+      createDialogVisible: false
     }
   },
   mounted: function() {
@@ -111,9 +97,9 @@ export default {
     this.getusers(this.currentPage, this.numPerPage)
   },
   methods: {
-    handleSetLineChartData(type) {
-      this.lineChartData = lineChartData[type]
-    },
+    // handleSetLineChartData(type) {
+    //   this.lineChartData = lineChartData[type]
+    // },
     handleSearch() {
       console.log('handleSearch')
     },
@@ -125,6 +111,11 @@ export default {
     },
     handleCreate() {
       console.log('handleCreate')
+      this.createDialogVisible = true
+    },
+    updateDialogVisible(val) {
+      console.log('updateDialogVisible')
+      this.createDialogVisible = val
     },
     handleCurrentRowChange(val) {
       this.currentRow = val
