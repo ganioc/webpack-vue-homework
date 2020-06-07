@@ -46,16 +46,17 @@
       style="width: 100%"
     >
       <el-table-column type="index" width="50"></el-table-column>
-      <el-table-column property="date" label="日期" width="120"></el-table-column>
+      <el-table-column property="date" label="日期" width="160"></el-table-column>
       <el-table-column property="name" label="姓名" width="120"></el-table-column>
-      <el-table-column property="address" label="地址"></el-table-column>
+      <el-table-column property="status" label="有效"></el-table-column>
+      <el-table-column property="unused" label="剩余短信"></el-table-column>
     </el-table>
     <div class="block">
       <span class="demonstration"></span>
       <el-pagination
         layout="prev, pager, next"
-        :size="10"
-        :total="20"
+        :size="numPerPage"
+        :total="totalNum"
         @size-change="handlePageSizeChange"
         @current-change="handleCurrentPageChange"
       ></el-pagination>
@@ -65,6 +66,7 @@
 
 <script>
 import BoxCard from './components/BoxCard'
+import { getAdminGetUsers } from '../../api/user'
 
 const lineChartData = {
   newVisitis: {
@@ -99,8 +101,14 @@ export default {
       deleting: false,
       editing: false,
       refreshing: false,
-      currentPage: null
+      currentPage: 1,
+      numPerPage: 10,
+      totalNum: 0
     }
+  },
+  mounted: function() {
+    console.log('basic mounted')
+    this.getusers(this.currentPage, this.numPerPage)
   },
   methods: {
     handleSetLineChartData(type) {
@@ -120,7 +128,7 @@ export default {
     },
     handleCurrentRowChange(val) {
       this.currentRow = val
-      console.log('currentRow ', this.currentRow)
+      console.log('currentRow ', val)
     },
     handleRefresh() {
       console.log('handleRefresh')
@@ -130,6 +138,32 @@ export default {
     },
     handleCurrentPageChange(val) {
       console.log(`当前页: ${val}`)
+    },
+    getusers(curPage, numPerPage) {
+      console.log('getusers')
+      console.log(curPage, numPerPage)
+      getAdminGetUsers(curPage, numPerPage).then(
+        response => {
+          console.log(response)
+          if (response.code === 0) {
+            let out = []
+            for (let i = 0; i < response.data.data.length; i++) {
+              let user = response.data.data[i]
+              out.push({
+                date: new Date(user.createdate).toLocaleString(),
+                name: user.username,
+                status: user.status,
+                unused: user.unused
+              })
+            }
+            this.tableData = out
+          }
+        },
+        err => {
+          console.log(err)
+          console.log('getAdminGetUsers failed')
+        }
+      )
     }
   }
 }

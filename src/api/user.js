@@ -66,3 +66,14 @@ export function getAdminInfo() {
     method: 'get'
   })
 }
+
+export function getAdminGetUsers(currentPage, numPerPage) {
+  return request({
+    url: '/api/admin/getusers',
+    method: 'get',
+    params: {
+      curpage: currentPage,
+      numpage: numPerPage
+    }
+  })
+}
