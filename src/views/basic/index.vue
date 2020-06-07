@@ -42,7 +42,7 @@
       ref="singleTable"
       :data="tableData"
       highlight-current-row
-      @current-change="handleCurrentChange"
+      @current-change="handleCurrentRowChange"
       style="width: 100%"
     >
       <el-table-column type="index" width="50"></el-table-column>
@@ -50,6 +50,16 @@
       <el-table-column property="name" label="姓名" width="120"></el-table-column>
       <el-table-column property="address" label="地址"></el-table-column>
     </el-table>
+    <div class="block">
+      <span class="demonstration"></span>
+      <el-pagination
+        layout="prev, pager, next"
+        :size="10"
+        :total="20"
+        @size-change="handlePageSizeChange"
+        @current-change="handleCurrentPageChange"
+      ></el-pagination>
+    </div>
   </div>
 </template>
 
@@ -88,7 +98,8 @@ export default {
       searching: false,
       deleting: false,
       editing: false,
-      refreshing: false
+      refreshing: false,
+      currentPage: null
     }
   },
   methods: {
@@ -107,12 +118,18 @@ export default {
     handleCreate() {
       console.log('handleCreate')
     },
-    handleCurrentChange(val) {
+    handleCurrentRowChange(val) {
       this.currentRow = val
       console.log('currentRow ', this.currentRow)
     },
     handleRefresh() {
       console.log('handleRefresh')
+    },
+    handlePageSizeChange(val) {
+      console.log(`每页 ${val} 条`)
+    },
+    handleCurrentPageChange(val) {
+      console.log(`当前页: ${val}`)
     }
   }
 }
