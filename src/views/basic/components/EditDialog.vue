@@ -73,6 +73,8 @@
 </template>
 
 <script>
+import { getAdminGetUser, postAdminSetUser } from '@/api/user'
+
 export default {
   props: ['editDialogVisible'],
   data() {
@@ -128,9 +130,54 @@ export default {
     },
     loadData() {
       console.log('loadData()')
+      this.downloading = true
+      getAdminGetUser(this.username).then(
+        response => {
+          console.log(response)
+          this.downloading = false
+          if (response.code === 0) {
+            this.form.status = response.data.status
+            this.form.unused = response.data.unused
+            this.form.email = response.data.email
+            this.form.phone = response.data.phone
+            this.form.address = response.data.address
+            this.form.extra = response.data.extra
+          }
+        },
+        err => {
+          console.log(err)
+          this.downloading = false
+        }
+      )
     },
     updateData() {
       console.log('updateUser')
+      this.loading = true
+      postAdminSetUser(this.form).then(
+        response => {
+          this.loading = false
+          const h = this.$createElement
+          if (response.code === 0) {
+            this.$notify({
+              title: '更新用户',
+              message: h('i', { style: 'color:green' }, '成功')
+            })
+          } else {
+            this.$notify({
+              title: '更新用户',
+              message: h(
+                'i',
+                { style: 'color:red' },
+                '失败:' + response.data.message
+              )
+            })
+          }
+        },
+        err => {
+          console.log(err)
+          this.loading = false
+        }
+      )
     },
     resetData() {
       console.log('resetData()')
