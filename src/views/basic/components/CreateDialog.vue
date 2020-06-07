@@ -42,7 +42,7 @@
       </el-row>
       <el-row>
         <el-col :span="18">
-          <el-form-item label="邮箱">
+          <el-form-item label="邮箱" prop="email">
             <el-input type="email" maxlength="50" v-model="form.email"></el-input>
           </el-form-item>
         </el-col>
@@ -84,6 +84,8 @@
 </template>
 
 <script>
+import { postCreateUser } from '@/api/user'
+
 export default {
   props: ['createDialogVisible'],
   data() {
@@ -103,6 +105,13 @@ export default {
         callback(new Error('密码非空'))
       } else if (value.length < 8) {
         callback(new Error('用户名大于8个字符'))
+      } else {
+        callback()
+      }
+    }
+    let emailValidate = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error('邮箱非空'))
       } else {
         callback()
       }
@@ -130,6 +139,12 @@ export default {
         password: [
           {
             validator: passwordValidate,
+            required: true
+          }
+        ],
+        email: [
+          {
+            validator: emailValidate,
             required: true
           }
         ]
@@ -182,8 +197,40 @@ export default {
       this.$refs.form.validate(async valid => {
         if (valid) {
           this.creating = true
+          postCreateUser(this.form).then(
+            response => {
+              console.log(response)
+              this.creating = false
+              const h = this.$createElement
+              if (response.code === 0) {
+                this.$notify({
+                  title: '创建新用户' + response.data.username,
+                  message: h('i', { style: 'color:green' }, '成功')
+                })
+              } else {
+                this.$notify({
+                  title: '创建新用户',
+                  message: h(
+                    'i',
+                    { style: 'color:red' },
+                    '失败:' + response.data.message
+                  )
+                })
+              }
+            },
+            err => {
+              console.log(err)
+              this.creating = false
+              const h = this.$createElement
+              this.$notify({
+                title: '创建新用户',
+                message: h('i', { style: 'color: red' }, '发送失败'),
+                duration: 2000
+              })
+            }
+          )
 
-          this.creating = false
+          // this.creating = false
         } else {
           console.log('invalid form data')
         }

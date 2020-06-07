@@ -130,7 +130,7 @@ export default {
               } else {
                 this.$notify({
                   title: '提交平台',
-                  message: h('i', { style: 'color: red' }, '成功'),
+                  message: h('i', { style: 'color: red' }, '失败'),
                   duration: 2000
                 })
               }

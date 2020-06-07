@@ -77,3 +77,12 @@ export function getAdminGetUsers(currentPage, numPerPage) {
     }
   })
 }
+
+export function postCreateUser(data) {
+  return request({
+    // url: '/vue-admin-template/user/login',
+    url: '/api/admin/createuser',
+    method: 'post',
+    data
+  })
+}
