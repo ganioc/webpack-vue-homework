@@ -65,22 +65,30 @@
       :createDialogVisible="createDialogVisible"
       @createDialogVisible="updateDialogVisible"
     />
+    <edit-dialog
+      ref="editDialog"
+      :editDialogVisible="editDialogVisible"
+      @editDialogVisible="updateEditDialogVisible"
+    />
   </div>
 </template>
 
 <script>
 import CreateDialog from './components/CreateDialog'
+import EditDialog from './components/EditDialog'
 import { getAdminGetUsers } from '../../api/user'
 
 export default {
   name: 'DashboardAdmin',
   components: {
-    CreateDialog
+    CreateDialog,
+    EditDialog
   },
   data() {
     return {
       tableData: [],
       currentRow: null,
+      currentName: '',
       searching: false,
       deleting: false,
       editing: false,
@@ -89,25 +97,36 @@ export default {
       currentPage: 1,
       numPerPage: 10,
       totalNum: 0,
-      createDialogVisible: false
+      createDialogVisible: false,
+      editDialogVisible: false
     }
   },
   mounted: function() {
     console.log('basic mounted')
     this.getusers(this.currentPage, this.numPerPage)
   },
+  computed: {},
+  // watch: {
+  //   currentRow: function(val) {
+  //     this.currentName = val.name
+  //   }
+  // },
   methods: {
     // handleSetLineChartData(type) {
     //   this.lineChartData = lineChartData[type]
     // },
     handleSearch() {
       console.log('handleSearch')
+      console.log(this.currentName)
     },
     handleDelete() {
       console.log('handleDelete')
     },
     handleEdit() {
       console.log('handleEdit')
+      if (this.currentName !== '') {
+        this.editDialogVisible = true
+      }
     },
     handleCreate() {
       console.log('handleCreate')
@@ -117,12 +136,21 @@ export default {
       console.log('updateDialogVisible')
       this.createDialogVisible = val
     },
+    updateEditDialogVisible(val) {
+      console.log('udpateEditDialogVisible')
+      this.editDialogVisible = val
+    },
     handleCurrentRowChange(val) {
       this.currentRow = val
       console.log('currentRow ', val)
+      console.log('current username', this.currentRow.name)
+      this.currentName = this.currentRow.name
+      console.log('currentName:', this.currentName)
+      this.$refs.editDialog.setUsername(this.currentName)
     },
     handleRefresh() {
       console.log('handleRefresh')
+      this.getusers(1, 10)
     },
     handlePageSizeChange(val) {
       console.log(`每页 ${val} 条`)
