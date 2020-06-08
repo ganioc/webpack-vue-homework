@@ -4,7 +4,7 @@
     width="70%"
     :title="getName"
     :before-close="closeEditDialog"
-    :open="openCallback"
+    @open="openCallback"
     center
   >
     <el-form ref="form" :model="form" :rules="rules" label-width="100px">
@@ -164,6 +164,7 @@ export default {
               title: '更新用户',
               message: h('i', { style: 'color:green' }, '成功')
             })
+            this.$emit('refreshDialog')
           } else {
             this.$notify({
               title: '更新用户',
@@ -193,6 +194,7 @@ export default {
     handleChangeUnused() {},
     openCallback() {
       console.log('openCallback()')
+      this.loadData()
     }
   }
 }

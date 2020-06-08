@@ -70,6 +70,7 @@
       ref="editDialog"
       :editDialogVisible="editDialogVisible"
       @editDialogVisible="updateEditDialogVisible"
+      @refreshDialog="handleRefresh"
     />
     <delete-dialog
       ref="deleteDialog"
