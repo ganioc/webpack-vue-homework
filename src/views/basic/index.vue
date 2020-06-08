@@ -75,6 +75,7 @@
       ref="deleteDialog"
       :deleteDialogVisible="deleteDialogVisible"
       @deleteDialogVisible="updateDeleteDialogVisible"
+      @refreshDialog="handleRefresh"
     />
   </div>
 </template>

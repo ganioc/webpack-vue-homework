@@ -54,6 +54,7 @@ export default {
               title: '删除用户',
               message: h('i', { style: 'color:green' }, '成功')
             })
+            this.$emit('refreshDialog')
           } else {
             this.$notify({
               title: '删除用户',
