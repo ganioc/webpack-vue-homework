@@ -101,3 +101,13 @@ export function postCreateUser(data) {
     data
   })
 }
+
+export function postDeleteUser(name) {
+  return request({
+    url: '/api/admin/deleteuser',
+    method: 'post',
+    data: {
+      username: name
+    }
+  })
+}

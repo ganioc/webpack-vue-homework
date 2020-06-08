@@ -71,19 +71,26 @@
       :editDialogVisible="editDialogVisible"
       @editDialogVisible="updateEditDialogVisible"
     />
+    <delete-dialog
+      ref="deleteDialog"
+      :deleteDialogVisible="deleteDialogVisible"
+      @deleteDialogVisible="updateDeleteDialogVisible"
+    />
   </div>
 </template>
 
 <script>
 import CreateDialog from './components/CreateDialog'
 import EditDialog from './components/EditDialog'
+import DeleteDialog from './components/DeleteDialog'
 import { getAdminGetUsers } from '../../api/user'
 
 export default {
   name: 'DashboardAdmin',
   components: {
     CreateDialog,
-    EditDialog
+    EditDialog,
+    DeleteDialog
   },
   data() {
     return {
@@ -99,7 +106,8 @@ export default {
       numPerPage: 10,
       totalNum: 0,
       createDialogVisible: false,
-      editDialogVisible: false
+      editDialogVisible: false,
+      deleteDialogVisible: false
     }
   },
   mounted: function() {
@@ -122,6 +130,9 @@ export default {
     },
     handleDelete() {
       console.log('handleDelete')
+      if (this.currentName !== '') {
+        this.deleteDialogVisible = true
+      }
     },
     handleEdit() {
       console.log('handleEdit')
@@ -141,6 +152,10 @@ export default {
       console.log('udpateEditDialogVisible')
       this.editDialogVisible = val
     },
+    updateDeleteDialogVisible(val) {
+      console.log('updateDeleteDialogVisible')
+      this.deleteDialogVisible = val
+    },
     handleCurrentRowChange(val) {
       this.currentRow = val
       console.log('currentRow ', val)
@@ -149,6 +164,7 @@ export default {
         this.currentName = this.currentRow.name
         console.log('currentName:', this.currentName)
         this.$refs.editDialog.setUsername(this.currentName)
+        this.$refs.deleteDialog.setUsername(this.currentName)
       }
     },
     handleRefresh() {
