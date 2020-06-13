@@ -32,6 +32,7 @@
       </el-row>
       <el-row>
         <el-col :offset="6">
+          <el-button type="info" @click="input">输入</el-button>
           <el-button type="warning" @click="clear">重置</el-button>
           <el-button :loading="loading" type="primary" @click.native.prevent="send">发送</el-button>
         </el-col>
@@ -40,19 +41,46 @@
   </div>
 </template>
 <script>
+import { validText, validMobile, validNumber } from '@/utils/validate'
+
 export default {
   name: 'MultiMsg',
   data() {
     let mobilesValidate = (rule, value, callback) => {
+      let outMobiles = this.fetchMobiles(value)
+
+      console.log('mobiles:')
+      console.log(outMobiles)
+      this.mobilesArr = []
+      for (let i = 0; i < outMobiles.length; i++) {
+        if (!validMobile(outMobiles[i])) {
+          let info = '第 ' + (i + 1).toString() + ' 个号码错误'
+          callback(new Error(info))
+          return
+        } else if (this.mobilesArr.indexOf(outMobiles[i]) !== -1) {
+          let info = '第 ' + (i + 1).toString() + ' 个号码重复'
+          callback(new Error(info))
+        } else {
+          this.mobilesArr.push(outMobiles[i])
+        }
+      }
+
       callback()
     }
     let textValidate = (rule, value, callback) => {
-      callback()
+      if (value.length === 0) {
+        callback(new Error('内容非空'))
+      } else if (validText(value) > 0) {
+        callback(new Error('内容过长' + validText(value)))
+      } else {
+        callback()
+      }
     }
     return {
       maxTextLength: 170,
       maxMobiles: 100,
       loading: false,
+      mobilesArr: [],
       form: {
         mobiles: '',
         text: ''
@@ -74,6 +102,39 @@ export default {
     }
   },
   methods: {
+    fetchMobiles(value) {
+      let outMobiles = []
+      let mobile = ''
+      let state = 'NONE'
+
+      for (let i = 0; i < value.length; i++) {
+        switch (state) {
+          case 'NONE':
+            if (validNumber(value[i])) {
+              state = 'VALIDPART'
+              mobile += value[i]
+            } else {
+              mobile = ''
+            }
+            break
+          case 'VALIDPART':
+            if (validNumber(value[i])) {
+              mobile += value[i]
+            } else {
+              outMobiles.push(mobile)
+              mobile = ''
+              state = 'NONE'
+            }
+            break
+          default:
+            break
+        }
+      }
+      if (mobile.length > 0) {
+        outMobiles.push(mobile)
+      }
+      return outMobiles
+    },
     clear() {
       console.log('clear()')
       this.form.mobiles = ''
@@ -81,6 +142,14 @@ export default {
     },
     send() {
       console.log('send()')
+      console.log('to send mobiles:')
+
+      this.mobilesArr = this.fetchMobiles(this.form.mobiles)
+
+      console.log(this.mobilesArr)
+    },
+    input() {
+      console.log('input()')
     }
   }
 }
