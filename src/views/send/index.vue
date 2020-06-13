@@ -4,13 +4,6 @@
 
     <el-form ref="form" :model="form" :rules="rules" label-width="120px">
       <el-row>
-        <el-col :span="12">
-          <el-form-item label="电话号码" prop="mobile">
-            <el-input tabindex="1" type="tel" v-model="form.mobile" maxlength="11" show-word-limit />
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
         <el-col :span="18">
           <el-form-item label="发送内容" prop="text">
             <el-input
@@ -25,6 +18,14 @@
           </el-form-item>
         </el-col>
       </el-row>
+      <el-row>
+        <el-col :span="16">
+          <el-form-item label="电话号码" prop="mobile">
+            <el-input tabindex="1" type="tel" v-model="form.mobile" maxlength="11" show-word-limit />
+          </el-form-item>
+        </el-col>
+      </el-row>
+
       <el-row>
         <el-col :offset="6">
           <el-button type="warning" @click="clear">重置</el-button>

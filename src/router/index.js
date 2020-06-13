@@ -165,13 +165,13 @@ export const userRoutes = [
         path: 'sms',
         name: '单条',
         component: () => import('@/views/send/index'),
-        meta: { title: '单条', icon: 'table' }
+        meta: { title: '单条', icon: 'svg_sms_send' }
       },
       {
-        path: 'cash',
+        path: 'multisms',
         name: '多条',
-        component: () => import('@/views/cash/index'),
-        meta: { title: '多条', icon: 'money' }
+        component: () => import('@/views/sendmulti/index'),
+        meta: { title: '多条', icon: 'pli-mail-send' }
       }
     ]
     // {
