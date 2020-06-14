@@ -68,7 +68,16 @@ export function postUserSendMultiple(data) {
     data
   })
 }
-
+export function getUserSmsHistory(currentPage, numPage) {
+  return request({
+    url: '/api/user/sms/history',
+    method: 'get',
+    params: {
+      curpage: currentPage,
+      numpage: numPage
+    }
+  })
+}
 export function getAdminInfo() {
   return request({
     url: '/api/admin/info',

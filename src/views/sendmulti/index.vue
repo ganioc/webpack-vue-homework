@@ -139,7 +139,7 @@ export default {
     clear() {
       console.log('clear()')
       this.form.mobiles = ''
-      this.text = ''
+      this.form.text = ''
     },
     send() {
       console.log('send()')
