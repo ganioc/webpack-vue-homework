@@ -60,6 +60,15 @@ export function postUserSendSingle(data) {
   })
 }
 
+// post a multiple msg
+export function postUserSendMultiple(data) {
+  return request({
+    url: '/api/user/send/multi',
+    method: 'post',
+    data
+  })
+}
+
 export function getAdminInfo() {
   return request({
     url: '/api/admin/info',

@@ -42,6 +42,7 @@
 </template>
 <script>
 import { validText, validMobile, validNumber } from '@/utils/validate'
+import { postUserSendMultiple } from '@/api/user'
 
 export default {
   name: 'MultiMsg',
@@ -147,6 +148,50 @@ export default {
       this.mobilesArr = this.fetchMobiles(this.form.mobiles)
 
       console.log(this.mobilesArr)
+      const h = this.$createElement
+      if (this.mobilesArr.length > 200) {
+        this.$notify({
+          title: '数量过多',
+          message: h('i', { style: 'color: red' }, '200条'),
+          duration: 2000
+        })
+        return
+      }
+      console.log('mobiles length:', this.mobilesArr.length)
+      this.loading = true
+      postUserSendMultiple({
+        mobiles: this.mobilesArr,
+        text: this.form.text
+      }).then(
+        response => {
+          console.log('postUserSendMultiple OK')
+          console.log(response)
+          this.loading = false
+          if (response.code === 0) {
+            this.$notify({
+              title: '提交平台',
+              message: h('i', { style: 'color: green' }, '成功'),
+              duration: 2000
+            })
+          } else {
+            this.$notify({
+              title: '提交平台',
+              message: h('i', { style: 'color: red' }, '失败'),
+              duration: 2000
+            })
+          }
+        },
+        err => {
+          console.log(err)
+          console.log('postUserSendMultiple failed')
+          this.loading = false
+          this.$notify({
+            title: '提交平台',
+            message: h('i', { style: 'color: red' }, '发送失败'),
+            duration: 2000
+          })
+        }
+      )
     },
     input() {
       console.log('input()')
