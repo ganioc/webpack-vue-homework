@@ -97,13 +97,13 @@ export const adminRoutes = [
         name: '基本信息',
         component: () => import('@/views/basic/index'),
         meta: { title: '账户信息', icon: 'table' }
-      },
-      {
-        path: 'password',
-        name: '修改密码',
-        component: () => import('@/views/password/index'),
-        meta: { title: '密码', icon: 'table' }
       }
+      // {
+      //   path: 'password',
+      //   name: '修改密码',
+      //   component: () => import('@/views/password/index'),
+      //   meta: { title: '密码', icon: 'table' }
+      // }
     ]
   },
   {
@@ -116,21 +116,21 @@ export const adminRoutes = [
       {
         path: 'sms',
         name: '短信统计',
-        component: () => import('@/views/sms/index'),
+        component: () => import('@/views/summary/index'),
         meta: { title: '短信', icon: 'table' }
       },
       {
-        path: 'cash',
-        name: '现金',
-        component: () => import('@/views/cash/index'),
-        meta: { title: '现金', icon: 'money' }
-      },
-      {
-        path: 'uplink',
-        name: '短信上行',
-        component: () => import('@/views/uplink/index'),
-        meta: { title: '上行', icon: 'email' }
+        path: 'msg',
+        name: '单条短信',
+        component: () => import('@/views/summary/msgton'),
+        meta: { title: '单条', icon: 'svg_sms_send' }
       }
+      // {
+      //   path: 'uplink',
+      //   name: '短信上行',
+      //   component: () => import('@/views/uplink/index'),
+      //   meta: { title: '上行', icon: 'email' }
+      // }
       // {
       //   path: 'table',
       //   name: 'Table',

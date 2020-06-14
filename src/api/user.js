@@ -84,7 +84,16 @@ export function getAdminInfo() {
     method: 'get'
   })
 }
-
+export function getAdminSmsHistory(currentPage, numPerPage) {
+  return request({
+    url: '/api/admin/sms/history',
+    method: 'get',
+    params: {
+      curpage: currentPage,
+      numpage: numPerPage
+    }
+  })
+}
 export function getAdminGetUsers(currentPage, numPerPage) {
   return request({
     url: '/api/admin/getusers',
