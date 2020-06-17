@@ -74,7 +74,7 @@ import store from '@/store'
 import PanelGroup from './components/PanelGroup'
 import PanelGroupUser from './components/PanelGroupUser'
 // import TransactionTable from './components/TransactionTable'
-import { getUsers, getUserInfo, getAdminInfo } from '@/api/user'
+import { getUsers, getUserInfo, getAdminInfo, getMsgInfo } from '@/api/user'
 
 const lineChartData = {
   newVisitis: {
@@ -136,8 +136,9 @@ export default {
     console.log('dashboard/mounted')
     this.updateRole()
     if (this.role === 0) {
-      await this.updateNumUser()
+      // await this.updateNumUser()
       await this.updateInfo()
+      // await this.updateMsgInfo()
     } else {
       this.updateUnused()
     }
@@ -147,10 +148,24 @@ export default {
       this.role = store.getters.userrole
       console.log('updateRole()', this.role)
     },
+    updateMsgInfo() {
+      console.log('updateMsgInfo()')
+      getMsgInfo().then(
+        response => {
+          console.log(response)
+          if (response.data.msgcount) {
+            this.numMsg = response.data.msgcount
+          }
+        },
+        err => {
+          console.log('getMsgInfo failed', err)
+        }
+      )
+    },
     updateNumUser() {
       console.log('updateNumUser()')
-      // this.numUser = 2
-      this.numMsg = 12
+
+      // this.numMsg = 12
       // this.$store.dispatch('user/getUsers').then(response => {
       //   console.log(response)
       // })

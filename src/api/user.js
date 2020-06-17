@@ -78,6 +78,12 @@ export function getUserSmsHistory(currentPage, numPage) {
     }
   })
 }
+export function getMsgInfo() {
+  return request({
+    url: '/api/admin/msginfo',
+    method: 'get'
+  })
+}
 export function getAdminInfo() {
   return request({
     url: '/api/admin/info',
