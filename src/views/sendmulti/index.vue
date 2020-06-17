@@ -30,11 +30,41 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
-        <el-col :offset="6">
-          <el-button type="info" @click="input">输入</el-button>
+      <!-- <el-row>
+        <el-col :offset="12">
+          <el-button type="success" @click="input">输入 Excel</el-button>
+
           <el-button type="warning" @click="clear">重置</el-button>
           <el-button :loading="loading" type="primary" @click.native.prevent="send">发送</el-button>
+        </el-col>
+      </el-row>-->
+      <el-row>
+        <el-col :offset="3" :span="6">
+          <!-- <el-upload
+            action
+            :auto-upload="false"
+            accept=".xlsx, .csv, .txt"
+            :multiple="false"
+            :on-change="fileSelected"
+            :limit="1"
+            :show-file-list="false"
+          >-->
+          <!-- <el-button slot="trigger" type="success" @click="input">输入 Excel</el-button> -->
+          <div>
+            <label for="excel" class="btn-block">输入Excel</label>
+            <input
+              id="excel"
+              type="file"
+              style="visibility:hidden;"
+              @change="fileSelected"
+              accept=".xlsx"
+            />
+          </div>
+        </el-col>
+        <el-col :offset="12" :span="6">
+          <el-button type="warning" @click="clear">重置</el-button>
+          <el-button :loading="loading" type="primary" @click.native.prevent="send">发送</el-button>
+          <!-- </el-upload> -->
         </el-col>
       </el-row>
     </el-form>
@@ -103,6 +133,11 @@ export default {
     }
   },
   methods: {
+    fileSelected(e) {
+      console.log('fileSelected()')
+      let files = e.target.files
+      console.log(files)
+    },
     fetchMobiles(value) {
       let outMobiles = []
       let mobile = ''
@@ -199,3 +234,10 @@ export default {
   }
 }
 </script>
+<style scoped>
+.btn-block {
+  display: block;
+  color: red;
+  background-color: green;
+}
+</style>
