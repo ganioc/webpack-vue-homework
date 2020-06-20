@@ -25,7 +25,7 @@
               type="textarea"
               placeholder="最多输入100个号码,用空格' ', 逗号','或分号';'来分隔"
               v-model="form.mobiles"
-              :autosize="{minRows:6, maxRows:20}"
+              :autosize="{minRows:6, maxRows:10}"
             />
           </el-form-item>
         </el-col>
@@ -157,7 +157,6 @@ export default {
     },
     handleUpload() {
       console.log('handleUpload()')
-      //      this.$refs['excel-upload-input']
       this.$refs['excel-upload-input'].click()
       // how to clear input ?
     },
