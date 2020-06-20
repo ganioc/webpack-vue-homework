@@ -84,6 +84,7 @@
 <script>
 import { validText, validMobile, validNumber } from '@/utils/validate'
 import { postUserSendMultiple } from '@/api/user'
+import XLSX from 'xlsx'
 
 export default {
   name: 'MultiMsg',
@@ -169,6 +170,9 @@ export default {
     fileSelected(e) {
       console.log('fileSelected()')
       let files = e.target.files
+      if (files.length < 1) {
+        return
+      }
       console.log(files)
       const h = this.$createElement
       if (!this.isExcel(files[0])) {
@@ -178,11 +182,47 @@ export default {
           duration: 2000
         })
       } else {
-        this.readerData(files[0])
+        this.readData(files[0])
       }
     },
-    readerData(file) {
-      console.log('readerData()', file)
+    readData(file) {
+      console.log('readData()', file)
+      this.loadingExcel = true
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.onload = e => {
+          const data = e.target.result
+          const workbook = XLSX.read(data, { type: 'array' })
+          const firstSheetName = workbook.SheetNames[0]
+          const worksheet = workbook.Sheets[firstSheetName]
+          // const header = this.getHeaderRow(worksheet)
+          const headers = this.getHeaderRow(worksheet)
+          console.log('headers:')
+          console.log(headers)
+          // const results = XLSX.utils.sheet_to_json(worksheet)
+          // this.generateData({ header, results })
+          this.loadingExcel = false
+          resolve()
+        }
+        reader.readAsArrayBuffer(file)
+      })
+    },
+    getHeaderRow(sheet) {
+      console.log('getHeaderRow()')
+      const headers = []
+      const range = XLSX.utils.decode_range(sheet['!ref'])
+      let C
+      const R = range.s.r
+      /* start in the first row */
+      for (C = range.s.c; C <= range.e.c; ++C) {
+        /* walk every column in the range */
+        const cell = sheet[XLSX.utils.encode_cell({ c: C, r: R })]
+        /* find the cell in the first row */
+        let hdr = 'UNKNOWN ' + C // <-- replace with your desired default
+        if (cell && cell.t) hdr = XLSX.utils.format_cell(cell)
+        headers.push(hdr)
+      }
+      return headers
     },
     fetchMobiles(value) {
       let outMobiles = []
