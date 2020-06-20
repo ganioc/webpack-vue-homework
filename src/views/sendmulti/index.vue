@@ -30,15 +30,6 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <!-- <el-row>
-        <el-col :span="18">
-          <el-form-item>
-            <div>
-              <input id="excel" type="file" @change="fileSelected" accept=".xlsx" />
-            </div>
-          </el-form-item>
-        </el-col>
-      </el-row>-->
       <el-row>
         <el-col :span="18">
           <el-form-item>
