@@ -91,6 +91,11 @@ export default {
     let mobilesValidate = (rule, value, callback) => {
       let outMobiles = this.fetchMobiles(value)
 
+      if (outMobiles.length < 1) {
+        callback(new Error('不能为空'))
+        return
+      }
+
       console.log('mobiles:')
       console.log(outMobiles)
       this.mobilesArr = []
@@ -208,6 +213,7 @@ export default {
       this.mobilesArr = this.fetchMobiles(this.form.mobiles)
 
       console.log(this.mobilesArr)
+      console.log('mobiles length:', this.mobilesArr.length)
       const h = this.$createElement
       if (this.mobilesArr.length > 200) {
         this.$notify({
@@ -216,8 +222,11 @@ export default {
           duration: 2000
         })
         return
+      } else if (this.mobilesArr.length < 1) {
+        console.log('empty mobiles')
+        return
       }
-      console.log('mobiles length:', this.mobilesArr.length)
+
       this.loading = true
       postUserSendMultiple({
         mobiles: this.mobilesArr,
