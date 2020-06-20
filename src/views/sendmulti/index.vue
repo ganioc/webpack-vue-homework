@@ -156,7 +156,10 @@ export default {
       e.dataTransfer.dropEffect = 'copy'
     },
     handleUpload() {
+      console.log('handleUpload()')
+      //      this.$refs['excel-upload-input']
       this.$refs['excel-upload-input'].click()
+      // how to clear input ?
     },
     fileSelected(e) {
       console.log('fileSelected()')
@@ -177,7 +180,8 @@ export default {
           response => {
             console.log('open exls file OK')
             console.log(response)
-            this.form.mobiles = response.join(',')
+            this.form.mobiles = response.join(',  ')
+            this.$refs['excel-upload-input'].value = ''
           },
           err => {
             console.log('open exls file failed', err)
@@ -279,6 +283,7 @@ export default {
       console.log('clear()')
       this.form.mobiles = ''
       this.form.text = ''
+      this.$refs['excel-upload-input'].value = ''
     },
     send() {
       console.log('send()')
