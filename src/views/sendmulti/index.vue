@@ -30,11 +30,41 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
+      <!-- <el-row>
         <el-col :span="18">
           <el-form-item>
             <div>
               <input id="excel" type="file" @change="fileSelected" accept=".xlsx" />
+            </div>
+          </el-form-item>
+        </el-col>
+      </el-row>-->
+      <el-row>
+        <el-col :span="18">
+          <el-form-item>
+            <div>
+              <input
+                ref="excel-upload-input"
+                class="excel-upload-input"
+                type="file"
+                accept=".xlsx, .xls"
+                @change="fileSelected"
+              />
+              <div
+                class="drop"
+                @drop="handleDrop"
+                @dragover="handleDragover"
+                @dragenter="handleDragover"
+              >
+                输入Excel文件
+                <el-button
+                  :loading="loadingExcel"
+                  style="margin-left:16px;"
+                  type="success"
+                  size="mini"
+                  @click="handleUpload"
+                >输入Excel</el-button>
+              </div>
             </div>
           </el-form-item>
         </el-col>
@@ -92,6 +122,7 @@ export default {
       maxTextLength: 170,
       maxMobiles: 100,
       loading: false,
+      loadingExcel: false,
       mobilesArr: [],
       form: {
         mobiles: '',
@@ -114,6 +145,19 @@ export default {
     }
   },
   methods: {
+    handleDrop(e) {
+      console.log('handleDrop()')
+      e.stopPropagation()
+      e.preventDefault()
+    },
+    handleDragover(e) {
+      e.stopPropagation()
+      e.preventDefault()
+      e.dataTransfer.dropEffect = 'copy'
+    },
+    handleUpload() {
+      this.$refs['excel-upload-input'].click()
+    },
     fileSelected(e) {
       console.log('fileSelected()')
       let files = e.target.files
@@ -220,5 +264,21 @@ export default {
   display: block;
   color: red;
   background-color: green;
+}
+.excel-upload-input {
+  display: none;
+  z-index: -9999;
+}
+.drop {
+  border: 2px dashed #bbb;
+  /* width: 600px; */
+  height: 60px;
+  line-height: 60px;
+  margin: 0 auto;
+  font-size: 20px;
+  border-radius: 5px;
+  text-align: center;
+  color: #bbb;
+  position: relative;
 }
 </style>
