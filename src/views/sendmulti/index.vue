@@ -150,6 +150,9 @@ export default {
     }
   },
   methods: {
+    isExcel(file) {
+      return /\.(xlsx|xls|csv)$/.test(file.name)
+    },
     handleDrop(e) {
       console.log('handleDrop()')
       e.stopPropagation()
@@ -167,6 +170,19 @@ export default {
       console.log('fileSelected()')
       let files = e.target.files
       console.log(files)
+      const h = this.$createElement
+      if (!this.isExcel(files[0])) {
+        this.$notify({
+          title: '非Excel文件',
+          message: h('i', { style: 'color: red' }, '文件类型'),
+          duration: 2000
+        })
+      } else {
+        this.readerData(files[0])
+      }
+    },
+    readerData(file) {
+      console.log('readerData()', file)
     },
     fetchMobiles(value) {
       let outMobiles = []
