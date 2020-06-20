@@ -182,7 +182,16 @@ export default {
           duration: 2000
         })
       } else {
-        this.readData(files[0])
+        this.readData(files[0]).then(
+          response => {
+            console.log('open exls file OK')
+            console.log(response)
+            this.form.mobiles = response.join(',')
+          },
+          err => {
+            console.log('open exls file failed', err)
+          }
+        )
       }
     },
     readData(file) {
@@ -197,12 +206,25 @@ export default {
           const worksheet = workbook.Sheets[firstSheetName]
           // const header = this.getHeaderRow(worksheet)
           const headers = this.getHeaderRow(worksheet)
-          console.log('headers:')
-          console.log(headers)
+          console.log('headers[0]:')
+          const header = headers[0]
+          console.log(header)
           // const results = XLSX.utils.sheet_to_json(worksheet)
+          const results = XLSX.utils.sheet_to_json(worksheet)
+          console.log('results:')
+          console.log(results)
+          let mobiles = []
+          if (validMobile(header)) {
+            mobiles.push(header)
+          }
+          results.forEach(item => {
+            mobiles.push(item[header].toString())
+          })
+          console.log('mobiles:')
+          console.log(mobiles)
           // this.generateData({ header, results })
           this.loadingExcel = false
-          resolve()
+          resolve(mobiles)
         }
         reader.readAsArrayBuffer(file)
       })
@@ -255,6 +277,11 @@ export default {
       if (mobile.length > 0) {
         outMobiles.push(mobile)
       }
+      // remove redundant mobile phone number
+      outMobiles = outMobiles.filter(function(element, index, self) {
+        return self.indexOf(element) === index
+      })
+
       return outMobiles
     },
     clear() {
@@ -280,6 +307,10 @@ export default {
         return
       } else if (this.mobilesArr.length < 1) {
         console.log('empty mobiles')
+        return
+      }
+      if (!this.form.text) {
+        console.log('empty text')
         return
       }
 
