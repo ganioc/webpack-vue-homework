@@ -120,6 +120,16 @@ export function getAdminGetUsers(currentPage, numPerPage) {
     }
   })
 }
+export function getAdminGetActions(currentPage, numPerPage) {
+  return request({
+    url: '/api/admin/getactions',
+    method: 'get',
+    params: {
+      curpage: currentPage,
+      numpage: numPerPage
+    }
+  })
+}
 export function getAdminGetUser(name) {
   return request({
     url: '/api/admin/getuser',
