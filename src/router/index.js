@@ -97,13 +97,13 @@ export const adminRoutes = [
         name: '基本信息',
         component: () => import('@/views/basic/index'),
         meta: { title: '账户信息', icon: 'table' }
+      },
+      {
+        path: 'action',
+        name: '操作记录',
+        component: () => import('@/views/action/index'),
+        meta: { title: '操作记录', icon: 'operation-record' }
       }
-      // {
-      //   path: 'password',
-      //   name: '修改密码',
-      //   component: () => import('@/views/password/index'),
-      //   meta: { title: '密码', icon: 'table' }
-      // }
     ]
   },
   {
