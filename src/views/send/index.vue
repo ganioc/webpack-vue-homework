@@ -4,7 +4,7 @@
 
     <el-form ref="form" :model="form" :rules="rules" label-width="120px">
       <el-row>
-        <el-col :span="18">
+        <el-col :span="16">
           <el-form-item label="发送内容" prop="text">
             <el-input
               tabindex="2"
@@ -27,9 +27,11 @@
       </el-row>
 
       <el-row>
-        <el-col :offset="6">
-          <el-button type="warning" @click="clear">重置</el-button>
-          <el-button :loading="loading" type="primary" @click.native.prevent="send">发送</el-button>
+        <el-col :span="16">
+          <el-form-item>
+            <el-button type="warning" @click="clear">重置</el-button>
+            <el-button :loading="loading" type="primary" @click.native.prevent="send">发送</el-button>
+          </el-form-item>
         </el-col>
       </el-row>
     </el-form>
