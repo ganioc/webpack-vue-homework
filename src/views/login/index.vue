@@ -9,7 +9,7 @@
       label-position="left"
     >
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <h3 class="title">用户登录</h3>
       </div>
 
       <el-form-item prop="username">
@@ -80,6 +80,14 @@
         <span>password: any</span>
       </div>-->
     </el-form>
+
+    <div class="footer">
+      <p>主办单位：本来生活（深圳）商贸有限公司</p>
+      <p>
+        备案号：
+        <a href="http://www.beian.miit.gov.cn/">粤ICP备20039060号</a>
+      </p>
+    </div>
   </div>
 </template>
 
@@ -252,79 +260,90 @@ $cursor: #fff;
 
 <style lang="scss" scoped>
 $bg: #2d3a4b;
+// $bg: white;
 $dark_gray: #889aa4;
 $light_gray: #eee;
 #app {
-}
-
-.login-container {
-  min-height: 100%;
-  width: 100%;
-  background-color: $bg;
-  //background-color: white;
-  overflow: hidden;
-
-  .login-form {
-    position: relative;
-    width: 520px;
-    max-width: 100%;
-    padding: 160px 35px 0;
-    margin: 0 auto;
+  background: url();
+  .login-container {
+    min-height: 100%;
+    width: 100%;
+    background-color: $bg;
+    //background-color: white;
     overflow: hidden;
-  }
 
-  .tips {
-    font-size: 14px;
-    color: #fff;
-    margin-bottom: 10px;
+    .login-form {
+      position: relative;
+      width: 520px;
+      max-width: 100%;
+      padding: 150px 35px 0;
+      margin: 0 auto;
+      overflow: hidden;
+      background: $bg;
+    }
 
-    span {
-      &:first-of-type {
-        margin-right: 16px;
+    .tips {
+      font-size: 14px;
+      color: #fff;
+      margin-bottom: 10px;
+
+      span {
+        &:first-of-type {
+          margin-right: 16px;
+        }
       }
     }
-  }
 
-  .svg-container {
-    padding: 6px 5px 6px 15px;
-    color: $dark_gray;
-    vertical-align: middle;
-    width: 30px;
-    display: inline-block;
-  }
+    .svg-container {
+      padding: 6px 5px 6px 15px;
+      color: $dark_gray;
+      vertical-align: middle;
+      width: 30px;
+      display: inline-block;
+    }
 
-  .title-container {
-    position: relative;
+    .title-container {
+      position: relative;
 
-    .title {
-      font-size: 26px;
-      color: $light_gray;
-      margin: 0px auto 40px auto;
-      text-align: center;
-      font-weight: bold;
+      .title {
+        font-size: 26px;
+        color: $light_gray;
+        margin: 0px auto 40px auto;
+        text-align: center;
+        font-weight: bold;
+      }
+    }
+
+    .show-pwd {
+      position: absolute;
+      right: 10px;
+      top: 7px;
+      font-size: 16px;
+      color: $dark_gray;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .captcha-container {
+      // height: 50px;
+      // border-radius: 4px;
+      display: block;
+      height: 50px;
+      background-color: wheat;
+    }
+    .captcha-refresh {
+      display: block;
+      height: 52px;
     }
   }
 
-  .show-pwd {
-    position: absolute;
-    right: 10px;
-    top: 7px;
-    font-size: 16px;
-    color: $dark_gray;
-    cursor: pointer;
-    user-select: none;
-  }
-
-  .captcha-container {
-    // height: 50px;
-    // border-radius: 4px;
-    display: block;
-    height: 50px;
-    background-color: wheat;
-  }
-  .captcha-refresh {
-    display: block;
-    height: 52px;
+  .footer {
+    padding-top: 40px;
+    color: #889aa4;
+    text-align: center;
+    a {
+      color: #eee;
+    }
   }
 }
 </style>
