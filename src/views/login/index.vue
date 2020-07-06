@@ -5,89 +5,99 @@
         <h1>SMS Platform</h1>
       </div>
     </nav>
-    <div class="logo-img">
-      <img src="@/assets/eleps.png" />
-    </div>
-    <el-form
-      ref="loginForm"
-      :model="loginForm"
-      :rules="loginRules"
-      class="login-form"
-      auto-complete="on"
-      label-position="left"
-    >
-      <div class="title-container">
-        <h3 class="title">用户登录</h3>
-      </div>
 
-      <el-form-item prop="username">
-        <span class="svg-container">
-          <svg-icon icon-class="user" />
-        </span>
-        <el-input
-          ref="username"
-          v-model="loginForm.username"
-          placeholder="Username"
-          name="username"
-          type="text"
-          tabindex="1"
+    <el-row :gutter="20">
+      <el-col :xs="20" :sm="10" :md="10" :lg="10" :xl="8">
+        <div class="logo-img">
+          <img src="@/assets/eleps.png" />
+        </div>
+      </el-col>
+      <el-col :xs="20" :sm="10" :md="11" :lg="10" :xl="8">
+        <el-form
+          ref="loginForm"
+          :model="loginForm"
+          :rules="loginRules"
+          class="login-form"
           auto-complete="on"
-        />
-      </el-form-item>
-
-      <el-form-item prop="password">
-        <span class="svg-container">
-          <svg-icon icon-class="password" />
-        </span>
-        <el-input
-          :key="passwordType"
-          ref="password"
-          v-model="loginForm.password"
-          :type="passwordType"
-          placeholder="Password"
-          name="password"
-          tabindex="2"
-          auto-complete="on"
-        />
-        <span class="show-pwd" @click="showPwd">
-          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
-        </span>
-      </el-form-item>
-      <el-form-item prop="password">
-        <span class="svg-container">
-          <svg-icon icon-class="captcha" />
-        </span>
-        <el-input
-          placeholder="验证码"
-          v-model="loginForm.captcha"
-          name="captcha"
-          tabindex="3"
-          @keyup.enter.native="handleLogin"
-        ></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-col :span="11">
-          <div class="captcha-container" v-html="svg_captcha"></div>
-        </el-col>
-        <el-col :span="11">
-          <div class="captcha-refresh">
-            <el-button type="text" style="margin-top:5px;" @click.native.prevent="getCaptcha">刷新</el-button>
+          label-position="left"
+        >
+          <div class="title-container">
+            <h3 class="title">用户登录</h3>
           </div>
-        </el-col>
-      </el-form-item>
 
-      <el-button
-        :loading="loading"
-        type="primary"
-        style="width:100%;margin-bottom:30px;"
-        @click.native.prevent="handleLogin"
-      >登录</el-button>
-    </el-form>
+          <el-form-item prop="username">
+            <span class="svg-container">
+              <svg-icon icon-class="user" />
+            </span>
+            <el-input
+              ref="username"
+              v-model="loginForm.username"
+              placeholder="Username"
+              name="username"
+              type="text"
+              tabindex="1"
+              auto-complete="on"
+            />
+          </el-form-item>
+
+          <el-form-item prop="password">
+            <span class="svg-container">
+              <svg-icon icon-class="password" />
+            </span>
+            <el-input
+              :key="passwordType"
+              ref="password"
+              v-model="loginForm.password"
+              :type="passwordType"
+              placeholder="Password"
+              name="password"
+              tabindex="2"
+              auto-complete="on"
+            />
+            <span class="show-pwd" @click="showPwd">
+              <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
+            </span>
+          </el-form-item>
+          <el-form-item prop="password">
+            <span class="svg-container">
+              <svg-icon icon-class="captcha" />
+            </span>
+            <el-input
+              placeholder="验证码"
+              v-model="loginForm.captcha"
+              name="captcha"
+              tabindex="3"
+              @keyup.enter.native="handleLogin"
+            ></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-col :span="11">
+              <div class="captcha-container" v-html="svg_captcha"></div>
+            </el-col>
+            <el-col :span="11">
+              <div class="captcha-refresh">
+                <el-button type="text" style="margin-top:5px;" @click.native.prevent="getCaptcha">刷新</el-button>
+              </div>
+            </el-col>
+          </el-form-item>
+
+          <el-button
+            :loading="loading"
+            type="primary"
+            style="width:100%;margin-bottom:30px;"
+            @click.native.prevent="handleLogin"
+          >登录</el-button>
+        </el-form>
+      </el-col>
+    </el-row>
 
     <footer class="footer">
       <div class="container">
         <p>
           主办单位：本来生活（深圳）商贸有限公司
+          <i>(2020)</i>
+        </p>
+        <p>
           备案号：
           <a href="http://www.beian.miit.gov.cn/">粤ICP备20039060号</a>
         </p>
@@ -358,17 +368,20 @@ $newbg: white;
         text-align: left;
         vertical-align: middle;
         font-size: small;
-        border-bottom: 1px solid $dark_gray;
+        // border-bottom: 1px solid $dark_gray;
         padding-left: 20px;
         h1 {
           margin: 0px;
-          font-size: 32px;
+          font-size: 24px;
           color: #889aa4;
         }
         p {
           margin: 0px;
         }
       }
+    }
+    .logo-img {
+      margin-top: 100px;
     }
     .footer {
       position: relative;
@@ -377,12 +390,12 @@ $newbg: white;
       height: 200px;
       background-color: $bg;
       .container {
-        padding-top: 10px;
+        padding-top: 120px;
 
         text-align: center;
         font-size: small;
         p {
-          color: #fff;
+          color: $dark_gray;
         }
         a {
           color: #eee;
