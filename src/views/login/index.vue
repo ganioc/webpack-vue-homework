@@ -1,5 +1,13 @@
 <template>
   <div class="login-container">
+    <nav>
+      <div class="nav-container">
+        <h1>SMS Platform</h1>
+      </div>
+    </nav>
+    <div class="logo-img">
+      <img src="@/assets/eleps.png" />
+    </div>
     <el-form
       ref="loginForm"
       :model="loginForm"
@@ -74,20 +82,17 @@
         style="width:100%;margin-bottom:30px;"
         @click.native.prevent="handleLogin"
       >登录</el-button>
-
-      <!-- <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        <span>password: any</span>
-      </div>-->
     </el-form>
 
-    <div class="footer">
-      <p>主办单位：本来生活（深圳）商贸有限公司</p>
-      <p>
-        备案号：
-        <a href="http://www.beian.miit.gov.cn/">粤ICP备20039060号</a>
-      </p>
-    </div>
+    <footer class="footer">
+      <div class="container">
+        <p>
+          主办单位：本来生活（深圳）商贸有限公司
+          备案号：
+          <a href="http://www.beian.miit.gov.cn/">粤ICP备20039060号</a>
+        </p>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -263,21 +268,24 @@ $bg: #2d3a4b;
 // $bg: white;
 $dark_gray: #889aa4;
 $light_gray: #eee;
+$newbg: white;
+
 #app {
-  background: url();
   .login-container {
-    min-height: 100%;
+    // background: url('./assets/1.png');
+    // min-height: 100%;
     width: 100%;
     background-color: $bg;
     //background-color: white;
     overflow: hidden;
 
     .login-form {
+      display: block;
       position: relative;
-      width: 520px;
-      max-width: 100%;
-      padding: 150px 35px 0;
-      margin: 0 auto;
+      width: 400px;
+      // max-width: 100%;
+      padding: 10px 35px 0;
+      margin: 20px auto 20px 20px;
       overflow: hidden;
       background: $bg;
     }
@@ -335,14 +343,51 @@ $light_gray: #eee;
       display: block;
       height: 52px;
     }
-  }
+    .logo-img {
+      display: block;
+    }
+    nav {
+      .nav-container {
+        margin: 0px 0px 0px 0px;
+        position: relative;
+        width: 100%;
+        height: 80px;
+        line-height: 80px;
+        background-color: $bg;
+        color: black;
+        text-align: left;
+        vertical-align: middle;
+        font-size: small;
+        border-bottom: 1px solid $dark_gray;
+        padding-left: 20px;
+        h1 {
+          margin: 0px;
+          font-size: 32px;
+          color: #889aa4;
+        }
+        p {
+          margin: 0px;
+        }
+      }
+    }
+    .footer {
+      position: relative;
+      bottom: 0px;
+      width: 100%;
+      height: 200px;
+      background-color: $bg;
+      .container {
+        padding-top: 10px;
 
-  .footer {
-    padding-top: 40px;
-    color: #889aa4;
-    text-align: center;
-    a {
-      color: #eee;
+        text-align: center;
+        font-size: small;
+        p {
+          color: #fff;
+        }
+        a {
+          color: #eee;
+        }
+      }
     }
   }
 }
