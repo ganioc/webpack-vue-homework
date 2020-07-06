@@ -12,7 +12,7 @@
           <img src="@/assets/house.png" />
         </div>
       </el-col>
-      <el-col :xs="20" :sm="10" :md="11" :lg="10" :xl="8">
+      <el-col :offset="1" :xs="20" :sm="10" :md="11" :lg="10" :xl="8">
         <el-form
           ref="loginForm"
           :model="loginForm"
@@ -292,7 +292,7 @@ $newbg: white;
     .login-form {
       display: block;
       position: relative;
-      width: 400px;
+      width: 80%;
       // max-width: 100%;
       padding: 10px 35px 0;
       margin: 20px auto 20px 20px;
