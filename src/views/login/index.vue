@@ -107,17 +107,26 @@
     <footer class="footer">
       <div class="container">
         <el-row>
-          <el-col el-col-12>
-            <p>
-              主办单位：本来生活（深圳）商贸有限公司
-              <i>(2020)</i>
-            </p>
+          <el-col :span="8">
+            <div class="footer-text">
+              <p></p>
+            </div>
           </el-col>
-          <el-col el-col-11>
-            <p>
-              备案号：
-              <a href="http://www.beian.miit.gov.cn/">粤ICP备20039060号</a>
-            </p>
+          <el-col :span="8">
+            <div class="footer-text">
+              <p>
+                主办单位：本来生活（深圳）商贸有限公司
+                <i>(2020)</i>
+              </p>
+            </div>
+          </el-col>
+          <el-col :span="8">
+            <div class="footer-text">
+              <p>
+                备案号：
+                <a href="http://www.beian.miit.gov.cn/">粤ICP备20039060号</a>
+              </p>
+            </div>
           </el-col>
         </el-row>
       </div>
@@ -422,19 +431,21 @@ $newbg: white;
       position: relative;
       bottom: 0px;
       width: 100%;
-      height: 200px;
+      height: 250px;
+      padding-top: 100px;
       // background-color: $bg;
       .container {
-        padding-top: 120px;
-        padding-bottom: 30px;
+        .footer-text {
+          padding: 30px;
 
-        text-align: center;
-        font-size: small;
-        p {
-          color: #2d3a4b;
-        }
-        a {
-          color: #eee;
+          text-align: left;
+          font-size: small;
+          p {
+            color: #2d3a4b;
+          }
+          a {
+            color: #eee;
+          }
         }
       }
     }
