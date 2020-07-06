@@ -1,106 +1,125 @@
 <template>
   <div class="login-container">
     <nav>
+      <div class="top-bar"></div>
       <div class="nav-container">
-        <h1>SMS Platform</h1>
+        <el-row>
+          <el-col el-col-6>
+            <span>
+              SMS Platform
+              <i>短信平台</i> 2020
+            </span>
+          </el-col>
+          <el-col el-col-18></el-col>
+        </el-row>
       </div>
     </nav>
-
-    <el-row>
-      <el-col :offset="1" :xs="20" :sm="10" :md="10" :lg="10" :xl="8">
-        <div class="logo-img">
-          <img src="@/assets/house.png" />
-        </div>
-      </el-col>
-      <el-col :offset="1" :xs="20" :sm="10" :md="11" :lg="10" :xl="8">
-        <el-form
-          ref="loginForm"
-          :model="loginForm"
-          :rules="loginRules"
-          class="login-form"
-          auto-complete="on"
-          label-position="left"
-        >
-          <div class="title-container">
-            <h3 class="title">用户登录</h3>
+    <div class="body-container">
+      <el-row>
+        <el-col :offset="2" :span="9">
+          <div class="logo-img" :style="{backgroundImage:`url(${img1}`}">
+            <!-- <img src="@/assets/house.png" /> -->
           </div>
+        </el-col>
+        <el-col :offset="1" :span="10">
+          <el-form
+            ref="loginForm"
+            :model="loginForm"
+            :rules="loginRules"
+            class="login-form"
+            auto-complete="on"
+            label-position="left"
+          >
+            <div class="title-container">
+              <h3 class="title">用户登录</h3>
+            </div>
 
-          <el-form-item prop="username">
-            <span class="svg-container">
-              <svg-icon icon-class="user" />
-            </span>
-            <el-input
-              ref="username"
-              v-model="loginForm.username"
-              placeholder="Username"
-              name="username"
-              type="text"
-              tabindex="1"
-              auto-complete="on"
-            />
-          </el-form-item>
+            <el-form-item prop="username">
+              <span class="svg-container">
+                <svg-icon icon-class="user" />
+              </span>
+              <el-input
+                ref="username"
+                v-model="loginForm.username"
+                placeholder="Username"
+                name="username"
+                type="text"
+                tabindex="1"
+                auto-complete="on"
+              />
+            </el-form-item>
 
-          <el-form-item prop="password">
-            <span class="svg-container">
-              <svg-icon icon-class="password" />
-            </span>
-            <el-input
-              :key="passwordType"
-              ref="password"
-              v-model="loginForm.password"
-              :type="passwordType"
-              placeholder="Password"
-              name="password"
-              tabindex="2"
-              auto-complete="on"
-            />
-            <span class="show-pwd" @click="showPwd">
-              <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
-            </span>
-          </el-form-item>
-          <el-form-item prop="password">
-            <span class="svg-container">
-              <svg-icon icon-class="captcha" />
-            </span>
-            <el-input
-              placeholder="验证码"
-              v-model="loginForm.captcha"
-              name="captcha"
-              tabindex="3"
-              @keyup.enter.native="handleLogin"
-            ></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-col :span="11">
-              <div class="captcha-container" v-html="svg_captcha"></div>
-            </el-col>
-            <el-col :span="11">
-              <div class="captcha-refresh">
-                <el-button type="text" style="margin-top:5px;" @click.native.prevent="getCaptcha">刷新</el-button>
-              </div>
-            </el-col>
-          </el-form-item>
+            <el-form-item prop="password">
+              <span class="svg-container">
+                <svg-icon icon-class="password" />
+              </span>
+              <el-input
+                :key="passwordType"
+                ref="password"
+                v-model="loginForm.password"
+                :type="passwordType"
+                placeholder="Password"
+                name="password"
+                tabindex="2"
+                auto-complete="on"
+              />
+              <span class="show-pwd" @click="showPwd">
+                <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
+              </span>
+            </el-form-item>
+            <el-form-item prop="password">
+              <span class="svg-container">
+                <svg-icon icon-class="captcha" />
+              </span>
+              <el-input
+                placeholder="验证码"
+                v-model="loginForm.captcha"
+                name="captcha"
+                tabindex="3"
+                @keyup.enter.native="handleLogin"
+              ></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-col :span="11">
+                <div class="captcha-container" v-html="svg_captcha"></div>
+              </el-col>
+              <el-col :span="11">
+                <div class="captcha-refresh">
+                  <el-button
+                    type="text"
+                    style="margin-top:5px;"
+                    @click.native.prevent="getCaptcha"
+                  >刷新</el-button>
+                </div>
+              </el-col>
+            </el-form-item>
 
-          <el-button
-            :loading="loading"
-            type="primary"
-            style="width:100%;margin-bottom:30px;"
-            @click.native.prevent="handleLogin"
-          >登录</el-button>
-        </el-form>
-      </el-col>
-    </el-row>
-
+            <el-button
+              :loading="loading"
+              type="primary"
+              style="width:100%;margin-bottom:30px;"
+              @click.native.prevent="handleLogin"
+            >登录</el-button>
+          </el-form>
+        </el-col>
+      </el-row>
+    </div>
     <footer class="footer">
       <div class="container">
-        <p>
-          主办单位：本来生活（深圳）商贸有限公司
-          <i>(2020)</i>
-        </p>
-        <p>
-          备案号：
-          <a href="http://www.beian.miit.gov.cn/">粤ICP备20039060号</a>
-        </p>
+        <el-row>
+          <el-col el-col-12>
+            <p>
+              主办单位：本来生活（深圳）商贸有限公司
+              <i>(2020)</i>
+            </p>
+          </el-col>
+          <el-col el-col-11>
+            <p>
+              备案号：
+              <a href="http://www.beian.miit.gov.cn/">粤ICP备20039060号</a>
+            </p>
+          </el-col>
+        </el-row>
       </div>
     </footer>
   </div>
@@ -146,7 +165,8 @@ export default {
       passwordType: 'password',
       redirect: undefined,
       svg_captcha: defaultCaptcha,
-      captchaLoading: false
+      captchaLoading: false,
+      img1: require('@/assets/house.png')
     }
   },
   created: function() {
@@ -285,95 +305,33 @@ $newbg: white;
     // background: url('./assets/1.png');
     // min-height: 100%;
     width: 100%;
-    background-color: $bg;
+    // background-color: $bg;
+    background-image: linear-gradient(145deg, #21ccb4, #3b63f5);
     //background-color: white;
     overflow: hidden;
 
-    .login-form {
-      display: block;
-      position: relative;
-      width: 80%;
-      // max-width: 100%;
-      padding: 10px 35px 0;
-      margin: 20px auto 20px 20px;
-      overflow: hidden;
-      background: $bg;
-    }
-
-    .tips {
-      font-size: 14px;
-      color: #fff;
-      margin-bottom: 10px;
-
-      span {
-        &:first-of-type {
-          margin-right: 16px;
-        }
-      }
-    }
-
-    .svg-container {
-      padding: 6px 5px 6px 15px;
-      color: $dark_gray;
-      vertical-align: middle;
-      width: 30px;
-      display: inline-block;
-    }
-
-    .title-container {
-      position: relative;
-
-      .title {
-        font-size: 26px;
-        color: $light_gray;
-        margin: 0px auto 40px auto;
-        text-align: center;
-        font-weight: bold;
-      }
-    }
-
-    .show-pwd {
-      position: absolute;
-      right: 10px;
-      top: 7px;
-      font-size: 16px;
-      color: $dark_gray;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .captcha-container {
-      // height: 50px;
-      // border-radius: 4px;
-      display: block;
-      height: 50px;
-      background-color: wheat;
-    }
-    .captcha-refresh {
-      display: block;
-      height: 52px;
-    }
-    .logo-img {
-      display: block;
-      width: 400px;
-    }
     nav {
+      .top-bar {
+        height: 20px;
+        width: 100%;
+        font-size: 15px;
+      }
       .nav-container {
         margin: 0px 0px 0px 0px;
         position: relative;
         width: 100%;
         height: 80px;
         line-height: 80px;
-        background-color: $bg;
+        // background-color: $bg;
         color: black;
         text-align: left;
         vertical-align: middle;
         font-size: small;
         // border-bottom: 1px solid $dark_gray;
         padding-left: 20px;
-        h1 {
+        span {
           margin: 0px;
-          font-size: 24px;
+          font-size: 20px;
           color: #889aa4;
         }
         p {
@@ -381,22 +339,99 @@ $newbg: white;
         }
       }
     }
-    .logo-img {
-      margin-top: 100px;
+    .body-container {
+      .logo-img {
+        display: block;
+        margin-top: 20px;
+        background: black;
+        // height: 300px;
+        width: 100%;
+        height: 444px;
+        // img: {
+        //   width: 80%;
+        //   align-self: end;
+        // }
+      }
+      .login-form {
+        display: block;
+        position: relative;
+        width: 90%;
+        // max-width: 100%;
+        padding: 10px 35px 0;
+        margin: 20px auto 20px 20px;
+        overflow: hidden;
+        background: $bg;
+      }
+
+      .tips {
+        font-size: 14px;
+        color: #fff;
+        margin-bottom: 10px;
+
+        span {
+          &:first-of-type {
+            margin-right: 16px;
+          }
+        }
+      }
+
+      .svg-container {
+        padding: 6px 5px 6px 15px;
+        color: $dark_gray;
+        vertical-align: middle;
+        width: 30px;
+        display: inline-block;
+      }
+
+      .title-container {
+        position: relative;
+
+        .title {
+          font-size: 18px;
+          color: $light_gray;
+          margin: 0px auto 40px auto;
+          text-align: center;
+          font-weight: bold;
+        }
+      }
+
+      .show-pwd {
+        position: absolute;
+        right: 10px;
+        top: 7px;
+        font-size: 16px;
+        color: $dark_gray;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .captcha-container {
+        // height: 50px;
+        // border-radius: 4px;
+        display: block;
+        height: 50px;
+        background-color: wheat;
+      }
+      .captcha-refresh {
+        display: block;
+        height: 52px;
+      }
     }
+
     .footer {
       position: relative;
       bottom: 0px;
       width: 100%;
       height: 200px;
-      background-color: $bg;
+      // background-color: $bg;
       .container {
         padding-top: 120px;
+        padding-bottom: 30px;
 
         text-align: center;
         font-size: small;
         p {
-          color: $dark_gray;
+          color: #2d3a4b;
         }
         a {
           color: #eee;
