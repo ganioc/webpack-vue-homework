@@ -6,10 +6,10 @@
       </div>
     </nav>
 
-    <el-row :gutter="20">
-      <el-col :xs="20" :sm="10" :md="10" :lg="10" :xl="8">
+    <el-row>
+      <el-col :offset="1" :xs="20" :sm="10" :md="10" :lg="10" :xl="8">
         <div class="logo-img">
-          <img src="@/assets/eleps.png" />
+          <img src="@/assets/house.png" />
         </div>
       </el-col>
       <el-col :xs="20" :sm="10" :md="11" :lg="10" :xl="8">
@@ -355,6 +355,7 @@ $newbg: white;
     }
     .logo-img {
       display: block;
+      width: 400px;
     }
     nav {
       .nav-container {
