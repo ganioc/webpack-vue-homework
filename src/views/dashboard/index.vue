@@ -136,9 +136,9 @@ export default {
     console.log('dashboard/mounted')
     this.updateRole()
     if (this.role === 0) {
-      // await this.updateNumUser()
+      await this.updateNumUser()
       await this.updateInfo()
-      // await this.updateMsgInfo()
+      await this.updateMsgInfo()
     } else {
       this.updateUnused()
     }
