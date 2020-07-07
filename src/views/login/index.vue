@@ -15,13 +15,13 @@
       </div>
     </nav>
     <div class="body-container">
-      <el-row>
-        <el-col :offset="2" :span="9">
-          <div class="logo-img" :style="{backgroundImage:`url(${img1}`}">
+      <el-row :gutter="0">
+        <el-col :offset="2" :span="10">
+          <div class="logo-img" :style="styles">
             <!-- <img src="@/assets/house.png" /> -->
           </div>
         </el-col>
-        <el-col :offset="1" :span="10">
+        <el-col :span="10">
           <el-form
             ref="loginForm"
             :model="loginForm"
@@ -175,7 +175,7 @@ export default {
       redirect: undefined,
       svg_captcha: defaultCaptcha,
       captchaLoading: false,
-      img1: require('@/assets/house.png')
+      img1: require('@/assets/house-444.jpg')
     }
   },
   created: function() {
@@ -184,6 +184,15 @@ export default {
   mounted: function() {
     console.log('login/ mounted')
     this.getCaptcha()
+  },
+  computed: {
+    styles() {
+      return {
+        'background-image': `url(${this.img1})`,
+        'background-repeat': 'no-repeat',
+        'background-size': 'cover'
+      }
+    }
   },
   watch: {
     $route: {
@@ -353,13 +362,8 @@ $newbg: white;
         display: block;
         margin-top: 20px;
         background: black;
-        // height: 300px;
         width: 100%;
         height: 444px;
-        // img: {
-        //   width: 80%;
-        //   align-self: end;
-        // }
       }
       .login-form {
         display: block;
@@ -367,7 +371,7 @@ $newbg: white;
         width: 90%;
         // max-width: 100%;
         padding: 10px 35px 0;
-        margin: 20px auto 20px 20px;
+        margin: 20px auto 20px 0px;
         overflow: hidden;
         background: $bg;
       }
