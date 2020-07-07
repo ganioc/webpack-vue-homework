@@ -7,7 +7,7 @@
           <el-col el-col-6>
             <span>
               SMS Platform
-              <i>短信平台</i> 2020
+              <i>短信平台</i>
             </span>
           </el-col>
           <el-col el-col-18></el-col>
@@ -350,7 +350,7 @@ $newbg: white;
         span {
           margin: 0px;
           font-size: 20px;
-          color: #889aa4;
+          color: #283443;
         }
         p {
           margin: 0px;
