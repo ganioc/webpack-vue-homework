@@ -67,12 +67,12 @@ export default {
             for (let i = 0; i < response.data.data.length; i++) {
               let msg = response.data.data[i]
               let total = msg.mobiles.length
-              let mobileSamples = msg.mobiles.slice(0, 10)
+              let mobileSamples = msg.mobiles.slice(0, 12)
 
               out.push({
                 date: new Date(msg.date).toLocaleString(),
                 type: msg.type === 1 ? '单号码' : '多号码',
-                mobiles: mobileSamples.join(',') + ' ...  ' + total + '条',
+                mobiles: mobileSamples.join(',') + ' ......  ' + total + '条',
                 content: msg.content
               })
             }

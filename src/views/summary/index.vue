@@ -67,11 +67,14 @@ export default {
             let out = []
             for (let i = 0; i < response.data.data.length; i++) {
               let msg = response.data.data[i]
+              let total = msg.mobiles.length
+              let mobileSamples = msg.mobiles.slice(0, 10)
+
               out.push({
                 date: new Date(msg.date).toLocaleString(),
                 username: msg.username,
                 type: msg.type === 1 ? '单号码' : '多号码',
-                mobiles: msg.mobiles.join(','),
+                mobiles: mobileSamples.join(',') + ' ......  ' + total + '条',
                 content: msg.content
               })
             }

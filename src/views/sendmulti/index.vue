@@ -47,7 +47,7 @@
                 @dragover="handleDragover"
                 @dragenter="handleDragover"
               >
-                输入Excel文件
+                输入Excel文件, 上限1000个号码
                 <el-button
                   :loading="loadingExcel"
                   style="margin-left:16px;"
