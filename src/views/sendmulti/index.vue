@@ -293,10 +293,10 @@ export default {
       console.log(this.mobilesArr)
       console.log('mobiles length:', this.mobilesArr.length)
       const h = this.$createElement
-      if (this.mobilesArr.length > 200) {
+      if (this.mobilesArr.length > 1000) {
         this.$notify({
           title: '数量过多',
-          message: h('i', { style: 'color: red' }, '200条'),
+          message: h('i', { style: 'color: red' }, '1000条'),
           duration: 2000
         })
         return
