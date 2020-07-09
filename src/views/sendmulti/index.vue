@@ -32,6 +32,13 @@
       </el-row>
       <el-row>
         <el-col :span="18">
+          <el-form-item label="总数">
+            <span>{{ mobileNum }}</span>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="18">
           <el-form-item>
             <div>
               <input
@@ -105,6 +112,8 @@ export default {
         }
       }
 
+      this.mobileNum = this.mobilesArr.length
+
       callback()
     }
     let textValidate = (rule, value, callback) => {
@@ -126,6 +135,7 @@ export default {
         mobiles: '',
         text: ''
       },
+      mobileNum: 0,
       rules: {
         mobiles: [
           {
@@ -284,6 +294,7 @@ export default {
       this.form.mobiles = ''
       this.form.text = ''
       this.$refs['excel-upload-input'].value = ''
+      this.mobileNum = 0
     },
     send() {
       console.log('send()')
