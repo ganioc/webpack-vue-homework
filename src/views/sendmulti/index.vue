@@ -10,7 +10,7 @@
               type="textarea"
               placeholder="请输入内容"
               v-model="form.text"
-              maxlength="500"
+              maxlength="160"
               show-word-limit
               :autosize="{minRows:5, maxRows:10}"
             />

@@ -36,7 +36,7 @@ export function validText(str) {
       byteLen += 1
     }
   }
-  let remain = 500 * 7 - hanLen * 2 * 8 - byteLen * 7
+  let remain = 160 * 7 - hanLen * 2 * 8 - byteLen * 7
 
   if (remain < 0) {
     return Math.round(-remain / 7)
