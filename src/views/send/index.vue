@@ -11,7 +11,7 @@
               type="textarea"
               placeholder="请输入内容"
               v-model="form.text"
-              maxlength="160"
+              maxlength="500"
               show-word-limit
               :autosize="{minRows:5, maxRows:10}"
             />
@@ -39,6 +39,8 @@
 </template>
 <script>
 import { postUserSendSingle } from '@/api/user'
+import { validText } from '@/utils/validate'
+import { getErrMsg } from '@/utils/errmsg'
 export default {
   name: 'SingleMsg',
   data() {
@@ -46,25 +48,25 @@ export default {
       let r = /^1[3456789]\d{9}$|^861[3456789]\d{9}$/
       return r.test(num.toString())
     }
-    let validText = num => {
-      let byteLen = 0
-      let hanLen = 0
-      for (let i = 0; i < num.length; i++) {
-        let ch = num.charCodeAt(i)
-        if (ch > 127) {
-          hanLen += 2
-        } else {
-          byteLen += 1
-        }
-      }
-      let remain = 1120 - hanLen * 2 * 8 - byteLen * 7
+    // let validText = num => {
+    //   let byteLen = 0
+    //   let hanLen = 0
+    //   for (let i = 0; i < num.length; i++) {
+    //     let ch = num.charCodeAt(i)
+    //     if (ch > 127) {
+    //       hanLen += 2
+    //     } else {
+    //       byteLen += 1
+    //     }
+    //   }
+    //   let remain = 500 * 7 - hanLen * 2 * 8 - byteLen * 7
 
-      if (remain < 0) {
-        return Math.round(-remain / 7)
-      } else {
-        return 0
-      }
-    }
+    //   if (remain < 0) {
+    //     return Math.round(-remain / 7)
+    //   } else {
+    //     return 0
+    //   }
+    // }
     let mobileValidate = (rule, value, callback) => {
       if (!value) {
         callback(new Error('号码非空'))
@@ -133,7 +135,11 @@ export default {
               } else {
                 this.$notify({
                   title: '提交平台',
-                  message: h('i', { style: 'color: red' }, '失败'),
+                  message: h(
+                    'i',
+                    { style: 'color: red' },
+                    getErrMsg(response.code)
+                  ),
                   duration: 2000
                 })
               }

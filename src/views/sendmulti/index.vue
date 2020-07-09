@@ -10,7 +10,7 @@
               type="textarea"
               placeholder="请输入内容"
               v-model="form.text"
-              maxlength="160"
+              maxlength="500"
               show-word-limit
               :autosize="{minRows:5, maxRows:10}"
             />
@@ -76,6 +76,7 @@
 import { validText, validMobile, validNumber } from '@/utils/validate'
 import { postUserSendMultiple } from '@/api/user'
 import XLSX from 'xlsx'
+import { getErrMsg } from '@/utils/errmsg'
 
 export default {
   name: 'MultiMsg',
@@ -327,7 +328,11 @@ export default {
           } else {
             this.$notify({
               title: '提交平台',
-              message: h('i', { style: 'color: red' }, '失败'),
+              message: h(
+                'i',
+                { style: 'color: red' },
+                getErrMsg(response.code)
+              ),
               duration: 2000
             })
           }
