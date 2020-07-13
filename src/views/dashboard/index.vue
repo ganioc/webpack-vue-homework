@@ -1,10 +1,11 @@
 <template>
   <div class="dashboard-container">
     <div class="dashboard-text" v-if="role === 0">管理员: {{ name }}</div>
-    <div class="dashboard-text" v-else>用户: {{ name }}</div>
+    <div class="dashboard-text" v-if="role === 1">用户: {{ name }}</div>
+    <div class="dashboard-text" v-if="role === 2">代理: {{ name }}</div>
     <panel-group v-if="role === 0" :numUser="numUser" :numMsg="numMsg" :numBalance="numBalance" />
-    <panel-group-user v-if="role !== 0" :numUnused="numUnused" />
-
+    <panel-group-user v-if="role === 1" :numUnused="numUnused" />
+    <panel-group-agent v-if="role === 2" :numUnused="numUnused" />
     <!--     <el-row :gutter="8">
       <el-col
         :xs="{span: 24}"
@@ -73,7 +74,7 @@ import { mapGetters } from 'vuex'
 import store from '@/store'
 import PanelGroup from './components/PanelGroup'
 import PanelGroupUser from './components/PanelGroupUser'
-// import TransactionTable from './components/TransactionTable'
+import PanelGroupAgent from './components/PanelGroupAgent'
 import { getUsers, getUserInfo, getAdminInfo, getMsgInfo } from '@/api/user'
 
 const lineChartData = {
@@ -102,7 +103,8 @@ export default {
   },
   components: {
     PanelGroup,
-    PanelGroupUser
+    PanelGroupUser,
+    PanelGroupAgent
     // TransactionTable
   },
 
