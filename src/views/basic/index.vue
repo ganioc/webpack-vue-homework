@@ -1,6 +1,7 @@
 <template>
   <div class="dashboard-editor-container">
     <div class="filter-container">
+      <!--
       <el-button
         class="filter-item"
         type="primary"
@@ -37,6 +38,7 @@
         icon="el-icon-refresh"
         @click="handleRefresh"
       >刷新</el-button>
+      -->
     </div>
     <el-table
       ref="singleTable"
@@ -50,6 +52,8 @@
       <el-table-column property="name" label="姓名" width="120"></el-table-column>
       <el-table-column property="status" label="有效"></el-table-column>
       <el-table-column property="unused" label="剩余短信"></el-table-column>
+      <el-table-column property="used" label="已发短信"></el-table-column>
+      <el-table-column property="creator" label="经办人"></el-table-column>
     </el-table>
     <div class="block">
       <span class="demonstration"></span>
@@ -196,7 +200,9 @@ export default {
                 date: new Date(user.createdate).toLocaleString(),
                 name: user.username,
                 status: user.status,
-                unused: user.unused
+                unused: user.unused,
+                used: user.used,
+                creator: user.creator
               })
             }
             this.tableData = out

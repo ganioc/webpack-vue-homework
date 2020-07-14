@@ -96,7 +96,13 @@ export const adminRoutes = [
         path: 'basic',
         name: '基本信息',
         component: () => import('@/views/basic/index'),
-        meta: { title: '账户信息', icon: 'table' }
+        meta: { title: '用户信息', icon: 'table' }
+      },
+      {
+        path: 'agent',
+        name: '代理信息',
+        component: () => import('@/views/basic/agent'),
+        meta: { title: '代理信息', icon: 'table' }
       },
       {
         path: 'action',
