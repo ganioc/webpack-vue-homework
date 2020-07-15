@@ -15,13 +15,13 @@
       </div>
     </nav>
     <div class="body-container">
-      <el-row :gutter="0">
-        <el-col :offset="2" :span="10">
+      <el-row>
+        <el-col :xs="24" :sm="12" :lg="12" class="panel-col">
           <div class="logo-img" :style="styles">
             <!-- <img src="@/assets/house.png" /> -->
           </div>
         </el-col>
-        <el-col :span="10">
+        <el-col :xs="24" :sm="12" :lg="12" class="panel-col">
           <el-form
             ref="loginForm"
             :model="loginForm"
@@ -358,20 +358,26 @@ $newbg: white;
       }
     }
     .body-container {
+      .panel-col {
+        padding-right: 35px;
+        padding-left: 35px;
+      }
       .logo-img {
         display: block;
         margin-top: 20px;
         background: black;
         width: 100%;
         height: 444px;
+        // padding-left: 20px;
+        padding-left: 35px;
       }
       .login-form {
         display: block;
         position: relative;
-        width: 90%;
+        width: 100%;
         // max-width: 100%;
-        padding: 10px 35px 0;
-        margin: 20px auto 20px 0px;
+        padding: 10px 35px 0px;
+        margin: 20px 0px 20px 0px;
         overflow: hidden;
         background: $bg;
       }
