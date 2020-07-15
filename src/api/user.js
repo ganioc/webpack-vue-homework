@@ -171,6 +171,14 @@ export function postCreateUser(data) {
   })
 }
 
+export function postCreateAgent(data) {
+  return request({
+    url: '/api/admin/createagent',
+    method: 'post',
+    data
+  })
+}
+
 export function postDeleteUser(name) {
   return request({
     url: '/api/admin/deleteuser',

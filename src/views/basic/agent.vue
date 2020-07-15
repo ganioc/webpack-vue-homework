@@ -64,17 +64,18 @@
       ></el-pagination>
     </div>
 
-    <create-dialog
+    <create-agent-dialog
       :createDialogVisible="createDialogVisible"
       @createDialogVisible="updateDialogVisible"
+      @refreshDialog="handleRefresh"
     />
-    <edit-dialog
+    <edit-agent-dialog
       ref="editDialog"
       :editDialogVisible="editDialogVisible"
       @editDialogVisible="updateEditDialogVisible"
       @refreshDialog="handleRefresh"
     />
-    <delete-dialog
+    <delete-agent-dialog
       ref="deleteDialog"
       :deleteDialogVisible="deleteDialogVisible"
       @deleteDialogVisible="updateDeleteDialogVisible"
@@ -84,17 +85,17 @@
 </template>
 
 <script>
-import CreateDialog from './components/CreateDialog'
-import EditDialog from './components/EditDialog'
-import DeleteDialog from './components/DeleteDialog'
+import CreateAgentDialog from './components/CreateAgentDialog'
+import EditAgentDialog from './components/EditAgentDialog'
+import DeleteAgentDialog from './components/DeleteAgentDialog'
 import { getAdminGetAgents } from '../../api/user'
 
 export default {
   name: 'DashboardAdmin',
   components: {
-    CreateDialog,
-    EditDialog,
-    DeleteDialog
+    CreateAgentDialog,
+    EditAgentDialog,
+    DeleteAgentDialog
   },
   data() {
     return {
@@ -125,9 +126,6 @@ export default {
   //   }
   // },
   methods: {
-    // handleSetLineChartData(type) {
-    //   this.lineChartData = lineChartData[type]
-    // },
     handleSearch() {
       console.log('handleSearch')
       console.log(this.currentName)
