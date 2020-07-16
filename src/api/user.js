@@ -188,3 +188,11 @@ export function postDeleteUser(name) {
     }
   })
 }
+
+// agent
+export function getAgentDashboard() {
+  return request({
+    url: '/api/agent/dashboard',
+    method: 'get'
+  })
+}

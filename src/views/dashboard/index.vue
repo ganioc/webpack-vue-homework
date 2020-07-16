@@ -1,8 +1,8 @@
 <template>
   <div class="dashboard-container">
     <div class="dashboard-text" v-if="role === 0">管理员: {{ name }}</div>
-    <!-- <div class="dashboard-text" v-if="role === 1">用户: {{ name }}</div>
-    <div class="dashboard-text" v-if="role === 2">代理: {{ name }}</div>-->
+    <div class="dashboard-text" v-if="role === 1">用户: {{ name }} ( {{status}})</div>
+    <div class="dashboard-text" v-if="role === 2">代理: {{ name }} ({{status}})</div>
     <panel-group
       v-if="role === 0"
       :numAgent="numAgent"
@@ -12,8 +12,14 @@
       :numUnused="numUnused"
       :numUsed="numUsed"
     />
-    <!-- <panel-group-user v-if="role === 1" :numUnused="numUnused" />
-    <panel-group-agent v-if="role === 2" :numUnused="numUnused" />-->
+    <panel-group-user v-if="role === 1" :numUnused="numUnused" />
+    <panel-group-agent
+      v-if="role === 2"
+      :numUnused="numUnused"
+      :numUsed="numUsed"
+      :status="status"
+      :numUser="numUser"
+    />
   </div>
 </template>
 
@@ -28,7 +34,8 @@ import {
   getUserInfo,
   getAdminInfo,
   getMsgInfo,
-  getAdminDashboard
+  getAdminDashboard,
+  getAgentDashboard
 } from '@/api/user'
 
 export default {
@@ -64,7 +71,8 @@ export default {
       numUnused: 0,
       numBalance: 0,
       numAgent: 0,
-      numUsed: 0
+      numUsed: 0,
+      status: ''
     }
   },
   created: function() {
@@ -72,6 +80,7 @@ export default {
   },
   mounted: async function() {
     console.log('dashboard/mounted')
+    // updateRole is not async
     this.updateRole()
 
     if (this.role === '0' || parseInt(this.role) === 0) {
@@ -80,7 +89,6 @@ export default {
     } else if (this.role === 1) {
       await this.udpateUserDashboard()
     } else if (this.role === 2) {
-      // this.updateUnused()
       await this.updateAgentDashboard()
     } else {
       console.log('no role here ', this.role)
@@ -107,7 +115,24 @@ export default {
           }
         },
         err => {
-          console.log('getMsgInfo failed', err)
+          console.log('getAdminDashboard failed', err)
+        }
+      )
+    },
+    updateAgentDashboard() {
+      console.log('updateAgentDashboard()')
+      getAgentDashboard().then(
+        response => {
+          console.log(response)
+          if (response.data) {
+            this.numUnused = response.data.unused
+            this.numUsed = response.data.used
+            this.status = response.data.status
+            this.numUser = response.data.numUser
+          }
+        },
+        err => {
+          console.log('getAgentDashboard failed', err)
         }
       )
     },
