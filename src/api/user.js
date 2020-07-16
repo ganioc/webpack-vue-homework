@@ -207,3 +207,14 @@ export function getAgentGetUsers(currentPage, numPerPage) {
     }
   })
 }
+
+export function getAgentGetActions(currentPage, numPerPage) {
+  return request({
+    url: '/api/agent/getactions',
+    method: 'get',
+    params: {
+      curpage: currentPage,
+      numpage: numPerPage
+    }
+  })
+}
