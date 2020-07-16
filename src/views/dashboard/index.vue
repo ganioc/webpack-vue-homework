@@ -10,6 +10,7 @@
       :numMsg="numMsg"
       :numBalance="numBalance"
       :numUnused="numUnused"
+      :numUsed="numUsed"
     />
     <!-- <panel-group-user v-if="role === 1" :numUnused="numUnused" />
     <panel-group-agent v-if="role === 2" :numUnused="numUnused" />-->
@@ -62,7 +63,8 @@ export default {
       numMsg: 0,
       numUnused: 0,
       numBalance: 0,
-      numAgent: 0
+      numAgent: 0,
+      numUsed: 0
     }
   },
   created: function() {
@@ -100,8 +102,8 @@ export default {
             this.numMsg = response.data.numMsg
             this.numAgent = response.data.numAgent
             this.numUser = response.data.numUser
-            this.unused = response.data.unused
-            this.used = response.data.used
+            this.numUnused = response.data.unused
+            this.numUsed = response.data.used
           }
         },
         err => {

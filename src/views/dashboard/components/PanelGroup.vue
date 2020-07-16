@@ -60,6 +60,17 @@
         </div>
       </div>
     </el-col>
+    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
+      <div class="card-panel">
+        <div class="card-panel-icon-wrapper icon-money">
+          <svg-icon icon-class="coins" class-name="card-panel-icon" />
+        </div>
+        <div class="card-panel-description">
+          <div class="card-panel-text">销售短信</div>
+          <div class="card-panel-num">{{numUsed}}</div>
+        </div>
+      </div>
+    </el-col>
   </el-row>
 </template>
 
@@ -70,7 +81,14 @@ export default {
   components: {
     // CountTo
   },
-  props: ['numAgent', 'numUser', 'numMsg', 'numBalance', 'numUnused'],
+  props: [
+    'numAgent',
+    'numUser',
+    'numMsg',
+    'numBalance',
+    'numUnused',
+    'numUsed'
+  ],
   methods: {
     handleSetLineChartData(type) {
       this.$emit('handleSetLineChartData', type)
