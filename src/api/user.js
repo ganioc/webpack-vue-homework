@@ -196,3 +196,14 @@ export function getAgentDashboard() {
     method: 'get'
   })
 }
+
+export function getAgentGetUsers(currentPage, numPerPage) {
+  return request({
+    url: '/api/agent/getusers',
+    method: 'get',
+    params: {
+      curpage: currentPage,
+      numpage: numPerPage
+    }
+  })
+}

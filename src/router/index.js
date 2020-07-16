@@ -313,26 +313,20 @@ export const agentRoutes = [
   {
     path: '/agent',
     component: Layout,
-    redirect: '/agent/basic',
+    redirect: '/agent/user',
     name: '账户',
     meta: { title: '账户管理', icon: 'cecurity-protection' },
     children: [
       {
-        path: 'basic',
-        name: '基本信息',
-        component: () => import('@/views/basic/index'),
+        path: 'user',
+        name: '用户信息',
+        component: () => import('@/views/agent/user'),
         meta: { title: '用户信息', icon: 'table' }
       },
-      // {
-      //   path: 'agent',
-      //   name: '代理信息',
-      //   component: () => import('@/views/basic/agent'),
-      //   meta: { title: '代理信息', icon: 'table' }
-      // },
       {
         path: 'action',
         name: '操作记录',
-        component: () => import('@/views/action/index'),
+        component: () => import('@/views/agent/action'),
         meta: { title: '操作记录', icon: 'operation-record' }
       }
     ]
@@ -360,20 +354,6 @@ export const agentRoutes = [
   },
   { path: '*', redirect: '/404', hidden: true }
 ]
-
-// const createRouter = () =>
-//   new Router({
-//     // mode: 'history', // require service support
-//     scrollBehavior: () => ({ y: 0 }),
-//     routes: constantRoutes
-//   })
-
-// const createAdminRouter = () =>
-//   new Router({
-//     // mode: 'history', // require service support
-//     scrollBehavior: () => ({ y: 0 }),
-//     routes: adminRoutes
-//   })
 
 const createDefaultRouter = () =>
   new Router({
