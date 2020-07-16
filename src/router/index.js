@@ -309,6 +309,58 @@ export const userRoutes = [
   { path: '*', redirect: '/404', hidden: true }
 ]
 
+export const agentRoutes = [
+  {
+    path: '/agent',
+    component: Layout,
+    redirect: '/agent/basic',
+    name: '账户',
+    meta: { title: '账户管理', icon: 'cecurity-protection' },
+    children: [
+      {
+        path: 'basic',
+        name: '基本信息',
+        component: () => import('@/views/basic/index'),
+        meta: { title: '用户信息', icon: 'table' }
+      },
+      // {
+      //   path: 'agent',
+      //   name: '代理信息',
+      //   component: () => import('@/views/basic/agent'),
+      //   meta: { title: '代理信息', icon: 'table' }
+      // },
+      {
+        path: 'action',
+        name: '操作记录',
+        component: () => import('@/views/action/index'),
+        meta: { title: '操作记录', icon: 'operation-record' }
+      }
+    ]
+  },
+  {
+    path: '/summary',
+    component: Layout,
+    redirect: '/summary/sms',
+    name: '信息统计',
+    meta: { title: '信息统计', icon: 'example' },
+    children: [
+      {
+        path: 'sms',
+        name: '短信统计',
+        component: () => import('@/views/summary/index'),
+        meta: { title: '短信', icon: 'table' }
+      },
+      {
+        path: 'msg',
+        name: '单条短信',
+        component: () => import('@/views/summary/msgton'),
+        meta: { title: '单条', icon: 'svg_sms_send' }
+      }
+    ]
+  },
+  { path: '*', redirect: '/404', hidden: true }
+]
+
 // const createRouter = () =>
 //   new Router({
 //     // mode: 'history', // require service support

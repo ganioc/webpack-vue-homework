@@ -1,4 +1,4 @@
-import { defaultRoutes, adminRoutes, userRoutes } from '@/router'
+import { defaultRoutes, adminRoutes, userRoutes, agentRoutes } from '@/router'
 
 /**
  * Use meta.role to determine if the current user has permission
@@ -58,8 +58,12 @@ const actions = {
       // }
       if (roles === 0) {
         accessedRoutes = adminRoutes
-      } else {
+      } else if (roles === 1) {
         accessedRoutes = userRoutes
+      } else if (roles === 2) {
+        accessedRoutes = agentRoutes
+      } else {
+        throw new Error('Unrecognized roles: ' + roles)
       }
       commit('SET_ROUTES', accessedRoutes)
       resolve(accessedRoutes)
