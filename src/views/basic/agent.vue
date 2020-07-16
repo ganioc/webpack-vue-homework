@@ -197,7 +197,7 @@ export default {
                 name: user.username,
                 status: user.status,
                 unused: user.unused,
-                used: user.used,
+                used: user.used ? user.used : 0,
                 creator: user.creator
               })
             }
