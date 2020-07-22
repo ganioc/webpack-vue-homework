@@ -12,7 +12,7 @@
       :numUnused="numUnused"
       :numUsed="numUsed"
     />
-    <panel-group-user v-if="role === 1" :numUnused="numUnused" />
+    <panel-group-user v-if="role === 1" :numUnused="numUnused" :numUsed="numUsed" />
     <panel-group-agent
       v-if="role === 2"
       :numUnused="numUnused"
@@ -35,7 +35,8 @@ import {
   getAdminInfo,
   getMsgInfo,
   getAdminDashboard,
-  getAgentDashboard
+  getAgentDashboard,
+  getUserDashboard
 } from '@/api/user'
 
 export default {
@@ -133,6 +134,22 @@ export default {
         },
         err => {
           console.log('getAgentDashboard failed', err)
+        }
+      )
+    },
+    udpateUserDashboard() {
+      console.log('updateUserDashboard()')
+      getUserDashboard().then(
+        response => {
+          console.log(response)
+          if (response.data) {
+            this.numUnused = response.data.unused
+            this.numUsed = response.data.used
+            this.status = response.data.status
+          }
+        },
+        err => {
+          console.log('getUserDashboard failed', err)
         }
       )
     },

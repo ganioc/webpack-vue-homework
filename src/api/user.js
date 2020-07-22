@@ -84,6 +84,14 @@ export function getMsgInfo() {
     method: 'get'
   })
 }
+
+export function getUserDashboard() {
+  return request({
+    url: '/api/user/dashboard',
+    method: 'get'
+  })
+}
+
 export function getAdminDashboard() {
   return request({
     url: '/api/admin/dashboard',
