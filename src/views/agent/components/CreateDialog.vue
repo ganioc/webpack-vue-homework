@@ -28,7 +28,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
+      <!-- <el-row>
         <el-col :span="16">
           <el-form-item label="短信数量">
             <el-input-number
@@ -39,7 +39,7 @@
             ></el-input-number>
           </el-form-item>
         </el-col>
-      </el-row>
+      </el-row>-->
       <el-row>
         <el-col :span="18">
           <el-form-item label="邮箱" prop="email">
@@ -124,7 +124,7 @@ export default {
         username: '',
         password: '',
         status: 'valid',
-        unused: 0,
+        // unused: 0,
         email: '',
         phone: '',
         address: '',
@@ -187,7 +187,7 @@ export default {
       this.form.username = ''
       this.form.password = ''
       this.form.status = 'valid'
-      this.form.unused = 0
+      // this.form.unused = 0
       this.form.email = ''
       this.form.phone = ''
       this.form.address = ''
