@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import { getAdminGetUser, postAdminSetUser } from '@/api/user'
+import { getAgentGetUser, postAgentSetUser } from '@/api/user'
 
 export default {
   props: ['editDialogVisible'],
@@ -132,7 +132,7 @@ export default {
     loadData() {
       console.log('loadData()')
       this.downloading = true
-      getAdminGetUser(this.username).then(
+      getAgentGetUser(this.username).then(
         response => {
           console.log(response)
           this.downloading = false
@@ -155,7 +155,7 @@ export default {
       console.log('updateUser')
       this.loading = true
       this.form.username = this.username
-      postAdminSetUser(this.form).then(
+      postAgentSetUser(this.form).then(
         response => {
           this.loading = false
           const h = this.$createElement

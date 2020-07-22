@@ -242,3 +242,21 @@ export function postAgentCreateUser(data) {
     data
   })
 }
+
+export function getAgentGetUser(name) {
+  return request({
+    url: '/api/agent/getuser',
+    method: 'get',
+    params: {
+      username: name
+    }
+  })
+}
+
+export function postAgentSetUser(data) {
+  return request({
+    url: '/api/agent/setuser',
+    method: 'post',
+    data
+  })
+}
