@@ -260,3 +260,13 @@ export function postAgentSetUser(data) {
     data
   })
 }
+
+export function postAgentDeleteUser(name) {
+  return request({
+    url: '/api/agent/deleteuser',
+    method: 'post',
+    data: {
+      username: name
+    }
+  })
+}

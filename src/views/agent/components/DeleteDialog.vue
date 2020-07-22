@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { postDeleteUser } from '@/api/user'
+import { postAgentDeleteUser } from '@/api/user'
 
 export default {
   props: ['deleteDialogVisible'],
@@ -45,7 +45,7 @@ export default {
     confirm() {
       console.log('delete confirm()')
       this.loading = true
-      postDeleteUser(this.username).then(
+      postAgentDeleteUser(this.username).then(
         response => {
           this.loading = false
           const h = this.$createElement
