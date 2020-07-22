@@ -64,6 +64,7 @@
     </div>
 
     <create-dialog
+      ref="createDialog"
       :createDialogVisible="createDialogVisible"
       @createDialogVisible="updateDialogVisible"
       @refreshDialog="handleRefresh"

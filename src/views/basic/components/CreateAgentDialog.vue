@@ -28,7 +28,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
+      <!-- <el-row>
         <el-col :span="16">
           <el-form-item label="短信条数">
             <el-input-number
@@ -39,7 +39,7 @@
             ></el-input-number>
           </el-form-item>
         </el-col>
-      </el-row>
+      </el-row>-->
       <el-row>
         <el-col :span="18">
           <el-form-item label="邮箱" prop="email">

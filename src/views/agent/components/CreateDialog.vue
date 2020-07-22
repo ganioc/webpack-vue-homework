@@ -84,7 +84,8 @@
 </template>
 
 <script>
-import { postCreateUser } from '@/api/user'
+import { postAgentCreateUser } from '@/api/user'
+import { guessErrMsg } from '@/utils/errmsg'
 
 export default {
   props: ['createDialogVisible'],
@@ -197,7 +198,7 @@ export default {
       this.$refs.form.validate(async valid => {
         if (valid) {
           this.creating = true
-          postCreateUser(this.form).then(
+          postAgentCreateUser(this.form).then(
             response => {
               console.log(response)
               this.creating = false
@@ -207,13 +208,14 @@ export default {
                   title: '创建新用户' + response.data.username,
                   message: h('i', { style: 'color:green' }, '成功')
                 })
+                this.$emit('refreshDialog')
               } else {
                 this.$notify({
                   title: '创建新用户',
                   message: h(
                     'i',
                     { style: 'color:red' },
-                    '失败:' + response.data.message
+                    '失败:' + guessErrMsg(response.data.message)
                   )
                 })
               }

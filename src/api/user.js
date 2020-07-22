@@ -162,6 +162,13 @@ export function postAdminSetUser(data) {
     data
   })
 }
+export function postAdminSetAgent(data) {
+  return request({
+    url: '/api/admin/setagent',
+    method: 'post',
+    data
+  })
+}
 export function postCreateUser(data) {
   return request({
     // url: '/vue-admin-template/user/login',
@@ -188,7 +195,15 @@ export function postDeleteUser(name) {
     }
   })
 }
-
+export function postDeleteAgent(name) {
+  return request({
+    url: '/api/admin/deleteagent',
+    method: 'post',
+    data: {
+      username: name
+    }
+  })
+}
 // agent
 export function getAgentDashboard() {
   return request({
@@ -216,5 +231,14 @@ export function getAgentGetActions(currentPage, numPerPage) {
       curpage: currentPage,
       numpage: numPerPage
     }
+  })
+}
+
+export function postAgentCreateUser(data) {
+  return request({
+    // url: '/vue-admin-template/user/login',
+    url: '/api/agent/createuser',
+    method: 'post',
+    data
   })
 }
