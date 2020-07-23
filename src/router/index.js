@@ -180,24 +180,6 @@ export const userRoutes = [
         meta: { title: '多条', icon: 'pli-mail-send' }
       }
     ]
-    // {
-    //   path: 'uplink',
-    //   name: '短信上行',
-    //   component: () => import('@/views/uplink/index'),
-    //   meta: { title: '上行', icon: 'email' }
-    // }
-    // {
-    //   path: 'table',
-    //   name: 'Table',
-    //   component: () => import('@/views/table/index'),
-    //   meta: { title: 'Table', icon: 'table' }
-    // },
-    // {
-    //   path: 'tree',
-    //   name: 'Tree',
-    //   component: () => import('@/views/tree/index'),
-    //   meta: { title: 'Tree', icon: 'tree' }
-    // }
   },
   {
     path: '/summary',
@@ -341,13 +323,13 @@ export const agentRoutes = [
       {
         path: 'sms',
         name: '短信统计',
-        component: () => import('@/views/summary/index'),
+        component: () => import('@/views/summary/agent/sms'),
         meta: { title: '短信', icon: 'table' }
       },
       {
         path: 'msg',
         name: '单条短信',
-        component: () => import('@/views/summary/msgton'),
+        component: () => import('@/views/summary/agent/msgton'),
         meta: { title: '单条', icon: 'svg_sms_send' }
       }
     ]

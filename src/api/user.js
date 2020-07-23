@@ -278,3 +278,14 @@ export function postAgentDeleteUser(name) {
     }
   })
 }
+
+export function getAgentSmsHistory(currentPage, numPage) {
+  return request({
+    url: '/api/agent/sms/history',
+    method: 'get',
+    params: {
+      curpage: currentPage,
+      numpage: numPage
+    }
+  })
+}
