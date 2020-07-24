@@ -125,7 +125,7 @@ export function getAdminSmsHistory(currentPage, numPerPage) {
     }
   })
 }
-export function getAdminSmsMsgton(currentPage, numPerPage) {
+export function getAdminMsgtons(currentPage, numPerPage) {
   return request({
     url: '/api/admin/sms/msgton',
     method: 'get',

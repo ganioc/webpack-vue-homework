@@ -126,10 +126,10 @@ export const adminRoutes = [
         meta: { title: '短信', icon: 'table' }
       },
       {
-        path: 'msg',
-        name: '单条短信',
+        path: 'msgtons',
+        name: '失败短信',
         component: () => import('@/views/summary/msgton'),
-        meta: { title: '单条', icon: 'svg_sms_send' }
+        meta: { title: '失败短信', icon: 'svg_sms_send' }
       }
       // {
       //   path: 'uplink',

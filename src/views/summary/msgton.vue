@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <!-- <div style="margin:0 0 5px 20px">短信发送统计</div> -->
+    <!-- <div style="margin:0 0 5px 20px">失败短信统计</div> -->
     <el-table
       ref="singleTable"
       :data="tableData"
@@ -9,11 +9,12 @@
     >
       <el-table-column type="index" width="40"></el-table-column>
       <el-table-column property="date" label="日期" width="180"></el-table-column>
-      <el-table-column property="username" label="用户" width="120"></el-table-column>
+      <el-table-column property="creator" label="经办人" width="100"></el-table-column>
+      <el-table-column property="username" label="用户" width="100"></el-table-column>
+      <el-table-column property="pknum" label="短信编号" width="100"></el-table-column>
       <el-table-column property="mobile" label="电话号码"></el-table-column>
+      <el-table-column property="msgid" label="短信ID"></el-table-column>
       <el-table-column property="status" label="状态"></el-table-column>
-      <el-table-column property="msgid" label="消息号"></el-table-column>
-      <el-table-column property="batchid" label="任务号"></el-table-column>
     </el-table>
     <div class="block">
       <span class="demonstration"></span>
@@ -31,22 +32,22 @@
 <script>
 // import FixedThead from './components/FixedThead'
 // import UnfixedThead from './components/UnfixedThead'
-import { getAdminSmsMsgton } from '@/api/user'
+import { getAdminMsgtons } from '@/api/user'
 
 export default {
-  name: 'AdminSmsMsgton',
+  name: 'AdminGetMsgton',
   components: {},
   data() {
     return {
       tableData: [],
       currentPage: 1,
       numPerPage: 10,
-      totalNum: 0
+      totalNum: 0,
     }
   },
-  mounted: function() {
-    console.log('adminsmsmsgton mounted')
-    this.getAdminMsgton(this.currentPage, this.numPerPage)
+  mounted: function () {
+    console.log('AdminGetMsgton mounted')
+    this.getAgentMsgton(this.currentPage, this.numPerPage)
   },
   methods: {
     handleCurrentPageChange(val) {
@@ -58,36 +59,39 @@ export default {
     handlePageSizeChange(val) {
       console.log(`每页 ${val} 条`)
     },
-    getAdminMsgton(curPage, numPerPage) {
-      console.log('getAdminSmsMsgton')
+    getAgentMsgton(curPage, numPerPage) {
+      console.log('getAdminMsgtons')
       console.log(curPage, numPerPage)
-      getAdminSmsMsgton(curPage, numPerPage).then(
-        response => {
+      getAdminMsgtons(curPage, numPerPage).then(
+        (response) => {
           console.log(response)
           if (response.code === 0) {
             let out = []
             for (let i = 0; i < response.data.data.length; i++) {
               let msg = response.data.data[i]
+              // let total = msg.mobiles.length
+              // let mobileSamples = msg.mobiles.slice(0, 10)
+
               out.push({
                 date: new Date(msg.date).toLocaleString(),
+                creator: msg.creator,
                 username: msg.username,
+                pknum: msg.pknum,
                 mobile: msg.mobile,
-                content: msg.content,
-                status: msg.status === 3 ? '提交成功' : msg.status,
                 msgid: msg.msg_id,
-                batchid: msg.batch_id
+                status: msg.status,
               })
             }
             this.tableData = out
             this.totalNum = response.data.amount
           }
         },
-        err => {
+        (err) => {
           console.log(err)
-          console.log('getAdminSmsMsgton failed')
+          console.log('getAdminMsgton failed')
         }
       )
-    }
-  }
+    },
+  },
 }
 </script>
