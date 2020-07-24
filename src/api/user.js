@@ -92,6 +92,17 @@ export function getUserDashboard() {
   })
 }
 
+export function getUserGetActions(currentPage, numPerPage) {
+  return request({
+    url: '/api/user/getactions',
+    method: 'get',
+    params: {
+      curpage: currentPage,
+      numpage: numPerPage
+    }
+  })
+}
+
 export function getAdminDashboard() {
   return request({
     url: '/api/admin/dashboard',

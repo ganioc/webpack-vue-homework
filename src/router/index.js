@@ -193,13 +193,13 @@ export const userRoutes = [
         name: '历史记录',
         component: () => import('@/views/sms/index'),
         meta: { title: '历史记录', icon: 'table' }
+      },
+      {
+        path: 'record',
+        name: '相关记录',
+        component: () => import('@/views/sms/record'),
+        meta: { title: '相关记录', icon: 'table' }
       }
-      // {
-      //   path: 'record',
-      //   name: '操作记录',
-      //   component: () => import('@/views/sms/index'),
-      //   meta: { title: '操作记录', icon: 'table' }
-      // }
     ]
   },
 
