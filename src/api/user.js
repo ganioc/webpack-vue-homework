@@ -85,6 +85,12 @@ export function getMsgInfo() {
   })
 }
 
+export function getMsgtonInfo() {
+  return request({
+    url: '/api/admin/msgtoninfo',
+    method: 'get'
+  })
+}
 export function getUserDashboard() {
   return request({
     url: '/api/user/dashboard',

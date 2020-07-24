@@ -42,7 +42,7 @@
           <svg-icon icon-class="message" class-name="card-panel-icon" />
         </div>
         <div class="card-panel-description">
-          <div class="card-panel-text">成功短信</div>
+          <div class="card-panel-text">失败短信</div>
           <!-- <count-to :start-val="0" :end-val="81212" :duration="3000" class="card-panel-num" /> -->
           <div class="card-panel-num">{{numUnused}}</div>
         </div>
