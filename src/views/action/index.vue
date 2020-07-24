@@ -28,6 +28,7 @@
 
 <script>
 import { getAdminGetActions } from '@/api/user'
+import { strContent, strAction } from '@/utils/str-action'
 
 export default {
   name: 'AdminGetActions',
@@ -37,60 +38,60 @@ export default {
       tableData: [],
       currentPage: 1,
       numPerPage: 10,
-      totalNum: 0
+      totalNum: 0,
     }
   },
-  mounted: function() {
+  mounted: function () {
     console.log('getactions mounted')
     this.getAdminActions(this.currentPage, this.numPerPage)
   },
   methods: {
-    strAction(str) {
-      if (str === 1) {
-        return '创建账户'
-      } else if (str === 2) {
-        return '修改账户'
-      } else if (str === 3) {
-        return '删除账户'
-      } else {
-        return '未知操作'
-      }
-    },
-    strVerb(verb) {
-      if (verb === 'status') {
-        return '状态'
-      } else if (verb === 'unused') {
-        return '短信条数'
-      } else {
-        return verb
-      }
-    },
-    strEdit(verb, oldstate, newstate) {
-      if (verb) {
-        if (oldstate) {
-          return '修改' + this.strVerb(verb) + '从' + oldstate + '到' + newstate
-        } else {
-          return '修改' + this.strVerb(verb) + '为' + newstate
-        }
-      } else {
-        if (oldstate) {
-          return '修改' + oldstate + '到' + newstate
-        } else {
-          return '修改为' + newstate
-        }
-      }
-    },
-    strContent(action, verb, oldstate, newstate) {
-      if (action === 1) {
-        return '成功创建账户'
-      } else if (action === 2) {
-        return this.strEdit(verb, oldstate, newstate)
-      } else if (action === 3) {
-        return '成功删除账户'
-      } else {
-        return ''
-      }
-    },
+    // strAction(str) {
+    //   if (str === 1) {
+    //     return '创建账户'
+    //   } else if (str === 2) {
+    //     return '修改账户'
+    //   } else if (str === 3) {
+    //     return '删除账户'
+    //   } else {
+    //     return '未知操作'
+    //   }
+    // },
+    // strVerb(verb) {
+    //   if (verb === 'status') {
+    //     return '状态'
+    //   } else if (verb === 'unused') {
+    //     return '短信条数'
+    //   } else {
+    //     return verb
+    //   }
+    // },
+    // strEdit(verb, oldstate, newstate) {
+    //   if (verb) {
+    //     if (oldstate) {
+    //       return '修改' + this.strVerb(verb) + '从' + oldstate + '到' + newstate
+    //     } else {
+    //       return '修改' + this.strVerb(verb) + '为' + newstate
+    //     }
+    //   } else {
+    //     if (oldstate) {
+    //       return '修改' + oldstate + '到' + newstate
+    //     } else {
+    //       return '修改为' + newstate
+    //     }
+    //   }
+    // },
+    // strContent(action, verb, oldstate, newstate) {
+    //   if (action === 1) {
+    //     return '成功创建账户'
+    //   } else if (action === 2) {
+    //     return this.strEdit(verb, oldstate, newstate)
+    //   } else if (action === 3) {
+    //     return '成功删除账户'
+    //   } else {
+    //     return ''
+    //   }
+    // },
     handleCurrentPageChange(val) {
       console.log(`当前页: ${val}`)
       // to load the new page
@@ -104,7 +105,7 @@ export default {
       console.log('getAdminActions()')
       console.log(curPage, numPerpage)
       getAdminGetActions(curPage, numPerpage).then(
-        response => {
+        (response) => {
           console.log(response)
           if (response.code === 0) {
             console.log('code:', 0)
@@ -115,25 +116,25 @@ export default {
                 date: new Date(action.date).toLocaleString(),
                 creator: action.creator,
                 username: action.username,
-                type: this.strAction(action.action),
-                content: this.strContent(
+                type: strAction(action.action),
+                content: strContent(
                   action.action,
                   action.verb,
                   action.oldstate,
                   action.newstate
-                )
+                ),
               })
             }
             this.tableData = out
             this.totalNum = response.data.amount
           }
         },
-        err => {
+        (err) => {
           console.log(err)
         }
       )
-    }
-  }
+    },
+  },
 }
 </script>
 
