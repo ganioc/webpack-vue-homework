@@ -300,3 +300,14 @@ export function getAgentSmsHistory(currentPage, numPage) {
     }
   })
 }
+
+export function getAgentMsgtons(currentPage, numPage) {
+  return request({
+    url: '/api/agent/sms/msgtons',
+    method: 'get',
+    params: {
+      curpage: currentPage,
+      numpage: numPage
+    }
+  })
+}
