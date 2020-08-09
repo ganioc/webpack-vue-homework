@@ -6,6 +6,7 @@
       <el-row>
         <el-col :span="16">
           <el-form-item label="用户签名" prop="tag">
+            
             <el-alert
               v-if="tags.length == 0"
               title="错误: 缺少用户签名!"
@@ -151,6 +152,9 @@ export default {
           console.log(response.data)
           this.tags = response.data.tags.split(' ')
           console.log(this.tags)
+          if (this.tags.length > 0) {
+            this.form.tag = this.tags[0]
+          }
         },
         (err) => {
           console.log('getUserTags failed')
