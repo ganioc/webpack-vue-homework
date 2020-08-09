@@ -12,7 +12,7 @@
       :numUnused="numUnused"
       :numUsed="numUsed"
     />
-    <panel-group-user v-if="role === 1" :numUnused="numUnused" :numUsed="numUsed" />
+    <panel-group-user v-if="role === 1" :numUnused="numUnused" :numUsed="numUsed" :tags="tags" />
     <panel-group-agent
       v-if="role === 2"
       :numUnused="numUnused"
@@ -37,21 +37,21 @@ import {
   getMsgtonInfo,
   getAdminDashboard,
   getAgentDashboard,
-  getUserDashboard,
+  getUserDashboard
 } from '@/api/user'
 
 export default {
   name: 'Dashboard',
   computed: {
-    ...mapGetters(['name']),
+    ...mapGetters(['name'])
   },
   components: {
     PanelGroup,
     PanelGroupUser,
-    PanelGroupAgent,
+    PanelGroupAgent
   },
 
-  data: function () {
+  data: function() {
     const validate = (rule, value, callback) => {
       if (value.length !== 6) {
         callback(new Error('请输入六个字符'))
@@ -62,10 +62,10 @@ export default {
     return {
       // lineChartData: lineChartData.newVisitis,
       demo: {
-        title: '',
+        title: ''
       },
       demoRules: {
-        title: [{ required: true, trigger: 'change', validator: validate }],
+        title: [{ required: true, trigger: 'change', validator: validate }]
       },
       role: '',
       numUser: 0,
@@ -75,12 +75,13 @@ export default {
       numAgent: 0,
       numUsed: 0,
       status: '',
+      tags: ''
     }
   },
-  created: function () {
+  created: function() {
     console.log('dashboard/created')
   },
-  mounted: async function () {
+  mounted: async function() {
     console.log('dashboard/mounted')
     // updateRole is not async
     this.updateRole()
@@ -106,7 +107,7 @@ export default {
     async updateAdminDashboard() {
       console.log('updateAdminDashboard()')
       getAdminDashboard().then(
-        (response) => {
+        response => {
           console.log('updateAdminDashboard()')
           console.log(response)
           if (response.data) {
@@ -117,7 +118,7 @@ export default {
             this.numUsed = response.data.used
           }
         },
-        (err) => {
+        err => {
           console.log('getAdminDashboard failed', err)
         }
       )
@@ -125,7 +126,7 @@ export default {
     async updateAgentDashboard() {
       console.log('updateAgentDashboard()')
       getAgentDashboard().then(
-        (response) => {
+        response => {
           console.log(response)
           if (response.data) {
             this.numUnused = response.data.unused
@@ -134,7 +135,7 @@ export default {
             this.numUser = response.data.numUser
           }
         },
-        (err) => {
+        err => {
           console.log('getAgentDashboard failed', err)
         }
       )
@@ -142,15 +143,16 @@ export default {
     async udpateUserDashboard() {
       console.log('updateUserDashboard()')
       getUserDashboard().then(
-        (response) => {
+        response => {
           console.log(response)
           if (response.data) {
             this.numUnused = response.data.unused
             this.numUsed = response.data.used
             this.status = response.data.status
+            this.tags = response.data.tags
           }
         },
-        (err) => {
+        err => {
           console.log('getUserDashboard failed', err)
         }
       )
@@ -158,14 +160,14 @@ export default {
     async updateMsgInfo() {
       console.log('updateMsgInfo()')
       await getMsgInfo().then(
-        (response) => {
+        response => {
           console.log('getMsgInfo resp')
           console.log(response)
           if (response.data.msgcount) {
             this.numMsg = response.data.msgcount
           }
         },
-        (err) => {
+        err => {
           console.log('getMsgInfo failed', err)
         }
       )
@@ -178,13 +180,13 @@ export default {
       //   console.log(response)
       // })
       getUsers().then(
-        (response) => {
+        response => {
           console.log(response)
           if (response.data.num) {
             this.numUser = response.data.num
           }
         },
-        (err) => {
+        err => {
           console.log(err)
           console.log('getUsers failed')
           this.numUser = 0
@@ -194,11 +196,11 @@ export default {
     updateUnused() {
       console.log('getUserInfo()')
       getUserInfo().then(
-        (response) => {
+        response => {
           console.log(response)
           this.numUnused = response.data.unused
         },
-        (err) => {
+        err => {
           console.log(err)
           console.log('getUserInfo failed')
         }
@@ -207,11 +209,11 @@ export default {
     async updateInfo() {
       console.log('getAdminInfo()')
       getAdminInfo().then(
-        (response) => {
+        response => {
           console.log(response)
           this.numBalance = response.data.amount
         },
-        (err) => {
+        err => {
           console.log(err)
           console.log('getAdminInfo failed')
         }
@@ -220,19 +222,19 @@ export default {
     async updateFailedMsgInfo() {
       console.log('getMsgtonInfo')
       getMsgtonInfo().then(
-        (response) => {
+        response => {
           console.log('getMsgtonInfo resp')
           console.log(response)
           if (response.data.msgtoncount) {
             this.numUnused = response.data.msgtoncount
           }
         },
-        (err) => {
+        err => {
           console.log('getMsgtonInfo failed', err)
         }
       )
-    },
-  },
+    }
+  }
 }
 </script>
 

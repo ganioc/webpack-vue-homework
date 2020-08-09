@@ -23,6 +23,17 @@
         </div>
       </div>
     </el-col>
+    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
+      <div class="card-panel">
+        <div class="card-panel-icon-wrapper icon-money">
+          <svg-icon icon-class="example" class-name="card-panel-icon" />
+        </div>
+        <div class="card-panel-description">
+          <div class="card-panel-text">签名</div>
+          <div class="card-panel-num">{{tags}}</div>
+        </div>
+      </div>
+    </el-col>
   </el-row>
 </template>
 
@@ -33,7 +44,7 @@ export default {
   components: {
     // CountTo
   },
-  props: ['numUnused', 'numUsed'],
+  props: ['numUnused', 'numUsed', 'tags'],
   methods: {
     handleSetLineChartData(type) {
       this.$emit('handleSetLineChartData', type)
