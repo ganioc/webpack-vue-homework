@@ -6,7 +6,14 @@
       <el-row>
         <el-col :span="16">
           <el-form-item label="用户签名" prop="tag">
-            
+            <el-select v-if="tags.length > 0" v-model="form.tag" placeholder="请选择">
+              <el-option
+                v-for="item in tags"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
             <el-alert
               v-if="tags.length == 0"
               title="错误: 缺少用户签名!"
@@ -150,10 +157,17 @@ export default {
       getUserDashboard().then(
         (response) => {
           console.log(response.data)
-          this.tags = response.data.tags.split(' ')
-          console.log(this.tags)
-          if (this.tags.length > 0) {
-            this.form.tag = this.tags[0]
+          let strLst = response.data.tags.split(' ')
+          // console.log(this.tags)
+          this.tags = []
+          if (strLst.length > 0) {
+            for (let i = 0; i < strLst.length; i++) {
+              this.tags.push({
+                value: strLst[i],
+                label: strLst[i],
+              })
+            }
+            this.form.tag = strLst[0]
           }
         },
         (err) => {

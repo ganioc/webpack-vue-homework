@@ -4,6 +4,27 @@
     <el-form ref="form" :model="form" :rules="rules" label-width="120px">
       <el-row>
         <el-col :span="18">
+          <el-form-item label="用户签名" prop="tag">
+            <el-select v-if="tags.length > 0" v-model="form.tag" placeholder="请选择">
+              <el-option
+                v-for="item in tags"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+            <el-alert
+              v-if="tags.length == 0"
+              title="错误: 缺少用户签名!"
+              type="error"
+              effect="dark"
+              :closable="false"
+            ></el-alert>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="18">
           <el-form-item label="发送内容" prop="text">
             <el-input
               tabindex="1"
@@ -81,7 +102,7 @@
 </template>
 <script>
 import { validText, validMobile, validNumber } from '@/utils/validate'
-import { postUserSendMultiple } from '@/api/user'
+import { postUserSendMultiple, getUserDashboard } from '@/api/user'
 import XLSX from 'xlsx'
 import { getErrMsg } from '@/utils/errmsg'
 
@@ -133,24 +154,35 @@ export default {
       mobilesArr: [],
       form: {
         mobiles: '',
-        text: ''
+        text: '',
+        tag: '',
       },
       mobileNum: 0,
       rules: {
         mobiles: [
           {
             validator: mobilesValidate,
-            required: true
-          }
+            required: true,
+          },
         ],
         text: [
           {
             validator: textValidate,
-            required: true
-          }
-        ]
-      }
+            required: true,
+          },
+        ],
+      },
+      tags: [],
     }
+  },
+  mounted: function () {
+    console.log('send multi mounted')
+    this.getTags()
+  },
+  computed: {
+    enabled: function () {
+      return this.tags.length === 0
+    },
   },
   methods: {
     isExcel(file) {
@@ -183,17 +215,17 @@ export default {
         this.$notify({
           title: '非Excel文件',
           message: h('i', { style: 'color: red' }, '文件类型'),
-          duration: 2000
+          duration: 2000,
         })
       } else {
         this.readData(files[0]).then(
-          response => {
+          (response) => {
             console.log('open exls file OK')
             console.log(response)
             this.form.mobiles = response.join(',  ')
             this.$refs['excel-upload-input'].value = ''
           },
-          err => {
+          (err) => {
             console.log('open exls file failed', err)
           }
         )
@@ -204,7 +236,7 @@ export default {
       this.loadingExcel = true
       return new Promise((resolve, reject) => {
         const reader = new FileReader()
-        reader.onload = e => {
+        reader.onload = (e) => {
           const data = e.target.result
           const workbook = XLSX.read(data, { type: 'array' })
           const firstSheetName = workbook.SheetNames[0]
@@ -222,7 +254,7 @@ export default {
           if (validMobile(header)) {
             mobiles.push(header)
           }
-          results.forEach(item => {
+          results.forEach((item) => {
             mobiles.push(item[header].toString())
           })
           console.log('mobiles:')
@@ -283,7 +315,7 @@ export default {
         outMobiles.push(mobile)
       }
       // remove redundant mobile phone number
-      outMobiles = outMobiles.filter(function(element, index, self) {
+      outMobiles = outMobiles.filter(function (element, index, self) {
         return self.indexOf(element) === index
       })
 
@@ -295,6 +327,30 @@ export default {
       this.form.text = ''
       this.$refs['excel-upload-input'].value = ''
       this.mobileNum = 0
+    },
+    getTags() {
+      console.log('getTags')
+      getUserDashboard().then(
+        (response) => {
+          console.log(response.data)
+          let strLst = response.data.tags.split(' ')
+          // console.log(this.tags)
+          this.tags = []
+          if (strLst.length > 0) {
+            for (let i = 0; i < strLst.length; i++) {
+              this.tags.push({
+                value: strLst[i],
+                label: strLst[i],
+              })
+            }
+            this.form.tag = strLst[0]
+          }
+        },
+        (err) => {
+          console.log('getUserTags failed')
+          console.log(err.message)
+        }
+      )
     },
     send() {
       console.log('send()')
@@ -309,7 +365,7 @@ export default {
         this.$notify({
           title: '数量过多',
           message: h('i', { style: 'color: red' }, '1000条'),
-          duration: 2000
+          duration: 2000,
         })
         return
       } else if (this.mobilesArr.length < 1) {
@@ -324,9 +380,10 @@ export default {
       this.loading = true
       postUserSendMultiple({
         mobiles: this.mobilesArr,
-        text: this.form.text
+        text: this.form.text,
+        tag: this.form.tag,
       }).then(
-        response => {
+        (response) => {
           console.log('postUserSendMultiple OK')
           console.log(response)
           this.loading = false
@@ -334,7 +391,7 @@ export default {
             this.$notify({
               title: '提交平台',
               message: h('i', { style: 'color: green' }, '成功'),
-              duration: 2000
+              duration: 2000,
             })
           } else {
             this.$notify({
@@ -344,26 +401,26 @@ export default {
                 { style: 'color: red' },
                 getErrMsg(response.code)
               ),
-              duration: 2000
+              duration: 2000,
             })
           }
         },
-        err => {
+        (err) => {
           console.log(err)
           console.log('postUserSendMultiple failed')
           this.loading = false
           this.$notify({
             title: '提交平台',
             message: h('i', { style: 'color: red' }, '发送失败'),
-            duration: 2000
+            duration: 2000,
           })
         }
       )
     },
     input() {
       console.log('input()')
-    }
-  }
+    },
+  },
 }
 </script>
 <style scoped>
