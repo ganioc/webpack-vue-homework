@@ -56,7 +56,7 @@
       </el-row>
       <el-row>
         <el-col :span="22">
-          <el-form-item label="其它">
+          <el-form-item label="签名">
             <el-input type="textarea" v-model="form.extra"></el-input>
           </el-form-item>
         </el-col>
@@ -74,6 +74,7 @@
 
 <script>
 import { getAgentGetUser, postAgentSetUser } from '@/api/user'
+import { strCheckExtra } from '@/utils/validate'
 
 export default {
   props: ['editDialogVisible'],
@@ -155,6 +156,9 @@ export default {
       console.log('updateUser')
       this.loading = true
       this.form.username = this.username
+
+      this.form.extra = strCheckExtra(this.form.extra)
+
       postAgentSetUser(this.form).then(
         response => {
           this.loading = false

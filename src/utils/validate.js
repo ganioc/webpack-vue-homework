@@ -6,7 +6,7 @@
  * @param {string} path
  * @returns {Boolean}
  */
-export function isExternal(path) {
+export function isExternal (path) {
   return /^(https?:|mailto:|tel:)/.test(path)
 }
 
@@ -14,7 +14,7 @@ export function isExternal(path) {
  * @param {string} str
  * @returns {Boolean}
  */
-export function validUsername(str) {
+export function validUsername (str) {
   // eslint-disable-next-line
   // const valid_map = ['admin', 'editor']
   // return valid_map.indexOf(str.trim()) >= 0
@@ -25,7 +25,7 @@ export function validUsername(str) {
  * @param {string} str
  * @returns {number}
  */
-export function validText(str) {
+export function validText (str) {
   let byteLen = 0
   let hanLen = 0
   for (let i = 0; i < str.length; i++) {
@@ -49,18 +49,26 @@ export function validText(str) {
  * @param {*} str
  * @returns {Boolean}
  */
-export function validMobiles(str) {
+export function validMobiles (str) {
   return true
 }
 /**
  *
  * @param {*} ch  character
  */
-export function validNumber(ch) {
+export function validNumber (ch) {
   return /^[1234567890]$/.test(ch)
 }
 
-export function validMobile(str) {
+export function validMobile (str) {
   let r = /^1[3456789]\d{9}$|^861[3456789]\d{9}$/
   return r.test(str.toString())
+}
+
+export function strCheckExtra (str) {
+  let lst = str.split(' ')
+  let outLst = lst.filter(s => {
+    return s.length > 0
+  })
+  return outLst.join(' ')
 }

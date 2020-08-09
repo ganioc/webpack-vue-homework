@@ -63,8 +63,8 @@
       </el-row>
       <el-row>
         <el-col :span="22">
-          <el-form-item label="其它">
-            <el-input type="textarea" v-model="form.extra"></el-input>
+          <el-form-item label="签名">
+            <el-input type="textarea" v-model="form.extra" placeholder="输入用户的短信签名"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -86,6 +86,7 @@
 <script>
 import { postAgentCreateUser } from '@/api/user'
 import { guessErrMsg } from '@/utils/errmsg'
+import { strCheckExtra } from '@/utils/validate'
 
 export default {
   props: ['createDialogVisible'],
@@ -193,11 +194,16 @@ export default {
       this.form.address = ''
       this.form.extra = ''
     },
+
     create() {
       console.log('create()')
       this.$refs.form.validate(async valid => {
         if (valid) {
           this.creating = true
+
+          // check TAG, extra,
+          this.form.extra = strCheckExtra(this.form.extra)
+
           postAgentCreateUser(this.form).then(
             response => {
               console.log(response)
