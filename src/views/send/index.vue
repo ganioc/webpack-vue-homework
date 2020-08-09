@@ -6,7 +6,13 @@
       <el-row>
         <el-col :span="16">
           <el-form-item label="用户签名" prop="tag">
-            <el-alert title="缺少用户签名!" type="error" effect="dark" :closable="false"></el-alert>
+            <el-alert
+              v-if="tags.length == 0"
+              title="错误: 缺少用户签名!"
+              type="error"
+              effect="dark"
+              :closable="false"
+            ></el-alert>
           </el-form-item>
         </el-col>
       </el-row>
@@ -37,7 +43,12 @@
         <el-col :span="16">
           <el-form-item>
             <el-button type="warning" @click="clear">重置</el-button>
-            <el-button :loading="loading" type="primary" @click.native.prevent="send">发送</el-button>
+            <el-button
+              :loading="loading"
+              type="primary"
+              @click.native.prevent="send"
+              :disabled="enabled"
+            >发送</el-button>
           </el-form-item>
         </el-col>
       </el-row>
@@ -117,6 +128,11 @@ export default {
       loading: false,
       tags: [],
     }
+  },
+  computed: {
+    enabled: function () {
+      return this.tags.length === 0
+    },
   },
   methods: {
     clear() {
