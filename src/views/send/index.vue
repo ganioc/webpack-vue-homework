@@ -200,7 +200,7 @@ export default {
                   message: h(
                     'i',
                     { style: 'color: red' },
-                    getErrMsg(response.code)
+                    getErrMsg(response.code) + response.data.message
                   ),
                   duration: 2000,
                 })

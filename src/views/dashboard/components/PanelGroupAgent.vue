@@ -59,8 +59,8 @@ export default {
   methods: {
     handleSetLineChartData(type) {
       this.$emit('handleSetLineChartData', type)
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -135,7 +135,7 @@ export default {
     }
 
     .card-panel-description {
-      float: right;
+      float: left;
       font-weight: bold;
       margin: 26px;
       margin-left: 0px;
