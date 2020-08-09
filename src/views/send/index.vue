@@ -59,6 +59,7 @@
 import { postUserSendSingle } from '@/api/user'
 import { validText } from '@/utils/validate'
 import { getErrMsg } from '@/utils/errmsg'
+import { getUserDashboard } from '../../api/user'
 export default {
   name: 'SingleMsg',
   data() {
@@ -129,6 +130,10 @@ export default {
       tags: [],
     }
   },
+  mounted: function () {
+    console.log('send single mounted')
+    this.getTags()
+  },
   computed: {
     enabled: function () {
       return this.tags.length === 0
@@ -138,6 +143,20 @@ export default {
     clear() {
       this.form.mobile = ''
       this.form.text = ''
+    },
+    getTags() {
+      console.log('getTags')
+      getUserDashboard().then(
+        (response) => {
+          console.log(response.data)
+          this.tags = response.data.tags.split(' ')
+          console.log(this.tags)
+        },
+        (err) => {
+          console.log('getUserTags failed')
+          console.log(err.message)
+        }
+      )
     },
     send() {
       this.$refs.form.validate(async (valid) => {
