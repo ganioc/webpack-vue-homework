@@ -5,6 +5,13 @@
     <el-form ref="form" :model="form" :rules="rules" label-width="120px">
       <el-row>
         <el-col :span="16">
+          <el-form-item label="用户签名" prop="tag">
+            <el-alert title="缺少用户签名!" type="error" effect="dark" :closable="false"></el-alert>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="16">
           <el-form-item label="发送内容" prop="text">
             <el-input
               tabindex="2"
@@ -44,7 +51,7 @@ import { getErrMsg } from '@/utils/errmsg'
 export default {
   name: 'SingleMsg',
   data() {
-    let validMobile = num => {
+    let validMobile = (num) => {
       let r = /^1[3456789]\d{9}$|^861[3456789]\d{9}$/
       return r.test(num.toString())
     }
@@ -90,23 +97,25 @@ export default {
       maxTextLength: 170,
       form: {
         mobile: '',
-        text: ''
+        text: '',
+        tag: '',
       },
       rules: {
         mobile: [
           {
             validator: mobileValidate,
-            required: true
-          }
+            required: true,
+          },
         ],
         text: [
           {
             validator: textValidate,
-            required: true
-          }
-        ]
+            required: true,
+          },
+        ],
       },
-      loading: false
+      loading: false,
+      tags: [],
     }
   },
   methods: {
@@ -115,13 +124,13 @@ export default {
       this.form.text = ''
     },
     send() {
-      this.$refs.form.validate(async valid => {
+      this.$refs.form.validate(async (valid) => {
         // console.log('into valid')
         if (valid) {
           this.loading = true
           console.log('valid')
           postUserSendSingle(this.form).then(
-            response => {
+            (response) => {
               console.log('postUserSendSingle OK')
               console.log(response)
               this.loading = false
@@ -130,7 +139,7 @@ export default {
                 this.$notify({
                   title: '提交平台',
                   message: h('i', { style: 'color: green' }, '成功'),
-                  duration: 2000
+                  duration: 2000,
                 })
               } else {
                 this.$notify({
@@ -140,11 +149,11 @@ export default {
                     { style: 'color: red' },
                     getErrMsg(response.code)
                   ),
-                  duration: 2000
+                  duration: 2000,
                 })
               }
             },
-            err => {
+            (err) => {
               console.log(err)
               console.log('postUserSendSingle failed')
               this.loading = false
@@ -152,7 +161,7 @@ export default {
               this.$notify({
                 title: '提交平台',
                 message: h('i', { style: 'color: red' }, '发送失败'),
-                duration: 2000
+                duration: 2000,
               })
             }
           )
@@ -160,7 +169,7 @@ export default {
           console.log('invalid')
         }
       })
-    }
-  }
+    },
+  },
 }
 </script>
